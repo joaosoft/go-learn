@@ -1,0 +1,5 @@
+append_projloc_gopath=true
+com.googlecode.goclipse.gopath=
+com.googlecode.goclipse.goroot=C\:\\dev-env\\repos\\goLang\\GoLanguage
+eclipse.preferences.version=1
+toolchain_prefs.use_project_settings=false
