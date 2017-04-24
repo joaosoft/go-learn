@@ -1,0 +1,34 @@
+hash: 0dba2e3aa903df4324a23fc76ec30ff1b394eb9af58f2ed17048a882c706b444
+updated: 2017-04-24T17:00:01.306747417+01:00
+imports:
+- name: github.com/droundy/goopt
+  version: 7c1d66c0011a0dedf19ec64feae53c6722b81948
+- name: github.com/GeertJohan/go.rice
+  version: 4bbccbfa39e784796e483270451217d3369ecfbe
+- name: github.com/golang/snappy
+  version: d9eb7a3d35ec988b8585d4a0068e462c27d28380
+- name: github.com/labstack/echo
+  version: a89cf4d0c2649391a86ec30bb9394b7b5e8e72d8
+- name: github.com/lib/pq
+  version: 8df6253d1317616f36b0c3740eb30c239a7372cb
+- name: github.com/mediocregopher/radix.v2
+  version: 94451b037e02236d550bdc2035d0a9851749369b
+- name: github.com/nsqio/go-nsq
+  version: d71fb89c9e0263aaed89645b0b168e11ccf597b1
+- name: github.com/satori/go.uuid
+  version: 879c5887cd475cd7864858769793b2ceb0d44feb
+- name: github.com/shopspring/decimal
+  version: d6f52241f332c63811249bd79a522406bea1a7c9
+- name: github.com/spf13/viper
+  version: 5ed0fc31f7f453625df314d8e66b9791e8d13003
+- name: gitlab.com/mandalore/eventstore
+  version: b962fa8aff4d29fc76925c27564bbb2bf0eccd1d
+- name: gopkg.in/guregu/null.v3
+  version: 41961cea0328defc5f95c1c473f89ebf0d1813f6
+testImports:
+- name: github.com/onsi/ginkgo
+  version: a23f924ce96d61f963fb6219b8ff069d8d768cc2
+- name: github.com/onsi/gomega
+  version: e85f63af4302dc0e4277c6008ecf803f1d80e4f0
+- name: gopkg.in/DATA-DOG/go-sqlmock.v1
+  version: b983233bc0bbea4dc6e8ec8c8c923d935765ffec
