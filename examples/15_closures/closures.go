@@ -12,17 +12,6 @@ func main() {
 	fmt.Println("INICIO")
 
 	_closures()
-	_methods()
-	_interfaces()
-	_toString()
-	_errors()
-	_leitores()
-	_image()
-	_goRoutines()
-	_select()
-	_tree()
-	_mutex()
-	_webServer()
 
 	fmt.Println("FIM")
 	fmt.Println("----------------------------")

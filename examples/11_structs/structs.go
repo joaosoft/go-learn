@@ -27,14 +27,19 @@ func _structs() {
 	*/
 
 	// exemplo 1
+	type Dummy struct {
+		Z int
+	}
 	type Vertex struct {
 		X int
 		Y int
+		Dummy
 	}
-	fmt.Println(Vertex{1, 2})
+	fmt.Println(Vertex{1, 2, Dummy{3}})
 
 	// exemplo 2
-	v := Vertex{1, 2}
+	v := Vertex{1, 2, Dummy{3}}
 	v.X = 4
-	fmt.Println(v.X)
+	v.Z = 5
+	fmt.Println(v.X, v.Z)
 }

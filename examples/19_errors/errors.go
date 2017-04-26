@@ -12,7 +12,9 @@ func main() {
 	fmt.Println("----------------------------")
 	fmt.Println("INICIO")
 
-	_errors()
+	//_errors()
+	str, err := SoleTitle("teste do joao")
+	fmt.Println(str, err)
 
 	fmt.Println("FIM")
 	fmt.Println("----------------------------")
@@ -20,6 +22,7 @@ func main() {
 
 // functions
 // ERROS - ver que tem o metodo 'Error' que imprime corretamente o erro!
+// MyError ...
 type MyError struct {
 	When time.Time
 	What string

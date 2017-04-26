@@ -76,4 +76,6 @@ func _maps() {
 	v3, ok3 := m3["Answer"]
 	fmt.Println("The value:", v3, "Present?", ok3)
 
+	delete(m3, "Answer") // remove element
+
 }

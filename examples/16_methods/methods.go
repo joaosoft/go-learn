@@ -4,15 +4,7 @@ package main
 
 import (
 	"fmt"
-	"image"
-	"io"
-	"log"
 	"math"
-	"net/http"
-	"strconv"
-	"strings"
-	"sync"
-	"time"
 )
 
 func main() {
@@ -21,16 +13,6 @@ func main() {
 	fmt.Println("INICIO")
 
 	_methods()
-	_interfaces()
-	_toString()
-	_errors()
-	_leitores()
-	_image()
-	_goRoutines()
-	_select()
-	_tree()
-	_mutex()
-	_webServer()
 
 	fmt.Println("FIM")
 	fmt.Println("----------------------------")
