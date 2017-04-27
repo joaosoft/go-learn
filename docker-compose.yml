@@ -8,3 +8,43 @@ services:
      - .:/code
   redis:
     image: "redis:alpine"
+  psql:
+    build:
+      context: .
+      dockerfile: ./sbin/docker/database.dockerfile
+    ports:
+      - 7000:5432
+
+
+# this service is for running unit tests for dev environment
+  unit-test:
+    image: teste
+    build:
+      context: .
+      dockerfile: ./sbin/docker/alpine.dockerfile
+    entrypoint: ./sbin/run-tests.sh unit
+    volumes:
+      - .:/go/src/productoffers
+    environment:
+      - env=dev
+
+  api:
+    image: teste1
+    build:
+      context: .
+      dockerfile: ./sbin/docker/dummy.dockerfile
+    volumes:
+      - .:/go/src/teste
+    ports:
+      - 8000:8081
+    environment:
+      - env=dev
+    links:
+      - psql
+    depends_on: 
+      - psql
+
+#$ docker-compose build
+#$ docker-compose start
+#$ docker-compose stop
+  

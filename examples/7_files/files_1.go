@@ -15,15 +15,15 @@ func main() {
 	fmt.Println("----------------------------")
 	fmt.Println("INICIO")
 
-	_files()
+	_files1()
 
 	fmt.Println("FIM")
 	fmt.Println("----------------------------")
 }
 
 // functions
-func _files() {
-	fmt.Println("_files()")
+func _files1() {
+	fmt.Println("_files1()")
 
 	// exemplo 1
 	file := "teste.txt"

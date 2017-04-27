@@ -19,13 +19,13 @@ func main() {
 	fmt.Println("----------------------------")
 	fmt.Println("INICIO")
 
-	_json()
+	_json1()
 
 	fmt.Println("FIM")
 	fmt.Println("----------------------------")
 }
 
-func _json() {
+func _json1() {
 	var movies = []Movie{
 		{Title: "Casablanca", Year: 1942, Color: false,
 			Actors: []string{"Humphrey Bogart", "Ingrid Bergman"}},

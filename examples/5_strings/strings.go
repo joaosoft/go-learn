@@ -21,24 +21,40 @@ func main() {
 }
 
 // functions
-func _arguments() {
-	fmt.Println("_arguments()")
-	var s, sep string
-	for i := 0; i < len(os.Args); i++ {
-		s += sep + os.Args[i]
-		sep = " "
-	}
-	fmt.Println("Arguments: ", s)
-}
-
-func _panic() {
-	fmt.Println("_panic()")
-	if os.Args[1] != "arg1" {
-		panic("arg1")
-	}
-}
 func _strings() {
 	fmt.Println("_strings()")
+
+	// create a string variable
+	str := "HI, I'M UPPER CASE"
+
+	// convert to lower case
+	lower := strings.ToLower(str)
+
+	// output to show its really lower case
+	fmt.Println(lower)
+
+	// check if string contains another string
+	if strings.Contains(lower, "case") {
+		fmt.Println("Yes, exists!")
+	}
+
+	// strings are arrays of characters
+	// printing out characters 3 to 9
+	fmt.Println("Characters 3-9: " + str[3:9])
+
+	// printing out first 5 characters
+	fmt.Println("First Five: " + str[:5])
+
+	// split a string on a specific character or word
+	sentence := "I'm a sentence made up of words"
+	words := strings.Split(sentence, " ")
+	fmt.Printf("%v \n", words)
+
+	// If you were splitting on whitespace, using Fields is better because
+	// it will split on more than just the space, but all whitespace chars
+	fields := strings.Fields(sentence)
+	fmt.Printf("%v \n", fields)
+
 	fmt.Println("string.Join: ", strings.Join(os.Args[1:], " "))
 
 	// exemplo 1 (split string)
