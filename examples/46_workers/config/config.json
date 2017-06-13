@@ -1,0 +1,9 @@
+{
+  "something_parent": {
+    "something": {
+      "name": "joao",
+      "age": 29
+    }
+  },
+  "some_ids": ["product"]
+}
