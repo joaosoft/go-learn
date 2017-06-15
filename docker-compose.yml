@@ -1,50 +1,76 @@
-version: '2'
+version: '2.1'
 services:
-  web:
-    build: .
-    ports:
-     - "5000:5000"
-    volumes:
-     - .:/code
-  redis:
-    image: "redis:alpine"
   psql:
     build:
       context: .
-      dockerfile: ./sbin/docker/database.dockerfile
+      dockerfile: ./sbin/docker/dev.psql.dockerfile
     ports:
       - 7000:5432
 
+  nsqd:
+    image: nsqio/nsq
+    command: /nsqd
+    ports:
+      - "4150:4150"
+      - "4151:4151"
 
-# this service is for running unit tests for dev environment
-  unit-test:
-    image: teste
-    build:
-      context: .
-      dockerfile: ./sbin/docker/alpine.dockerfile
-    entrypoint: ./sbin/run-tests.sh unit
-    volumes:
-      - .:/go/src/productoffers
+  redis_master:
+    image: redis:3.0-alpine
+    ports:
+      - 7100:6379
+
+  redis_slave:
+    image: redis:3.0-alpine
+
+  sentinel:
+    image: s7anley/redis-sentinel-docker
     environment:
-      - env=dev
+      - MASTER_NAME=dev
+      - QUORUM=1
+      - MASTER=redis_master
+      - SLAVES=redis_slave
+    ports:
+      - 26379:26379
+    depends_on:
+      - redis_master
+      - redis_slave
+
+  elasticsearch:
+    build:
+      context: ./sbin/docker/
+      dockerfile: ./dev.elasticsearch.v5.4.dockerfile
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
 
   api:
-    image: teste1
+    image: golang-learn:base
     build:
-      context: .
-      dockerfile: ./sbin/docker/dummy.dockerfile
+      context: ./sbin/docker/
+      dockerfile: ./base-alpine.dockerfile
+    command: run ./bin/main.go
     volumes:
-      - .:/go/src/teste
+      - .:/go/src/golang-learn
     ports:
-      - 8000:8081
+      - 8080:8080
     environment:
       - env=dev
-    links:
-      - psql
-    depends_on: 
-      - psql
+    depends_on:
+      - elasticsearch
 
-#$ docker-compose build
-#$ docker-compose start
-#$ docker-compose stop
-  
+volumes:
+  esdata1:
+    driver: local

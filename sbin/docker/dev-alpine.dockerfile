@@ -7,14 +7,11 @@ RUN apk add --update bash make && rm -rf /var/cache/apk/*
 # install glide
 RUN go get github.com/Masterminds/glide && go install github.com/Masterminds/glide
 
+# copy configuration
+ADD ./config /etc/config
 
-
-
-# Copy the local package files to the container's workspace.
-ADD . /go/src/learn_go
-
-WORKDIR /go/src/learn_go/
-VOLUME /go/src/learn_go/
-
+# copy and build the project
+WORKDIR /go/src/golang-learn/
+VOLUME /go/src/golang-learn/
 EXPOSE 8080
 ENTRYPOINT ["go"]
