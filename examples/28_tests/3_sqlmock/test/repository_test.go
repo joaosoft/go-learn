@@ -1,10 +1,6 @@
-package dummy_test
+package dummytest
 
 import (
-	"encoding/json"
-	"fmt"
-		xpto "learn_go/examples/28_tests/3_sqlmock/domain"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	sqlmock "gopkg.in/DATA-DOG/go-sqlmock.v1"
@@ -20,11 +16,11 @@ var _ = Describe("Repository", func() {
 		Context("when success occurs", func() {
 			db, mock, _ := sqlmock.New()
 			defer db.Close()
-			repository := xpto.NewRepository(db)
+			repository := new(RepositoryMock)
 
 			mock.ExpectExec(query).WithArgs(id, value).WillReturnResult(sqlmock.NewResult(1, 1))
 
-			err := repository.DoSomething(id, value)
+			err := repository.StoreImport(id, value)
 			It("should not return an error", func() {
 				Expect(err).ToNot(HaveOccurred())
 			})

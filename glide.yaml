@@ -1,24 +1,21 @@
-package: learn_go
+package: golang-learn
 import:
-- package: github.com/lib/pq
+- package: github.com/gin-gonic/gin
+  version: v1.0
 - package: github.com/satori/go.uuid
-  version: ^1.1.0
-- package: github.com/shopspring/decimal
-- package: github.com/spf13/viper
-- package: github.com/labstack/echo
-- package: github.com/GeertJohan/go.rice
-- package: gitlab.com/mandalore/eventstore
-  version: ^0.0.1
+  version: v1.0
+  subpackages:
+  - assert
+- package: github.com/joho/godotenv
+  version: v1
+- package: gopkg.in/olivere/elastic.v5
 - package: github.com/nsqio/go-nsq
-- package: github.com/droundy/goopt
-- package: gopkg.in/guregu/null.v3
-  version: v3.1
-- package: github.com/mediocregopher/radix.v2
+- package: github.com/mreiferson/go-snappystream
+  version: v0.2.3
+- package: github.com/labstack/echo
 - package: github.com/stretchr/testify
-- package: github.com/golang/snappy
-- package: github.com/bradfitz/gomemcache/memcache
+- package: github.com/droundy/goopt
 
 testImport:
 - package: github.com/onsi/ginkgo
 - package: github.com/onsi/gomega
-- package: gopkg.in/DATA-DOG/go-sqlmock.v1

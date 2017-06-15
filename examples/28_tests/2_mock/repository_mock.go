@@ -1,8 +1,6 @@
 package dummy
 
 import (
-	session "productoffers/common/session"
-
 	"github.com/stretchr/testify/mock"
 )
 
@@ -10,9 +8,6 @@ import (
 type RepositoryMock struct {
 	mock.Mock
 }
-
-// SetDBContext ...
-func (mock *RepositoryMock) SetDBContext(dbc session.IDBContext) {}
 
 // StoreImport ...
 func (mock *RepositoryMock) StoreImport(id string, value string) error {

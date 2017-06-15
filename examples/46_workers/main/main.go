@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"log"
 	"golang-learn/examples/46_workers/common/workers"
 	"golang-learn/examples/46_workers/worker"
 	"golang-learn/examples/46_workers/config"
 	"golang-learn/examples/46_workers/common/config"
 	"golang-learn/examples/46_workers/controllers"
+	"github.com/labstack/gommon/log"
 )
 
 var (

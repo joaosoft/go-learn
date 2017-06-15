@@ -4,14 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
-	"search-and-navigation/services/manager-indexer/workers"
-	"search-and-navigation/services/manager-indexer/controllers"
-	"search-and-navigation/services/manager-indexer/repositories"
+	"golang-learn/examples/46_workers/worker"
 	"os"
-	"search-and-navigation/services/manager-indexer/domain"
-	"search-and-navigation/common/config"
+	"golang-learn/examples/46_workers/common/config"
 	"github.com/labstack/gommon/log"
-	"search-and-navigation/services/manager-indexer/interactors"
 )
 
 var (

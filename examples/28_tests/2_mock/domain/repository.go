@@ -1,4 +1,4 @@
-package dummy
+package domain
 
 // Repository ...
 type Repository struct {
