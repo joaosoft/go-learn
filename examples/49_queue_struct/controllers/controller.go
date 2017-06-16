@@ -5,24 +5,18 @@ import (
 )
 
 type Controller struct {
-	data []byte
 }
 
-func NewController(data []byte) *Controller {
+func NewController() *Controller {
 	controller := Controller{
-		data: data,
 	}
 
 	return &controller
 }
 
-func (controller *Controller) Do() error {
-	log.Infof("Do()")
-	log.Infof(string(controller.data))
-	return nil
-}
+func (controller *Controller) Do(data []byte) error {
+	log.Infof("GetWork()")
+	log.Infof(string(data))
 
-func (controller *Controller) Undo() error {
-	log.Infof("Undo()")
 	return nil
 }

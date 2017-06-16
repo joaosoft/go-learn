@@ -11,15 +11,16 @@ func main() {
 
 	shutdownChannelIn := make(chan bool)
 	workChannelBufferSize := 5
-	queue := common.NewQueue(shutdownChannelIn, workChannelBufferSize)
+	controller := controllers.NewController()
+	queue := common.NewQueue(shutdownChannelIn, workChannelBufferSize, controller)
 
 	bytes := []byte(`a, b, c`)
-	controller := controllers.NewController(bytes)
-	queue.AddWork(controller)
+	work := controllers.NewWork(bytes)
+	queue.AddWork(work)
 
 	bytes = []byte(`d, e, f`)
-	controller = controllers.NewController(bytes)
-	queue.AddWork(controller)
+	work = controllers.NewWork(bytes)
+	queue.AddWork(work)
 
 	<- shutdownChannelIn
 

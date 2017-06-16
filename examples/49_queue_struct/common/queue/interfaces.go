@@ -1,6 +1,9 @@
 package queue
 
 type IController interface{
-	Do() error
-	Undo() error
+	Do(data []byte) error
+}
+
+type IWork interface{
+	GetWork() ([]byte, error)
 }

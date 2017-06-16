@@ -12,21 +12,23 @@ func init() {
 
 type Queue struct {
 	shutdownChannel chan bool
-	addWorkChannel chan IController
-	workListChannel chan []IController
+	addWorkChannel chan IWork
+	workListChannel chan []IWork
 	workChannelBufferSize int
 	timeoutNotifyChannel chan bool
+	controller IController
 }
 
-func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int) *Queue {
+func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int, controller IController) *Queue {
 	log.Infof("->NewQueue()")
 
 	queue := Queue{
 		shutdownChannel: shutdownChannelIn,
-		addWorkChannel: make(chan IController),
+		addWorkChannel: make(chan IWork),
 		workChannelBufferSize: workChannelBufferSize,
-		workListChannel: make(chan []IController, workChannelBufferSize),
+		workListChannel: make(chan []IWork, workChannelBufferSize),
 		timeoutNotifyChannel: make(chan bool),
+		controller: controller,
 	}
 
 	go bulkBufferHandler(queue)
@@ -35,7 +37,7 @@ func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int) *Queue {
 	return &queue
 }
 
-func (queue *Queue) AddWork(work IController) error {
+func (queue *Queue) AddWork(work IWork) error {
 	log.Infof("AddWork()")
 
 	queue.addWorkChannel <- work
@@ -49,10 +51,10 @@ func bulkBufferHandler(queue Queue) {
 	log.Infof("bulkBufferHandler()")
 
 	bulkBufferSize := 0
-	var bulkBuffer []IController
+	var bulkBuffer []IWork
 
-	flush := func(buffer []IController) {
-		tempBuffer := make([]IController, len(buffer))
+	flush := func(buffer []IWork) {
+		tempBuffer := make([]IWork, len(buffer))
 		copy(tempBuffer, buffer)
 		
 		queue.workListChannel <- tempBuffer
@@ -92,21 +94,27 @@ func bulkBufferHandler(queue Queue) {
 	}
 }
 
-func flushBulkCall(buffer []IController, queue Queue) {
+func flushBulkCall(buffer []IWork, queue Queue) {
 	//var obj []domain.BulkCall
+	var has_error bool
 	var err error
+	var work []byte
+	var works string
 
-	log.Infof("flushBulkCall(buffer []IController)")
+	log.Infof("flushBulkCall(buffer []IWork)")
 	for _, v := range buffer {
-		err := v.Do()
+		work, err = v.GetWork()
 
 		if err != nil {
-			v.Undo()
-			queue.addWorkChannel <- v
+			has_error = true
+		} else {
+			fmt.Println("WORK:", string(work))
 		}
+		works = works + string(work)
 	}
+	queue.controller.Do([]byte(works))
 
-	if err != nil {
+	if has_error {
 		queue.workListChannel <- buffer
 	}
 
