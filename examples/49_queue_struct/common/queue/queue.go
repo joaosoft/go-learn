@@ -12,7 +12,7 @@ func init() {
 
 type Queue struct {
 	shutdownChannel chan bool
-	addWorkTopChannel chan IController
+	addWorkChannel chan IController
 	workListChannel chan []IController
 	workChannelBufferSize int
 	timeoutNotifyChannel chan bool
@@ -23,7 +23,7 @@ func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int) *Queue {
 
 	queue := Queue{
 		shutdownChannel: shutdownChannelIn,
-		addWorkTopChannel: make(chan IController),
+		addWorkChannel: make(chan IController),
 		workChannelBufferSize: workChannelBufferSize,
 		workListChannel: make(chan []IController, workChannelBufferSize),
 		timeoutNotifyChannel: make(chan bool),
@@ -38,7 +38,7 @@ func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int) *Queue {
 func (queue *Queue) AddWork(work IController) error {
 	log.Infof("AddWork()")
 
-	queue.addWorkTopChannel <- work
+	queue.addWorkChannel <- work
 
 	return nil
 }
@@ -63,7 +63,7 @@ func bulkBufferHandler(queue Queue) {
 
 	for {
 		select {
-		case data := <- queue.addWorkTopChannel:
+		case data := <- queue.addWorkChannel:
 			log.Infof("data := <-channel")
 			if bulkBufferSize > 100 {
 				fmt.Printf("[BUFFER] Buffer full: flushing")
@@ -98,7 +98,12 @@ func flushBulkCall(buffer []IController, queue Queue) {
 
 	log.Infof("flushBulkCall(buffer []IController)")
 	for _, v := range buffer {
-		fmt.Println(v.Do())
+		err := v.Do()
+
+		if err != nil {
+			v.Undo()
+			queue.addWorkChannel <- v
+		}
 	}
 
 	if err != nil {
