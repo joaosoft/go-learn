@@ -11,7 +11,7 @@ import (
 var _mapping map[string]interface{}
 
 func init() {
-	if err := config.LoadConfigFromFile("mapping", &_mapping); err != nil {
+	if err := config.LoadConfigFromPath("mapping", &_mapping); err != nil {
 		log.Error("Error loading config: ", err)
 		os.Exit(0)
 	}
@@ -22,8 +22,9 @@ type Interactor struct {
 }
 
 // NewInteractor ...
-func NewInteractor() *Interactor {
+func NewInteractor(repository repositories.IRepository) *Interactor {
 	interactor := new(Interactor)
+	interactor.Repository = repository
 
 	return interactor
 }

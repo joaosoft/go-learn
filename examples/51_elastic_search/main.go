@@ -35,10 +35,10 @@ func main() {
 	//}
 
 
-	repository := repositories.Repository(_configuration)
-	interactor := interactors.Interactor(repository)
+	repository := repositories.NewRepository(_configuration)
+	interactor := interactors.NewInteractor(repository)
 	controller := controllers.Controller {
-		Interactor: interactor,
+		Interactor: *interactor,
 
 	}
 

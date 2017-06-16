@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/labstack/gommon/log"
 	"os"
+	"io/ioutil"
 )
 
 // LoadConfigFromFile loads a configuration from a file path.
@@ -21,6 +22,21 @@ func LoadConfigFromFile(contextName string, obj interface{}) error {
 	if err = decoder.Decode(obj); err != nil {
 		return err
 	}
+
+	return nil
+}
+
+// LoadConfigFromPath loads a configuration from a file path.
+func LoadConfigFromPath(contextName string, obj interface{}) error {
+	root := getWorkingDir()
+
+	var err error
+	file, err := ioutil.ReadFile(fmt.Sprintf("%s/examples/51_elastic_search/config/%s.json", root, contextName))
+	if err != nil {
+		return err
+	}
+
+	json.Unmarshal(file, &obj)
 
 	return nil
 }
