@@ -1,0 +1,10 @@
+{
+  "my_indexer": {
+    "elasticsearch": {
+      "index": "dummy",
+      "hosts": [
+        "http://127.0.0.1:9200"
+      ]
+    }
+  }
+}

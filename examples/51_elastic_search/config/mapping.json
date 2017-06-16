@@ -1,0 +1,189 @@
+{
+    "template": "product-*",
+    "order": 0,
+    "settings": {
+        "number_of_shards": 10,
+        "number_of_replicas": 1,
+        "index.refresh_interval": "5s",
+        "index.mapping.total_fields.limit": 5000,
+        "analysis": {
+            "analyzer": {
+                "default": {
+                    "tokenizer": "keyword",
+                    "filter": [
+                        "lowercase"
+                    ]
+                },
+                "full_text": {
+                    "tokenizer": "standard",
+                    "filter": [
+                        "lowercase",
+                        "asciifolding_keep"
+                    ]
+                },
+                "tag": {
+                    "tokenizer": "standard",
+                    "filter": [
+                        "lowercase"
+                    ]
+                }
+            },
+            "filter": {
+                "asciifolding_keep": {
+                    "type": "asciifolding",
+                    "preserve_original": true
+                }
+            }
+        }
+    },
+    "mappings": {
+        "_default_": {
+            "dynamic_templates": [
+                {
+                    "text_attribute": {
+                        "path_match": "attributes.*_text",
+                        "mapping": {
+                            "type": "text"
+                        }
+                    }
+                },
+                {
+                    "long_atribute": {
+                        "path_match": "attributes.*_long",
+                        "mapping": {
+                            "type": "long",
+                            "fields": {
+                                "raw": {
+                                    "type": "text",
+                                    "analyzer": "keyword"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "double_atribute": {
+                        "path_match": "attributes.*_double",
+                        "mapping": {
+                            "type": "double",
+                            "fields": {
+                                "raw": {
+                                    "type": "text",
+                                    "analyzer": "keyword"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "atribute": {
+                        "path_match": "attributes.*",
+                        "mapping": {
+                            "type": "text",
+                            "analyzer": "tag"
+                        }
+                    }
+                },
+                {
+                    "texts": {
+                        "mapping": {
+                            "ignore_above": 1024,
+                            "index": "not_analyzed"
+                        },
+                        "match_mapping_type": "text"
+                    }
+                }
+            ],
+            "properties": {
+                "product_id": {
+                    "type": "text",
+                    "analyzer": "keyword"
+                },
+                "name": {
+                    "type": "text",
+                    "analyzer": "full_text"
+                },
+                "description": {
+                    "type": "text",
+                    "analyzer": "full_text"
+                },
+                "categories": {
+                    "type": "text",
+                    "analyzer": "tag"
+                },
+                "state": {
+                    "type": "text",
+                    "analyzer": "tag"
+                },
+                "is_visible": {
+                    "type": "boolean"
+                },
+                "winner_offer": {
+                    "type": "object",
+                    "properties": {
+                        "offer_id": {
+                            "type": "text",
+                            "analyzer": "tag"
+                        },
+                        "version": {
+                            "type": "long"
+                        },
+                        "seller": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "text",
+                                    "analyzer": "tag"
+                                },
+                                "name": {
+                                    "type": "text",
+                                    "analyzer": "tag"
+                                }
+                            }
+                        },
+                        "price": {
+                            "type": "double",
+                            "fields": {
+                                "raw": {
+                                    "type": "text",
+                                    "analyzer": "keyword",
+                                    "index": "not_analyzed"
+                                }
+                            }
+                        },
+                        "striked_price": {
+                            "type": "double",
+                            "fields": {
+                                "raw": {
+                                    "type": "text",
+                                    "analyzer": "keyword",
+                                    "index": "not_analyzed"
+                                }
+                            }
+                        },
+                        "is_in_stock": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "variants": {
+                    "type": "nested",
+                    "properties": {
+                        "variant_id": {
+                            "type": "text",
+                            "analyzer": "keyword"
+                        },
+                        "sku": {
+                            "type": "text",
+                            "analyzer": "keyword"
+                        },
+                        "ean": {
+                            "type": "text",
+                            "analyzer": "keyword"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -9,7 +9,7 @@ import:
 - package: github.com/joho/godotenv
   version: v1
 - package: gopkg.in/olivere/elastic.v5
-- package: github.com/nsqio/go-nsq
+- package: github.com/nsqio/go-common
 - package: github.com/mreiferson/go-snappystream
   version: v0.2.3
 - package: github.com/labstack/echo

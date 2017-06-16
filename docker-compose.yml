@@ -8,7 +8,7 @@ services:
       - 7000:5432
 
   nsqd:
-    image: nsqio/nsq
+    image: nsqio/common
     command: /nsqd
     ports:
       - "4150:4150"

@@ -1,0 +1,13 @@
+{
+  "nsq": {
+    "nsqds": [ "172.21.68.31:4150" ],
+    "topics": [
+      {
+        "topic": "my.topic.example",
+        "channel" : "my.channel.example"
+      }
+    ],
+    "requeueDelay": 30000000000,
+    "maxBuffer": 5
+  }
+}
