@@ -30,7 +30,7 @@ type Worker struct {
 func (w *Worker) Start() {
 	go func() {
 		for {
-			// Add ourselves into the worker queue.
+			// Add ourselves into the worker controllers.
 			w.WorkerQueue <- w.Work
 
 			select {

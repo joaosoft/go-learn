@@ -550,7 +550,7 @@ func newFamily() *family {
 type traceBucket struct {
 	Cond cond
 
-	// Ring buffer implementation of a fixed-size FIFO queue.
+	// Ring buffer implementation of a fixed-size FIFO controllers.
 	mu     sync.RWMutex
 	buf    [tracesPerBucket]*trace
 	start  int // < tracesPerBucket

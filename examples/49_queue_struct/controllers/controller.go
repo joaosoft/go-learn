@@ -1,4 +1,4 @@
-package queue
+package controllers
 
 import (
 	"github.com/labstack/gommon/log"
@@ -22,7 +22,7 @@ func (controller *Controller) Do() error {
 	return nil
 }
 
-func (controller *Controller) UnDo() error {
+func (controller *Controller) Undo() error {
 	log.Infof("Undo()")
 	return nil
 }

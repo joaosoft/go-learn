@@ -196,14 +196,14 @@ func (w *Producer) MultiPublish(topic string, body [][]byte) error {
 }
 
 // DeferredPublish synchronously publishes a message body to the specified topic
-// where the message will queue at the channel level until the timeout expires, returning
+// where the message will controllers at the channel level until the timeout expires, returning
 // an error if publish failed
 func (w *Producer) DeferredPublish(topic string, delay time.Duration, body []byte) error {
 	return w.sendCommand(DeferredPublish(topic, delay, body))
 }
 
 // DeferredPublishAsync publishes a message body to the specified topic
-// where the message will queue at the channel level until the timeout expires
+// where the message will controllers at the channel level until the timeout expires
 // but does not wait for the response from `nsqd`.
 //
 // When the Producer eventually receives the response from `nsqd`,

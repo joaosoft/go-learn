@@ -63,7 +63,7 @@ type writeScheduler struct {
 
 func (ws *writeScheduler) putEmptyQueue(q *writeQueue) {
 	if len(q.s) != 0 {
-		panic("queue must be empty")
+		panic("controllers must be empty")
 	}
 	ws.queuePool = append(ws.queuePool, q)
 }
@@ -140,7 +140,7 @@ func (ws *writeScheduler) take() (wm frameWriteMsg, ok bool) {
 	}
 	defer ws.zeroCanSend()
 
-	// TODO: find the best queue
+	// TODO: find the best controllers
 	q := ws.canSend[0]
 
 	return ws.takeFrom(q.streamID(), q)
@@ -155,7 +155,7 @@ func (ws *writeScheduler) zeroCanSend() {
 }
 
 // streamWritableBytes returns the number of DATA bytes we could write
-// from the given queue's stream, if this stream/queue were
+// from the given controllers's stream, if this stream/controllers were
 // selected. It is an error to call this if q's head isn't a
 // *writeData.
 func (ws *writeScheduler) streamWritableBytes(q *writeQueue) int32 {
@@ -179,7 +179,7 @@ func (ws *writeScheduler) streamWritableBytes(q *writeQueue) int32 {
 
 func (ws *writeScheduler) takeFrom(id uint32, q *writeQueue) (wm frameWriteMsg, ok bool) {
 	wm = q.head()
-	// If the first item in this queue costs flow control tokens
+	// If the first item in this controllers costs flow control tokens
 	// and we don't have enough, write as much as we can.
 	if wd, ok := wm.write.(*writeData); ok && len(wd.p) > 0 {
 		allowed := wm.stream.flow.available() // max we can write
@@ -200,7 +200,7 @@ func (ws *writeScheduler) takeFrom(id uint32, q *writeQueue) (wm frameWriteMsg, 
 			chunk := wd.p[:allowed]
 			wd.p = wd.p[allowed:]
 			// Make up a new write message of a valid size, rather
-			// than shifting one off the queue.
+			// than shifting one off the controllers.
 			return frameWriteMsg{
 				stream: wm.stream,
 				write: &writeData{
@@ -246,7 +246,7 @@ type writeQueue struct {
 	s []frameWriteMsg
 }
 
-// streamID returns the stream ID for a non-empty stream-specific queue.
+// streamID returns the stream ID for a non-empty stream-specific controllers.
 func (q *writeQueue) streamID() uint32 { return q.s[0].stream.id }
 
 func (q *writeQueue) empty() bool { return len(q.s) == 0 }
@@ -258,17 +258,17 @@ func (q *writeQueue) push(wm frameWriteMsg) {
 // head returns the next item that would be removed by shift.
 func (q *writeQueue) head() frameWriteMsg {
 	if len(q.s) == 0 {
-		panic("invalid use of queue")
+		panic("invalid use of controllers")
 	}
 	return q.s[0]
 }
 
 func (q *writeQueue) shift() frameWriteMsg {
 	if len(q.s) == 0 {
-		panic("invalid use of queue")
+		panic("invalid use of controllers")
 	}
 	wm := q.s[0]
-	// TODO: less copy-happy queue.
+	// TODO: less copy-happy controllers.
 	copy(q.s, q.s[1:])
 	q.s[len(q.s)-1] = frameWriteMsg{}
 	q.s = q.s[:len(q.s)-1]

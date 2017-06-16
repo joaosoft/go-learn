@@ -32,7 +32,7 @@ func HttpCollector(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Push the work onto the queue.
+	// Push the work onto the controllers.
 	WorkQueue <- work
 	fmt.Println("Work request queued")
 
@@ -42,8 +42,8 @@ func HttpCollector(w http.ResponseWriter, r *http.Request) {
 }
 
 func SimpleCollector(work WorkRequest) error {
-	// Push the work onto the queue.
-	fmt.Println("Adding request to queue")
+	// Push the work onto the controllers.
+	fmt.Println("Adding request to controllers")
 	WorkQueue <- work
 	fmt.Println("Work request queued")
 

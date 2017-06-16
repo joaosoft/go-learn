@@ -12,8 +12,8 @@ func init() {
 
 type Queue struct {
 	shutdownChannel chan bool
-	addWorkTopChannel chan Controller
-	workListChannel chan []Controller
+	addWorkTopChannel chan IController
+	workListChannel chan []IController
 	workChannelBufferSize int
 	timeoutNotifyChannel chan bool
 }
@@ -23,9 +23,9 @@ func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int) *Queue {
 
 	queue := Queue{
 		shutdownChannel: shutdownChannelIn,
-		addWorkTopChannel: make(chan Controller),
+		addWorkTopChannel: make(chan IController),
 		workChannelBufferSize: workChannelBufferSize,
-		workListChannel: make(chan []Controller, workChannelBufferSize),
+		workListChannel: make(chan []IController, workChannelBufferSize),
 		timeoutNotifyChannel: make(chan bool),
 	}
 
@@ -35,7 +35,7 @@ func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int) *Queue {
 	return &queue
 }
 
-func (queue *Queue) AddWork(work Controller) error {
+func (queue *Queue) AddWork(work IController) error {
 	log.Infof("AddWork()")
 
 	queue.addWorkTopChannel <- work
@@ -49,10 +49,10 @@ func bulkBufferHandler(queue Queue) {
 	log.Infof("bulkBufferHandler()")
 
 	bulkBufferSize := 0
-	var bulkBuffer []Controller
+	var bulkBuffer []IController
 
-	flush := func(buffer []Controller) {
-		tempBuffer := make([]Controller, len(buffer))
+	flush := func(buffer []IController) {
+		tempBuffer := make([]IController, len(buffer))
 		copy(tempBuffer, buffer)
 		
 		queue.workListChannel <- tempBuffer
@@ -92,11 +92,11 @@ func bulkBufferHandler(queue Queue) {
 	}
 }
 
-func flushBulkCall(buffer []Controller, queue Queue) {
+func flushBulkCall(buffer []IController, queue Queue) {
 	//var obj []domain.BulkCall
 	var err error
 
-	log.Infof("flushBulkCall(buffer []Controller)")
+	log.Infof("flushBulkCall(buffer []IController)")
 	for _, v := range buffer {
 		fmt.Println(v.Do())
 	}

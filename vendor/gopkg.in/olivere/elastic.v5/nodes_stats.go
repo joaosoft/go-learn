@@ -612,7 +612,7 @@ type NodesStatsNodeJVMClasses struct {
 
 type NodesStatsNodeThreadPool struct {
 	Threads   int   `json:"threads"`
-	Queue     int   `json:"queue"`
+	Queue     int   `json:"controllers"`
 	Active    int   `json:"active"`
 	Rejected  int64 `json:"rejected"`
 	Largest   int   `json:"largest"`
