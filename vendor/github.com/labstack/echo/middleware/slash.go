@@ -5,7 +5,7 @@ import (
 )
 
 type (
-	// TrailingSlashConfig defines the config for TrailingSlash middleware.
+	// TrailingSlashConfig defines the config.json for TrailingSlash middleware.
 	TrailingSlashConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -17,7 +17,7 @@ type (
 )
 
 var (
-	// DefaultTrailingSlashConfig is the default TrailingSlash middleware config.
+	// DefaultTrailingSlashConfig is the default TrailingSlash middleware config.json.
 	DefaultTrailingSlashConfig = TrailingSlashConfig{
 		Skipper: defaultSkipper,
 	}
@@ -31,7 +31,7 @@ func AddTrailingSlash() echo.MiddlewareFunc {
 	return AddTrailingSlashWithConfig(DefaultTrailingSlashConfig)
 }
 
-// AddTrailingSlashWithConfig returns a AddTrailingSlash middleware with config.
+// AddTrailingSlashWithConfig returns a AddTrailingSlash middleware with config.json.
 // See `AddTrailingSlash()`.
 func AddTrailingSlashWithConfig(config TrailingSlashConfig) echo.MiddlewareFunc {
 	// Defaults
@@ -78,7 +78,7 @@ func RemoveTrailingSlash() echo.MiddlewareFunc {
 	return RemoveTrailingSlashWithConfig(TrailingSlashConfig{})
 }
 
-// RemoveTrailingSlashWithConfig returns a RemoveTrailingSlash middleware with config.
+// RemoveTrailingSlashWithConfig returns a RemoveTrailingSlash middleware with config.json.
 // See `RemoveTrailingSlash()`.
 func RemoveTrailingSlashWithConfig(config TrailingSlashConfig) echo.MiddlewareFunc {
 	// Defaults

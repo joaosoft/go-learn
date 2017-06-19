@@ -425,8 +425,8 @@ func TestTreeTrailingSlashRedirect(t *testing.T) {
 		"/1/go",
 		"/a",
 		"/admin/",
-		"/admin/config/",
-		"/admin/config/permissions/",
+		"/admin/config.json/",
+		"/admin/config.json/permissions/",
 		"/doc/",
 	}
 	for _, route := range tsrRoutes {

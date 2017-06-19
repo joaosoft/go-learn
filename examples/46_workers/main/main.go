@@ -22,8 +22,8 @@ var (
 var configuration config.Configuration
 
 func init() {
-	if err := common_config.LoadConfigFromFile("config", &configuration); err != nil {
-		log.Error("Error loading config: ", err)
+	if err := common_config.LoadConfigFromFile("config.json", &configuration); err != nil {
+		log.Error("Error loading config.json: ", err)
 		os.Exit(0)
 	}
 }

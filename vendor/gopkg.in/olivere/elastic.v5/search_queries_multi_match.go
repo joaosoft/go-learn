@@ -93,7 +93,7 @@ func (q *MultiMatchQuery) Operator(operator string) *MultiMatchQuery {
 }
 
 // Analyzer sets the analyzer to use explicitly. It defaults to use explicit
-// mapping config for the field, or, if not set, the default search analyzer.
+// mapping config.json for the field, or, if not set, the default search analyzer.
 func (q *MultiMatchQuery) Analyzer(analyzer string) *MultiMatchQuery {
 	q.analyzer = analyzer
 	return q

@@ -23,7 +23,7 @@ func (e *DialError) Error() string {
 	return "websocket.Dial " + e.Config.Location.String() + ": " + e.Err.Error()
 }
 
-// NewConfig creates a new WebSocket config for client connection.
+// NewConfig creates a new WebSocket config.json for client connection.
 func NewConfig(server, origin string) (config *Config, err error) {
 	config = new(Config)
 	config.Version = ProtocolVersionHybi13
@@ -78,7 +78,7 @@ func parseAuthority(location *url.URL) string {
 	return location.Host
 }
 
-// DialConfig opens a new client connection to a WebSocket with a config.
+// DialConfig opens a new client connection to a WebSocket with a config.json.
 func DialConfig(config *Config) (ws *Conn, err error) {
 	var client net.Conn
 	if config.Location == nil {

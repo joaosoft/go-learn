@@ -376,7 +376,7 @@ func (c *Conn) identify() (*IdentifyResponse, error) {
 }
 
 func (c *Conn) upgradeTLS(tlsConf *tls.Config) error {
-	// create a local copy of the config to set ServerName for this connection
+	// create a local copy of the config.json to set ServerName for this connection
 	var conf tls.Config
 	if tlsConf != nil {
 		conf = *tlsConf

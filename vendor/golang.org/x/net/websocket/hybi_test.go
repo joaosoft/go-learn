@@ -242,7 +242,7 @@ Sec-WebSocket-Version: 13
 		t.Errorf("status expected %q but got %q", http.StatusSwitchingProtocols, code)
 	}
 	if len(config.Protocol) != 0 {
-		t.Errorf("len(config.Protocol) expected 0, but got %q", len(config.Protocol))
+		t.Errorf("len(config.json.Protocol) expected 0, but got %q", len(config.Protocol))
 	}
 	b := bytes.NewBuffer([]byte{})
 	bw := bufio.NewWriter(b)

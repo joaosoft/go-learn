@@ -9,7 +9,7 @@ import (
 )
 
 type (
-	// KeyAuthConfig defines the config for KeyAuth middleware.
+	// KeyAuthConfig defines the config.json for KeyAuth middleware.
 	KeyAuthConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -38,7 +38,7 @@ type (
 )
 
 var (
-	// DefaultKeyAuthConfig is the default KeyAuth middleware config.
+	// DefaultKeyAuthConfig is the default KeyAuth middleware config.json.
 	DefaultKeyAuthConfig = KeyAuthConfig{
 		Skipper:    defaultSkipper,
 		KeyLookup:  "header:" + echo.HeaderAuthorization,
@@ -57,7 +57,7 @@ func KeyAuth(fn KeyAuthValidator) echo.MiddlewareFunc {
 	return KeyAuthWithConfig(c)
 }
 
-// KeyAuthWithConfig returns an KeyAuth middleware with config.
+// KeyAuthWithConfig returns an KeyAuth middleware with config.json.
 // See `KeyAuth()`.
 func KeyAuthWithConfig(config KeyAuthConfig) echo.MiddlewareFunc {
 	// Defaults

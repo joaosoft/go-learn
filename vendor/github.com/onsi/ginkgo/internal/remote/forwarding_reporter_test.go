@@ -60,7 +60,7 @@ var _ = Describe("ForwardingReporter", func() {
 			Ω(poster.posts[0].bodyType).Should(Equal("application/json"))
 
 			var sentData struct {
-				SentConfig       config.GinkgoConfigType `json:"config"`
+				SentConfig       config.GinkgoConfigType `json:"config.json"`
 				SentSuiteSummary *types.SuiteSummary     `json:"suite-summary"`
 			}
 

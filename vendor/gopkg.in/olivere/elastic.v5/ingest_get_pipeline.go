@@ -113,5 +113,5 @@ type IngestGetPipelineResponse map[string]*IngestGetPipeline
 
 type IngestGetPipeline struct {
 	ID     string                 `json:"id"`
-	Config map[string]interface{} `json:"config"`
+	Config map[string]interface{} `json:"config.json"`
 }

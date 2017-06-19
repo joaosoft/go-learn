@@ -36,7 +36,7 @@ import (
 // values.
 type ConfigState struct {
 	// Indent specifies the string to use for each indentation level.  The
-	// global config instance that all top-level functions use set this to a
+	// global config.json instance that all top-level functions use set this to a
 	// single space by default.  If you would like more indentation, you might
 	// set this to a tab with "\t" or perhaps two spaces with "  ".
 	Indent string

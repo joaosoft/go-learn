@@ -40,7 +40,7 @@ method=GET, uri=/, status=200
 ## Configuration
 
 ```go
-// LoggerConfig defines the config for Logger middleware.
+config.json
 LoggerConfig struct {
   // Skipper defines a function to skip middleware.
   Skipper Skipper

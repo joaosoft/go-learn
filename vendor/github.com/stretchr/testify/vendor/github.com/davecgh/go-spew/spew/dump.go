@@ -451,7 +451,7 @@ func (d *dumpState) dump(v reflect.Value) {
 }
 
 // fdump is a helper function to consolidate the logic from the various public
-// methods which take varying writers and config states.
+// methods which take varying writers and config.json states.
 func fdump(cs *ConfigState, w io.Writer, a ...interface{}) {
 	for _, arg := range a {
 		if arg == nil {

@@ -10,8 +10,8 @@ matrix:
 services:
   - docker
 before_script:
-  - mkdir -p /tmp/elasticsearch/config
-  - cp -r config/* /tmp/elasticsearch/config/
+  - mkdir -p /tmp/elasticsearch/config.json
+  - cp -r config.json/* /tmp/elasticsearch/config.json/
   - sudo sysctl -w vm.max_map_count=262144
-  - docker run --rm --privileged=true -p 9200:9200 -p 9300:9300 -v "/tmp/elasticsearch/config:/usr/share/elasticsearch/config" -e ES_JAVA_OPTS='-Xms1g -Xmx1g' elasticsearch:5.4.0 elasticsearch >& /dev/null &
+  - docker run --rm --privileged=true -p 9200:9200 -p 9300:9300 -v "/tmp/elasticsearch/config.json:/usr/share/elasticsearch/config.json" -e ES_JAVA_OPTS='-Xms1g -Xmx1g' elasticsearch:5.4.0 elasticsearch >& /dev/null &
   - sleep 15

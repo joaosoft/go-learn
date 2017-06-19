@@ -13,7 +13,7 @@ import (
 )
 
 type (
-	// GzipConfig defines the config for Gzip middleware.
+	// GzipConfig defines the config.json for Gzip middleware.
 	GzipConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -34,7 +34,7 @@ const (
 )
 
 var (
-	// DefaultGzipConfig is the default Gzip middleware config.
+	// DefaultGzipConfig is the default Gzip middleware config.json.
 	DefaultGzipConfig = GzipConfig{
 		Skipper: defaultSkipper,
 		Level:   -1,
@@ -47,7 +47,7 @@ func Gzip() echo.MiddlewareFunc {
 	return GzipWithConfig(DefaultGzipConfig)
 }
 
-// GzipWithConfig return Gzip middleware with config.
+// GzipWithConfig return Gzip middleware with config.json.
 // See: `Gzip()`.
 func GzipWithConfig(config GzipConfig) echo.MiddlewareFunc {
 	// Defaults

@@ -13,7 +13,7 @@ func LoadConfigFromFile(contextName string, obj interface{}) error {
 	root := getWorkingDir()
 
 	var err error
-	file, err := os.Open(fmt.Sprintf("%s/examples/51_elastic_search/config/%s.json", root, contextName))
+	file, err := os.Open(fmt.Sprintf("%s/examples/51_elastic_search/config.json/%s.json", root, contextName))
 	if err != nil {
 		return err
 	}
@@ -31,7 +31,7 @@ func LoadConfigFromPath(contextName string, obj interface{}) error {
 	root := getWorkingDir()
 
 	var err error
-	file, err := ioutil.ReadFile(fmt.Sprintf("%s/examples/51_elastic_search/config/%s.json", root, contextName))
+	file, err := ioutil.ReadFile(fmt.Sprintf("%s/examples/51_elastic_search/config.json/%s.json", root, contextName))
 	if err != nil {
 		return err
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 type (
-	// CORSConfig defines the config for CORS middleware.
+	// CORSConfig defines the config.json for CORS middleware.
 	CORSConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -48,7 +48,7 @@ type (
 )
 
 var (
-	// DefaultCORSConfig is the default CORS middleware config.
+	// DefaultCORSConfig is the default CORS middleware config.json.
 	DefaultCORSConfig = CORSConfig{
 		Skipper:      defaultSkipper,
 		AllowOrigins: []string{"*"},
@@ -62,7 +62,7 @@ func CORS() echo.MiddlewareFunc {
 	return CORSWithConfig(DefaultCORSConfig)
 }
 
-// CORSWithConfig returns a CORS middleware with config.
+// CORSWithConfig returns a CORS middleware with config.json.
 // See: `CORS()`.
 func CORSWithConfig(config CORSConfig) echo.MiddlewareFunc {
 	// Defaults
