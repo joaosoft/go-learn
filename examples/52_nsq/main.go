@@ -2,11 +2,11 @@ package main
 
 import (
 	"github.com/labstack/gommon/log"
-	common "golang-learn/examples/50_nsq/common/config"
-	"golang-learn/examples/50_nsq/common/nsq"
-	"golang-learn/examples/50_nsq/config"
-	"golang-learn/examples/50_nsq/controllers"
-	"golang-learn/examples/50_nsq/interactors"
+	common "golang-learn/examples/52_nsq/common/config"
+	"golang-learn/examples/52_nsq/common/nsq"
+	"golang-learn/examples/52_nsq/config"
+	"golang-learn/examples/52_nsq/controllers"
+	"golang-learn/examples/52_nsq/interactors"
 
 	"os"
 	"os/signal"

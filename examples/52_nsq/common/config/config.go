@@ -12,7 +12,7 @@ func LoadConfigFromFile(contextName string, obj interface{}) error {
 	root := getWorkingDir()
 
 	var err error
-	file, err := os.Open(fmt.Sprintf("%s/examples/50_nsq/config/%s.json", root, contextName))
+	file, err := os.Open(fmt.Sprintf("%s/examples/52_nsq/config/%s.json", root, contextName))
 	if err != nil {
 		return err
 	}
