@@ -547,10 +547,10 @@ type yaml_parser_t struct {
 
 	flow_level int // The number of unclosed '[' and '{' indicators.
 
-	tokens          []yaml_token_t // The tokens controllers.
-	tokens_head     int            // The head of the tokens controllers.
-	tokens_parsed   int            // The number of tokens fetched from the controllers.
-	token_available bool           // Does the tokens controllers contain a token ready for dequeueing.
+	tokens          []yaml_token_t // The tokens queue.
+	tokens_head     int            // The head of the tokens queue.
+	tokens_parsed   int            // The number of tokens fetched from the queue.
+	token_available bool           // Does the tokens queue contain a token ready for dequeueing.
 
 	indent  int   // The current indentation level.
 	indents []int // The indentation levels stack.
@@ -653,8 +653,8 @@ type yaml_emitter_t struct {
 	state  yaml_emitter_state_t   // The current emitter state.
 	states []yaml_emitter_state_t // The stack of states.
 
-	events      []yaml_event_t // The event controllers.
-	events_head int            // The head of the event controllers.
+	events      []yaml_event_t // The event queue.
+	events_head int            // The head of the event queue.
 
 	indents []int // The stack of indentation levels.
 

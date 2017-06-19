@@ -577,14 +577,14 @@ func yaml_parser_scan(parser *yaml_parser_t, token *yaml_token_t) bool {
 		return true
 	}
 
-	// Ensure that the tokens controllers contains enough tokens.
+	// Ensure that the tokens queue contains enough tokens.
 	if !parser.token_available {
 		if !yaml_parser_fetch_more_tokens(parser) {
 			return false
 		}
 	}
 
-	// Fetch the next token from the controllers.
+	// Fetch the next token from the queue.
 	*token = parser.tokens[parser.tokens_head]
 	parser.tokens_head++
 	parser.tokens_parsed++
@@ -621,7 +621,7 @@ func trace(args ...interface{}) func() {
 	return func() { fmt.Println(pargs...) }
 }
 
-// Ensure that the tokens controllers contains at least one token which can be
+// Ensure that the tokens queue contains at least one token which can be
 // returned to the Parser.
 func yaml_parser_fetch_more_tokens(parser *yaml_parser_t) bool {
 	// While we need more tokens to fetch, do it.
@@ -933,7 +933,7 @@ func yaml_parser_decrease_flow_level(parser *yaml_parser_t) bool {
 
 // Push the current indentation level to the stack and set the new level
 // the current column is greater than the indentation level.  In this case,
-// append or insert the specified token into the token controllers.
+// append or insert the specified token into the token queue.
 func yaml_parser_roll_indent(parser *yaml_parser_t, column, number int, typ yaml_token_type_t, mark yaml_mark_t) bool {
 	// In the flow context, do nothing.
 	if parser.flow_level > 0 {
@@ -946,7 +946,7 @@ func yaml_parser_roll_indent(parser *yaml_parser_t, column, number int, typ yaml
 		parser.indents = append(parser.indents, parser.indent)
 		parser.indent = column
 
-		// Create a token and insert it into the controllers.
+		// Create a token and insert it into the queue.
 		token := yaml_token_t{
 			typ:        typ,
 			start_mark: mark,
@@ -971,7 +971,7 @@ func yaml_parser_unroll_indent(parser *yaml_parser_t, column int) bool {
 
 	// Loop through the indentation levels in the stack.
 	for parser.indent > column {
-		// Create a token and append it to the controllers.
+		// Create a token and append it to the queue.
 		token := yaml_token_t{
 			typ:        yaml_BLOCK_END_TOKEN,
 			start_mark: parser.mark,
@@ -1001,7 +1001,7 @@ func yaml_parser_fetch_stream_start(parser *yaml_parser_t) bool {
 	// We have started.
 	parser.stream_start_produced = true
 
-	// Create the STREAM-START token and append it to the controllers.
+	// Create the STREAM-START token and append it to the queue.
 	token := yaml_token_t{
 		typ:        yaml_STREAM_START_TOKEN,
 		start_mark: parser.mark,
@@ -1033,7 +1033,7 @@ func yaml_parser_fetch_stream_end(parser *yaml_parser_t) bool {
 
 	parser.simple_key_allowed = false
 
-	// Create the STREAM-END token and append it to the controllers.
+	// Create the STREAM-END token and append it to the queue.
 	token := yaml_token_t{
 		typ:        yaml_STREAM_END_TOKEN,
 		start_mark: parser.mark,
@@ -1062,7 +1062,7 @@ func yaml_parser_fetch_directive(parser *yaml_parser_t) bool {
 	if !yaml_parser_scan_directive(parser, &token) {
 		return false
 	}
-	// Append the token to the controllers.
+	// Append the token to the queue.
 	yaml_insert_token(parser, -1, &token)
 	return true
 }
@@ -1096,7 +1096,7 @@ func yaml_parser_fetch_document_indicator(parser *yaml_parser_t, typ yaml_token_
 		start_mark: start_mark,
 		end_mark:   end_mark,
 	}
-	// Append the token to the controllers.
+	// Append the token to the queue.
 	yaml_insert_token(parser, -1, &token)
 	return true
 }
@@ -1127,7 +1127,7 @@ func yaml_parser_fetch_flow_collection_start(parser *yaml_parser_t, typ yaml_tok
 		start_mark: start_mark,
 		end_mark:   end_mark,
 	}
-	// Append the token to the controllers.
+	// Append the token to the queue.
 	yaml_insert_token(parser, -1, &token)
 	return true
 }
@@ -1159,7 +1159,7 @@ func yaml_parser_fetch_flow_collection_end(parser *yaml_parser_t, typ yaml_token
 		start_mark: start_mark,
 		end_mark:   end_mark,
 	}
-	// Append the token to the controllers.
+	// Append the token to the queue.
 	yaml_insert_token(parser, -1, &token)
 	return true
 }
@@ -1179,7 +1179,7 @@ func yaml_parser_fetch_flow_entry(parser *yaml_parser_t) bool {
 	skip(parser)
 	end_mark := parser.mark
 
-	// Create the FLOW-ENTRY token and append it to the controllers.
+	// Create the FLOW-ENTRY token and append it to the queue.
 	token := yaml_token_t{
 		typ:        yaml_FLOW_ENTRY_TOKEN,
 		start_mark: start_mark,
@@ -1221,7 +1221,7 @@ func yaml_parser_fetch_block_entry(parser *yaml_parser_t) bool {
 	skip(parser)
 	end_mark := parser.mark
 
-	// Create the BLOCK-ENTRY token and append it to the controllers.
+	// Create the BLOCK-ENTRY token and append it to the queue.
 	token := yaml_token_t{
 		typ:        yaml_BLOCK_ENTRY_TOKEN,
 		start_mark: start_mark,
@@ -1260,7 +1260,7 @@ func yaml_parser_fetch_key(parser *yaml_parser_t) bool {
 	skip(parser)
 	end_mark := parser.mark
 
-	// Create the KEY token and append it to the controllers.
+	// Create the KEY token and append it to the queue.
 	token := yaml_token_t{
 		typ:        yaml_KEY_TOKEN,
 		start_mark: start_mark,
@@ -1277,7 +1277,7 @@ func yaml_parser_fetch_value(parser *yaml_parser_t) bool {
 
 	// Have we found a simple key?
 	if simple_key.possible {
-		// Create the KEY token and insert it into the controllers.
+		// Create the KEY token and insert it into the queue.
 		token := yaml_token_t{
 			typ:        yaml_KEY_TOKEN,
 			start_mark: simple_key.mark,
@@ -1325,7 +1325,7 @@ func yaml_parser_fetch_value(parser *yaml_parser_t) bool {
 	skip(parser)
 	end_mark := parser.mark
 
-	// Create the VALUE token and append it to the controllers.
+	// Create the VALUE token and append it to the queue.
 	token := yaml_token_t{
 		typ:        yaml_VALUE_TOKEN,
 		start_mark: start_mark,
@@ -1345,7 +1345,7 @@ func yaml_parser_fetch_anchor(parser *yaml_parser_t, typ yaml_token_type_t) bool
 	// A simple key cannot follow an anchor or an alias.
 	parser.simple_key_allowed = false
 
-	// Create the ALIAS or ANCHOR token and append it to the controllers.
+	// Create the ALIAS or ANCHOR token and append it to the queue.
 	var token yaml_token_t
 	if !yaml_parser_scan_anchor(parser, &token, typ) {
 		return false
@@ -1364,7 +1364,7 @@ func yaml_parser_fetch_tag(parser *yaml_parser_t) bool {
 	// A simple key cannot follow a tag.
 	parser.simple_key_allowed = false
 
-	// Create the TAG token and append it to the controllers.
+	// Create the TAG token and append it to the queue.
 	var token yaml_token_t
 	if !yaml_parser_scan_tag(parser, &token) {
 		return false
@@ -1383,7 +1383,7 @@ func yaml_parser_fetch_block_scalar(parser *yaml_parser_t, literal bool) bool {
 	// A simple key may follow a block scalar.
 	parser.simple_key_allowed = true
 
-	// Create the SCALAR token and append it to the controllers.
+	// Create the SCALAR token and append it to the queue.
 	var token yaml_token_t
 	if !yaml_parser_scan_block_scalar(parser, &token, literal) {
 		return false
@@ -1402,7 +1402,7 @@ func yaml_parser_fetch_flow_scalar(parser *yaml_parser_t, single bool) bool {
 	// A simple key cannot follow a flow scalar.
 	parser.simple_key_allowed = false
 
-	// Create the SCALAR token and append it to the controllers.
+	// Create the SCALAR token and append it to the queue.
 	var token yaml_token_t
 	if !yaml_parser_scan_flow_scalar(parser, &token, single) {
 		return false
@@ -1421,7 +1421,7 @@ func yaml_parser_fetch_plain_scalar(parser *yaml_parser_t) bool {
 	// A simple key cannot follow a flow scalar.
 	parser.simple_key_allowed = false
 
-	// Create the SCALAR token and append it to the controllers.
+	// Create the SCALAR token and append it to the queue.
 	var token yaml_token_t
 	if !yaml_parser_scan_plain_scalar(parser, &token) {
 		return false

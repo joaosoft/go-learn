@@ -478,7 +478,7 @@ func (w *bulkWorker) commit(ctx context.Context) error {
 
 	id := atomic.AddInt64(&w.p.executionId, 1)
 
-	// Update # documents in controllers before eventual retries
+	// Update # documents in queue before eventual retries
 	w.p.statsMu.Lock()
 	if w.p.wantStats {
 		w.p.stats.Workers[w.i].Queued = int64(len(w.service.requests))

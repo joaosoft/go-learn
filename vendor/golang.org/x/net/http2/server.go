@@ -20,7 +20,7 @@
 // int32 read/CAS probably?) and starting it up when frames arrive,
 // and shutting it down when all handlers exit. the occasional PING
 // packets could use time.AfterFunc to call sc.wakeStartServeLoop()
-// (which is a no-op if already running) and then controllers the PING write
+// (which is a no-op if already running) and then queue the PING write
 // as normal. The serve loop would then exit in most cases (if no
 // Handlers running) and not be woken up again until the PING packet
 // returns.

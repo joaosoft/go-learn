@@ -1537,7 +1537,7 @@ var errors = [...]string{
 	103: "policy not found",
 	104: "state not recoverable",
 	105: "previous owner died",
-	106: "interface output controllers is full",
+	106: "interface output queue is full",
 }
 
 // Signal table

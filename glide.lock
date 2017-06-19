@@ -1,18 +1,25 @@
 hash: 657a5d700dfbaf63395828752109df6eaf8d5e7d53248404649f8dcd88549f56
-updated: 2017-06-16T11:07:25.716743257+01:00
+updated: 2017-06-19T12:25:46.853720111+01:00
 imports:
 - name: github.com/bradfitz/gomemcache
   version: 1952afaa557dc08e8e0d89eafab110fb501c1a2b
   subpackages:
   - memcache
 - name: github.com/davecgh/go-spew
-  version: 2df174808ee097f90d259e432cc04442cf60be21
+  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
   subpackages:
   - spew
 - name: github.com/droundy/goopt
   version: 7c1d66c0011a0dedf19ec64feae53c6722b81948
 - name: github.com/gin-gonic/gin
   version: 2dae550eb5392006a4582ce9c90016a9b5a74e8b
+  subpackages:
+  - binding
+  - render
+- name: github.com/golang/protobuf
+  version: 2402d76f3d41f928c7902a765dfc872356dd3aad
+  subpackages:
+  - proto
 - name: github.com/joho/godotenv
   version: a01a834e1654b4c9ca5b3ad05159445cc9c7ad08
 - name: github.com/labstack/echo
@@ -22,6 +29,8 @@ imports:
   subpackages:
   - color
   - log
+- name: github.com/manucorporat/sse
+  version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
 - name: github.com/mattn/go-colorable
   version: ded68f7a9561c023e790de24279db7ebf473ea80
 - name: github.com/mattn/go-isatty
@@ -35,7 +44,7 @@ imports:
 - name: github.com/pkg/errors
   version: c605e284fe17294bda444b34710735b29d1a9d90
 - name: github.com/pmezard/go-difflib
-  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
   subpackages:
   - difflib
 - name: github.com/satori/go.uuid
@@ -61,10 +70,14 @@ imports:
   version: f64b50fbea64174967a8882830d621a18ee1548e
   subpackages:
   - unix
+- name: gopkg.in/go-playground/validator.v8
+  version: c193cecd124b5cc722d7ee5538e945bdb3348435
 - name: gopkg.in/olivere/elastic.v5
   version: f1fd7305d0b6270192b27010fe1193568b18e4b6
   subpackages:
   - uritemplates
+- name: gopkg.in/yaml.v2
+  version: a83829b6f1293c91addabc89d0571c246397bbf4
 testImports:
 - name: github.com/onsi/ginkgo
   version: a23f924ce96d61f963fb6219b8ff069d8d768cc2
@@ -101,5 +114,3 @@ testImports:
   - types
 - name: gopkg.in/DATA-DOG/go-sqlmock.v1
   version: b983233bc0bbea4dc6e8ec8c8c923d935765ffec
-- name: gopkg.in/yaml.v2
-  version: a83829b6f1293c91addabc89d0571c246397bbf4

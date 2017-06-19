@@ -42,7 +42,7 @@ import (
 //                          FLOW-MAPPING-END
 // flow_mapping_entry   ::= flow_node | KEY flow_node? (VALUE flow_node?)?
 
-// Peek the next token in the token controllers.
+// Peek the next token in the token queue.
 func peek_token(parser *yaml_parser_t) *yaml_token_t {
 	if parser.token_available || yaml_parser_fetch_more_tokens(parser) {
 		return &parser.tokens[parser.tokens_head]
@@ -50,7 +50,7 @@ func peek_token(parser *yaml_parser_t) *yaml_token_t {
 	return nil
 }
 
-// Remove the next token from the controllers (must be called after peek_token).
+// Remove the next token from the queue (must be called after peek_token).
 func skip_token(parser *yaml_parser_t) {
 	parser.token_available = false
 	parser.tokens_parsed++

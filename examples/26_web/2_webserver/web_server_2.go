@@ -1,4 +1,4 @@
-package main
+package __webserver
 
 import (
 	"fmt"

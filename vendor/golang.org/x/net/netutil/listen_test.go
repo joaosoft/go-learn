@@ -22,7 +22,7 @@ import (
 func TestLimitListener(t *testing.T) {
 	const max = 5
 	attempts := (nettest.MaxOpenFiles() - max) / 2
-	if attempts > 256 { // maximum length of accept controllers is 128 by default
+	if attempts > 256 { // maximum length of accept queue is 128 by default
 		attempts = 256
 	}
 
@@ -62,7 +62,7 @@ func TestLimitListener(t *testing.T) {
 	}
 	wg.Wait()
 
-	// We expect some Gets to fail as the kernel's accept controllers is filled,
+	// We expect some Gets to fail as the kernel's accept queue is filled,
 	// but most should succeed.
 	if int(failed) >= attempts/2 {
 		t.Errorf("%d requests failed within %d attempts", failed, attempts)
