@@ -12,7 +12,7 @@ import (
 )
 
 type (
-	// CSRFConfig defines the config.json for CSRF middleware.
+	// CSRFConfig defines the config for CSRF middleware.
 	CSRFConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -65,7 +65,7 @@ type (
 )
 
 var (
-	// DefaultCSRFConfig is the default CSRF middleware config.json.
+	// DefaultCSRFConfig is the default CSRF middleware config.
 	DefaultCSRFConfig = CSRFConfig{
 		Skipper:      defaultSkipper,
 		TokenLength:  32,
@@ -83,7 +83,7 @@ func CSRF() echo.MiddlewareFunc {
 	return CSRFWithConfig(c)
 }
 
-// CSRFWithConfig returns a CSRF middleware with config.json.
+// CSRFWithConfig returns a CSRF middleware with config.
 // See `CSRF()`.
 func CSRFWithConfig(config CSRFConfig) echo.MiddlewareFunc {
 	// Defaults

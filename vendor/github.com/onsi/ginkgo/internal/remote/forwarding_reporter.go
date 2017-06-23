@@ -48,7 +48,7 @@ func (reporter *ForwardingReporter) post(path string, data interface{}) {
 
 func (reporter *ForwardingReporter) SpecSuiteWillBegin(conf config.GinkgoConfigType, summary *types.SuiteSummary) {
 	data := struct {
-		Config  config.GinkgoConfigType `json:"config.json"`
+		Config  config.GinkgoConfigType `json:"config"`
 		Summary *types.SuiteSummary     `json:"suite-summary"`
 	}{
 		conf,

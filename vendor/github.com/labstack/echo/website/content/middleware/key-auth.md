@@ -35,7 +35,7 @@ e.Use(middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{
 ## Configuration
 
 ```go
-config.json
+// KeyAuthConfig defines the config for KeyAuth middleware.
 KeyAuthConfig struct {
   // Skipper defines a function to skip middleware.
   Skipper Skipper

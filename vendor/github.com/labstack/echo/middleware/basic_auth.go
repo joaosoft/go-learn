@@ -7,7 +7,7 @@ import (
 )
 
 type (
-	// BasicAuthConfig defines the config.json for BasicAuth middleware.
+	// BasicAuthConfig defines the config for BasicAuth middleware.
 	BasicAuthConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -26,7 +26,7 @@ const (
 )
 
 var (
-	// DefaultBasicAuthConfig is the default BasicAuth middleware config.json.
+	// DefaultBasicAuthConfig is the default BasicAuth middleware config.
 	DefaultBasicAuthConfig = BasicAuthConfig{
 		Skipper: defaultSkipper,
 	}
@@ -42,7 +42,7 @@ func BasicAuth(fn BasicAuthValidator) echo.MiddlewareFunc {
 	return BasicAuthWithConfig(c)
 }
 
-// BasicAuthWithConfig returns an BasicAuth middleware with config.json.
+// BasicAuthWithConfig returns an BasicAuth middleware with config.
 // See `BasicAuth()`.
 func BasicAuthWithConfig(config BasicAuthConfig) echo.MiddlewareFunc {
 	// Defaults

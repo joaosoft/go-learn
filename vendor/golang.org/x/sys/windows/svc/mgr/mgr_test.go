@@ -81,16 +81,16 @@ func testConfig(t *testing.T, s *mgr.Service, should mgr.Config) mgr.Config {
 		t.Fatalf("Config failed: %s", err)
 	}
 	if should.DisplayName != is.DisplayName {
-		t.Fatalf("config.json mismatch: DisplayName is %q, but should have %q", is.DisplayName, should.DisplayName)
+		t.Fatalf("config mismatch: DisplayName is %q, but should have %q", is.DisplayName, should.DisplayName)
 	}
 	if should.StartType != is.StartType {
-		t.Fatalf("config.json mismatch: StartType is %v, but should have %v", is.StartType, should.StartType)
+		t.Fatalf("config mismatch: StartType is %v, but should have %v", is.StartType, should.StartType)
 	}
 	if should.Description != is.Description {
-		t.Fatalf("config.json mismatch: Description is %q, but should have %q", is.Description, should.Description)
+		t.Fatalf("config mismatch: Description is %q, but should have %q", is.Description, should.Description)
 	}
 	if depString(should.Dependencies) != depString(is.Dependencies) {
-		t.Fatalf("config.json mismatch: Dependencies is %v, but should have %v", is.Dependencies, should.Dependencies)
+		t.Fatalf("config mismatch: Dependencies is %v, but should have %v", is.Dependencies, should.Dependencies)
 	}
 	return is
 }

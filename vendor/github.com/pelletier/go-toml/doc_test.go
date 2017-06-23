@@ -7,7 +7,7 @@ import (
 )
 
 func Example_comprehensiveExample() {
-	config, err := LoadFile("config.json.toml")
+	config, err := LoadFile("config.toml")
 
 	if err != nil {
 		fmt.Println("Error ", err.Error())

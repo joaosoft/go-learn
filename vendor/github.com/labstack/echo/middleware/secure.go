@@ -7,7 +7,7 @@ import (
 )
 
 type (
-	// SecureConfig defines the config.json for Secure middleware.
+	// SecureConfig defines the config for Secure middleware.
 	SecureConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -57,7 +57,7 @@ type (
 )
 
 var (
-	// DefaultSecureConfig is the default Secure middleware config.json.
+	// DefaultSecureConfig is the default Secure middleware config.
 	DefaultSecureConfig = SecureConfig{
 		Skipper:            defaultSkipper,
 		XSSProtection:      "1; mode=block",
@@ -74,7 +74,7 @@ func Secure() echo.MiddlewareFunc {
 	return SecureWithConfig(DefaultSecureConfig)
 }
 
-// SecureWithConfig returns a Secure middleware with config.json.
+// SecureWithConfig returns a Secure middleware with config.
 // See: `Secure()`.
 func SecureWithConfig(config SecureConfig) echo.MiddlewareFunc {
 	// Defaults

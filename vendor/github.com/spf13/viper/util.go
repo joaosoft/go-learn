@@ -36,7 +36,7 @@ type ConfigParseError struct {
 
 // Error returns the formatted configuration error.
 func (pe ConfigParseError) Error() string {
-	return fmt.Sprintf("While parsing config.json: %s", pe.err.Error())
+	return fmt.Sprintf("While parsing config: %s", pe.err.Error())
 }
 
 // toCaseInsensitiveValue checks if the value is a  map;

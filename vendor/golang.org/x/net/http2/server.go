@@ -1893,7 +1893,7 @@ type responseWriterState struct {
 	body   *requestBody // to close at end of request, if DATA frames didn't
 	conn   *serverConn
 
-	// TODO: adjust buffer writing sizes based on server config.json, frame size updates from peer, etc
+	// TODO: adjust buffer writing sizes based on server config, frame size updates from peer, etc
 	bw *bufio.Writer // writing to a chunkWriter{this *responseWriterState}
 
 	// mutated by http.Handler goroutine:

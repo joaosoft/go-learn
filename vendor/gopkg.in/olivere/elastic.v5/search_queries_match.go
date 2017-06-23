@@ -63,7 +63,7 @@ func (q *MatchQuery) Operator(operator string) *MatchQuery {
 }
 
 // Analyzer explicitly sets the analyzer to use. It defaults to use explicit
-// mapping config.json for the field, or, if not set, the default search analyzer.
+// mapping config for the field, or, if not set, the default search analyzer.
 func (q *MatchQuery) Analyzer(analyzer string) *MatchQuery {
 	q.analyzer = analyzer
 	return q

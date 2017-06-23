@@ -7,7 +7,7 @@ import (
 )
 
 type (
-	// RedirectConfig defines the config.json for Redirect middleware.
+	// RedirectConfig defines the config for Redirect middleware.
 	RedirectConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -23,7 +23,7 @@ const (
 )
 
 var (
-	// DefaultRedirectConfig is the default Redirect middleware config.json.
+	// DefaultRedirectConfig is the default Redirect middleware config.
 	DefaultRedirectConfig = RedirectConfig{
 		Skipper: defaultSkipper,
 		Code:    http.StatusMovedPermanently,
@@ -38,7 +38,7 @@ func HTTPSRedirect() echo.MiddlewareFunc {
 	return HTTPSRedirectWithConfig(DefaultRedirectConfig)
 }
 
-// HTTPSRedirectWithConfig returns an HTTPSRedirect middleware with config.json.
+// HTTPSRedirectWithConfig returns an HTTPSRedirect middleware with config.
 // See `HTTPSRedirect()`.
 func HTTPSRedirectWithConfig(config RedirectConfig) echo.MiddlewareFunc {
 	// Defaults
@@ -74,7 +74,7 @@ func HTTPSWWWRedirect() echo.MiddlewareFunc {
 	return HTTPSWWWRedirectWithConfig(DefaultRedirectConfig)
 }
 
-// HTTPSWWWRedirectWithConfig returns an HTTPSRedirect middleware with config.json.
+// HTTPSWWWRedirectWithConfig returns an HTTPSRedirect middleware with config.
 // See `HTTPSWWWRedirect()`.
 func HTTPSWWWRedirectWithConfig(config RedirectConfig) echo.MiddlewareFunc {
 	// Defaults
@@ -110,7 +110,7 @@ func HTTPSNonWWWRedirect() echo.MiddlewareFunc {
 	return HTTPSNonWWWRedirectWithConfig(DefaultRedirectConfig)
 }
 
-// HTTPSNonWWWRedirectWithConfig returns an HTTPSRedirect middleware with config.json.
+// HTTPSNonWWWRedirectWithConfig returns an HTTPSRedirect middleware with config.
 // See `HTTPSNonWWWRedirect()`.
 func HTTPSNonWWWRedirectWithConfig(config RedirectConfig) echo.MiddlewareFunc {
 	// Defaults
@@ -149,7 +149,7 @@ func WWWRedirect() echo.MiddlewareFunc {
 	return WWWRedirectWithConfig(DefaultRedirectConfig)
 }
 
-// WWWRedirectWithConfig returns an HTTPSRedirect middleware with config.json.
+// WWWRedirectWithConfig returns an HTTPSRedirect middleware with config.
 // See `WWWRedirect()`.
 func WWWRedirectWithConfig(config RedirectConfig) echo.MiddlewareFunc {
 	// Defaults
@@ -186,7 +186,7 @@ func NonWWWRedirect() echo.MiddlewareFunc {
 	return NonWWWRedirectWithConfig(DefaultRedirectConfig)
 }
 
-// NonWWWRedirectWithConfig returns an HTTPSRedirect middleware with config.json.
+// NonWWWRedirectWithConfig returns an HTTPSRedirect middleware with config.
 // See `NonWWWRedirect()`.
 func NonWWWRedirectWithConfig(config RedirectConfig) echo.MiddlewareFunc {
 	if config.Skipper == nil {

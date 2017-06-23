@@ -242,9 +242,9 @@ func (s *stringValue) String() string {
 }
 
 func TestBasics(t *testing.T) {
-	SetConfigFile("/tmp/config.json.yaml")
+	SetConfigFile("/tmp/config.yaml")
 	filename, err := v.getConfigFile()
-	assert.Equal(t, "/tmp/config.json.yaml", filename)
+	assert.Equal(t, "/tmp/config.yaml", filename)
 	assert.NoError(t, err)
 }
 
@@ -306,8 +306,8 @@ func TestAliases(t *testing.T) {
 }
 
 func TestAliasInConfigFile(t *testing.T) {
-	// the config.json file specifies "beard".  If we make this an alias for
-	// "hasbeard", we still want the old config.json file to work with beard.
+	// the config file specifies "beard".  If we make this an alias for
+	// "hasbeard", we still want the old config file to work with beard.
 	RegisterAlias("beard", "hasbeard")
 	assert.Equal(t, true, Get("hasbeard"))
 	Set("hasbeard", false)
@@ -766,7 +766,7 @@ func TestWrongDirsSearchNotFound(t *testing.T) {
 	err := v.ReadInConfig()
 	assert.Equal(t, reflect.TypeOf(ConfigFileNotFoundError{"", ""}), reflect.TypeOf(err))
 
-	// Even though config.json did not load and the error might have
+	// Even though config did not load and the error might have
 	// been ignored by the client, the default still loads
 	assert.Equal(t, `default`, v.GetString(`key`))
 }
@@ -786,7 +786,7 @@ func TestWrongDirsSearchNotFoundForMerge(t *testing.T) {
 	err := v.MergeInConfig()
 	assert.Equal(t, reflect.TypeOf(ConfigFileNotFoundError{"", ""}), reflect.TypeOf(err))
 
-	// Even though config.json did not load and the error might have
+	// Even though config did not load and the error might have
 	// been ignored by the client, the default still loads
 	assert.Equal(t, `default`, v.GetString(`key`))
 }
@@ -952,11 +952,11 @@ func TestUnmarshalingWithAliases(t *testing.T) {
 }
 
 func TestSetConfigNameClearsFileCache(t *testing.T) {
-	SetConfigFile("/tmp/config.json.yaml")
+	SetConfigFile("/tmp/config.yaml")
 	SetConfigName("default")
 	f, err := v.getConfigFile()
 	if err == nil {
-		t.Fatalf("config.json file cache should have been cleared")
+		t.Fatalf("config file cache should have been cleared")
 	}
 	assert.Empty(t, f)
 }

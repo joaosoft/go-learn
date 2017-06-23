@@ -12,7 +12,7 @@ import (
 )
 
 type (
-	// JWTConfig defines the config.json for JWT middleware.
+	// JWTConfig defines the config for JWT middleware.
 	JWTConfig struct {
 		// Skipper defines a function to skip middleware.
 		Skipper Skipper
@@ -58,7 +58,7 @@ const (
 )
 
 var (
-	// DefaultJWTConfig is the default JWT auth middleware config.json.
+	// DefaultJWTConfig is the default JWT auth middleware config.
 	DefaultJWTConfig = JWTConfig{
 		Skipper:       defaultSkipper,
 		SigningMethod: AlgorithmHS256,
@@ -83,7 +83,7 @@ func JWT(key []byte) echo.MiddlewareFunc {
 	return JWTWithConfig(c)
 }
 
-// JWTWithConfig returns a JWT auth middleware with config.json.
+// JWTWithConfig returns a JWT auth middleware with config.
 // See: `JWT()`.
 func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
 	// Defaults

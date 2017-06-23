@@ -1,5 +1,5 @@
-hash: 96b0327486b4968ab3a94e918f0f27f5c827e6d701edb0053a1171695c7f4d64
-updated: 2017-06-19T14:01:07.354467954+01:00
+hash: d2cae31978106e16f2d002f90a5a80899eeee6115399e11a83cf1260a270893d
+updated: 2017-06-19T15:06:42.314137561+01:00
 imports:
 - name: github.com/bradfitz/gomemcache
   version: 1952afaa557dc08e8e0d89eafab110fb501c1a2b
@@ -95,6 +95,11 @@ imports:
   version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/fasttemplate
   version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
+- name: golang.org/x/crypto
+  version: 122d919ec1efcfb58483215da23f815853e24b81
+  subpackages:
+  - acme
+  - acme/autocert
 - name: golang.org/x/net
   version: f315505cf3349909cdf013ea56690da34e96a451
   subpackages:

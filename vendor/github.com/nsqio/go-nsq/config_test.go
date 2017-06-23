@@ -10,45 +10,45 @@ import (
 
 func TestConfigSet(t *testing.T) {
 	c := NewConfig()
-	if err := c.Set("not a real config.json value", struct{}{}); err == nil {
+	if err := c.Set("not a real config value", struct{}{}); err == nil {
 		t.Error("No error when setting an invalid value")
 	}
 	if err := c.Set("tls_v1", "lol"); err == nil {
 		t.Error("No error when setting `tls_v1` to an invalid value")
 	}
 	if err := c.Set("tls_v1", true); err != nil {
-		t.Errorf("Error setting `tls_v1` config.json. %s", err)
+		t.Errorf("Error setting `tls_v1` config. %s", err)
 	}
 
 	if err := c.Set("tls-insecure-skip-verify", true); err != nil {
-		t.Errorf("Error setting `tls-insecure-skip-verify` config.json. %v", err)
+		t.Errorf("Error setting `tls-insecure-skip-verify` config. %v", err)
 	}
 	if c.TlsConfig.InsecureSkipVerify != true {
-		t.Errorf("Error setting `tls-insecure-skip-verify` config.json: %v", c.TlsConfig)
+		t.Errorf("Error setting `tls-insecure-skip-verify` config: %v", c.TlsConfig)
 	}
 	if err := c.Set("tls-min-version", "tls1.2"); err != nil {
-		t.Errorf("Error setting `tls-min-version` config.json: %s", err)
+		t.Errorf("Error setting `tls-min-version` config: %s", err)
 	}
 	if err := c.Set("tls-min-version", "tls1.3"); err == nil {
 		t.Error("No error when setting `tls-min-version` to an invalid value")
 	}
 	if err := c.Set("local_addr", &net.TCPAddr{}); err != nil {
-		t.Errorf("Error setting `local_addr` config.json: %s", err)
+		t.Errorf("Error setting `local_addr` config: %s", err)
 	}
 	if err := c.Set("local_addr", "1.2.3.4:27015"); err != nil {
-		t.Errorf("Error setting `local_addr` config.json: %s", err)
+		t.Errorf("Error setting `local_addr` config: %s", err)
 	}
 	if err := c.Set("dial_timeout", "5s"); err != nil {
-		t.Errorf("Error setting `dial_timeout` config.json: %s", err)
+		t.Errorf("Error setting `dial_timeout` config: %s", err)
 	}
 	if c.LocalAddr.String() != "1.2.3.4:27015" {
-		t.Error("Failed to assign `local_addr` config.json")
+		t.Error("Failed to assign `local_addr` config")
 	}
 	if reflect.ValueOf(c.BackoffStrategy).Type().String() != "*nsq.ExponentialStrategy" {
 		t.Error("Failed to set default `exponential` backoff strategy")
 	}
 	if err := c.Set("backoff_strategy", "full_jitter"); err != nil {
-		t.Errorf("Failed to assign `backoff_strategy` config.json: %v", err)
+		t.Errorf("Failed to assign `backoff_strategy` config: %v", err)
 	}
 	if reflect.ValueOf(c.BackoffStrategy).Type().String() != "*nsq.FullJitterStrategy" {
 		t.Error("Failed to set `full_jitter` backoff strategy")
@@ -58,7 +58,7 @@ func TestConfigSet(t *testing.T) {
 func TestConfigValidate(t *testing.T) {
 	c := NewConfig()
 	if err := c.Validate(); err != nil {
-		t.Error("initialized config.json is invalid")
+		t.Error("initialized config is invalid")
 	}
 	c.DeflateLevel = 100
 	if err := c.Validate(); err == nil {

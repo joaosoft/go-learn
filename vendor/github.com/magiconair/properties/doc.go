@@ -122,7 +122,7 @@
 //   properties.ErrorHandler = properties.PanicHandler
 //
 //   # Will panic instead of logging an error
-//   p := properties.MustLoadFile("config.json.properties")
+//   p := properties.MustLoadFile("config.properties")
 //
 // You can also provide your own ErrorHandler function. The only requirement
 // is that the error handler function must exit after handling the error.
@@ -133,7 +133,7 @@
 //   }
 //
 //   # Will write to stdout and then exit
-//   p := properties.MustLoadFile("config.json.properties")
+//   p := properties.MustLoadFile("config.properties")
 //
 // Properties can also be loaded into a struct via the `Decode`
 // method, e.g.

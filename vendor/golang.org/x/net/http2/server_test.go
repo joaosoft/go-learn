@@ -121,7 +121,7 @@ func newServerTester(t testing.TB, handler http.HandlerFunc, opts ...interface{}
 	st.hpackEnc = hpack.NewEncoder(&st.headerBuf)
 	st.hpackDec = hpack.NewDecoder(initialHeaderTableSize, st.onHeaderField)
 
-	ts.TLS = ts.Config.TLSConfig // the httptest.Server has its own copy of this TLS config.json
+	ts.TLS = ts.Config.TLSConfig // the httptest.Server has its own copy of this TLS config
 	if quiet {
 		ts.Config.ErrorLog = log.New(ioutil.Discard, "", 0)
 	} else {
@@ -2349,7 +2349,7 @@ func testServerWithCurl(t *testing.T, permitProhibitedCipherSuites bool) {
 	ConfigureServer(ts.Config, &Server{
 		PermitProhibitedCipherSuites: permitProhibitedCipherSuites,
 	})
-	ts.TLS = ts.Config.TLSConfig // the httptest.Server has its own copy of this TLS config.json
+	ts.TLS = ts.Config.TLSConfig // the httptest.Server has its own copy of this TLS config
 	ts.StartTLS()
 	defer ts.Close()
 

@@ -154,7 +154,7 @@ var _ = Describe("Spec Runner", func() {
 			Ω(didCompleteCalls[0:4]).Should(Equal([]string{"Reporter2", "Reporter1", "Reporter2", "Reporter1"}))
 		})
 
-		It("should report the passed in config.json", func() {
+		It("should report the passed in config", func() {
 			Ω(reporter1.Config.RandomSeed).Should(BeNumerically("==", 17))
 		})
 
@@ -347,7 +347,7 @@ var _ = Describe("Spec Runner", func() {
 			Ω(didCompleteCalls[0:4]).Should(Equal([]string{"Reporter2", "Reporter1", "Reporter2", "Reporter1"}))
 		})
 
-		It("should report the passed in config.json", func() {
+		It("should report the passed in config", func() {
 			Ω(reporter1.Config.RandomSeed).Should(BeNumerically("==", 17))
 		})
 

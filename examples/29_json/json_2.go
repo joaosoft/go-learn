@@ -76,7 +76,7 @@ func load3() {
 	dir, err := os.Getwd()
 	fmt.Println("PATH:",dir,"/examples/29_json/person.json")
 
-	file, err := ioutil.ReadFile("./examples/29_json/person.json")
+		file, err := ioutil.ReadFile("./examples/29_json/person.json")
 	if err != nil {
 		fmt.Println("Error reading file")
 	}
