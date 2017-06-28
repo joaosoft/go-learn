@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/shopspring/decimal"
+
 )
 
 func main() {
@@ -50,4 +52,7 @@ func _variables() {
 	} else {
 		fmt.Println("a != b")
 	}
+
+	regular_price, _ := decimal.NewFromString("")
+	fmt.Println("PRECO: ", regular_price)
 }

@@ -15,7 +15,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/mreiferson/go-snappystream"
+	"github.com/golang/snappy"
 )
 
 // IdentifyResponse represents the metadata
@@ -53,6 +53,7 @@ type Conn struct {
 	maxRdyCount      int64
 	rdyCount         int64
 	lastRdyCount     int64
+	lastRdyTimestamp int64
 	lastMsgTimestamp int64
 
 	mtx sync.Mutex
@@ -213,12 +214,19 @@ func (c *Conn) LastRDY() int64 {
 func (c *Conn) SetRDY(rdy int64) {
 	atomic.StoreInt64(&c.rdyCount, rdy)
 	atomic.StoreInt64(&c.lastRdyCount, rdy)
+	if rdy > 0 {
+		atomic.StoreInt64(&c.lastRdyTimestamp, time.Now().UnixNano())
+	}
 }
 
 // MaxRDY returns the nsqd negotiated maximum
 // RDY count that it will accept for this connection
 func (c *Conn) MaxRDY() int64 {
 	return c.maxRdyCount
+}
+
+func (c *Conn) LastRdyTime() time.Time {
+	return time.Unix(0, atomic.LoadInt64(&c.lastRdyTimestamp))
 }
 
 // LastMessageTime returns a time.Time representing
@@ -427,8 +435,8 @@ func (c *Conn) upgradeSnappy() error {
 	if c.tlsConn != nil {
 		conn = c.tlsConn
 	}
-	c.r = snappystream.NewReader(conn, snappystream.SkipVerifyChecksum)
-	c.w = snappystream.NewWriter(conn)
+	c.r = snappy.NewReader(conn)
+	c.w = snappy.NewWriter(conn)
 	frameType, data, err := ReadUnpackedResponse(c)
 	if err != nil {
 		return err
@@ -480,6 +488,9 @@ func (c *Conn) readLoop() {
 
 		frameType, data, err := ReadUnpackedResponse(c)
 		if err != nil {
+			if err == io.EOF && atomic.LoadInt32(&c.closeFlag) == 1 {
+				goto exit
+			}
 			if !strings.Contains(err.Error(), "use of closed network connection") {
 				c.log(LogLevelError, "IO error - %s", err)
 				c.delegate.OnIOError(c, err)

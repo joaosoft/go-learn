@@ -20,16 +20,24 @@ var opts = make([]opt, 0, 8)
 // Redefine this function to change the way usage is printed
 var Usage = func() string {
 	programName := os.Args[0][strings.LastIndex(os.Args[0], "/")+1:]
+	usage := fmt.Sprintf("Usage of %s:\n", programName)
 	if Summary != "" {
-		return fmt.Sprintf("Usage of %s:\n\t", programName) +
-			Summary + "\n" + Help()
+		usage += fmt.Sprintf("\t%s", Summary)
 	}
-	return fmt.Sprintf("Usage of %s:\n%s", programName, Help())
+	usage += fmt.Sprintf("\n%s", Help())
+	if ExtraUsage != "" {
+		usage += fmt.Sprintf("%s\n", ExtraUsage)
+	}
+	return usage
 }
 
 // Redefine this to change the summary of your program (used in the
 // default Usage() and man page)
 var Summary = ""
+
+// Redefine this to change the additional usage of your program (used in the
+// default Usage() and man page)
+var ExtraUsage = ""
 
 // Redefine this to change the author of your program (used in the
 // default man page)
@@ -76,12 +84,14 @@ var Help = func() string {
 				fmt.Fprintf(h, "-%c, ", sn)
 			}
 			fmt.Fprintf(h, "-%c", o.shortnames[len(o.shortnames)-1])
-			if o.allowsArg != nil {
+			if o.allowsArg != nil && len(o.names) == 0 {
 				fmt.Fprintf(h, " %s", *o.allowsArg)
 			}
 		}
-		fmt.Fprintf(h, "\t")
 		if len(o.names) > 0 {
+			if len(o.shortnames) > 0 {
+				fmt.Fprint(h, ", ")
+			}
 			for _, n := range o.names[0 : len(o.names)-1] {
 				fmt.Fprintf(h, "%s, ", n)
 			}
@@ -240,6 +250,7 @@ func Alternatives(names, vs []string, help string) *string {
 	for _, v := range vs[1:] {
 		possibilities += "|" + v
 	}
+	possibilities += "]"
 	return AlternativesWithLabel(names, vs, possibilities, help)
 }
 
@@ -261,7 +272,7 @@ func AlternativesWithLabel(names, vs []string, label string, help string) *strin
 				return nil
 			}
 		}
-		return errors.New("invalid flag: " + s)
+		return errors.New("invalid value: " + s)
 	}
 	ReqArg(names, label, help, f)
 	return out
@@ -399,6 +410,12 @@ func Parse(extraopts func() []string) bool {
 	addOpt(opt{[]string{"--help", "-h"}, "", "Show usage message", false, nil,
 		func(string) error {
 			fmt.Println(Usage())
+			os.Exit(0)
+			return nil
+		}})
+	addOpt(opt{[]string{"--version"}, "", "Show version", false, nil,
+		func(string) error {
+			fmt.Println(Version)
 			os.Exit(0)
 			return nil
 		}})
@@ -553,10 +570,9 @@ func makeManpage() {
 	fmt.Printf(".TH \"%s\" 1 \"%s\" \"%s\" \"%s\"\n", progname,
 		time.Now().Format("January 2, 2006"), version, Suite)
 	fmt.Println(".SH NAME")
+	fmt.Println(progname)
 	if Summary != "" {
-		fmt.Println(progname, "\\-", Summary)
-	} else {
-		fmt.Println(progname)
+		fmt.Println("\\-", Summary)
 	}
 	fmt.Println(".SH SYNOPSIS")
 	fmt.Println(progname, Synopsis())
@@ -595,6 +611,9 @@ func makeManpage() {
 			}
 		}
 		fmt.Printf("\n%s\n", Expand(o.help))
+	}
+	if ExtraUsage != "" {
+		fmt.Println("\\-", ExtraUsage)
 	}
 	if Author != "" {
 		fmt.Printf(".SH AUTHOR\n%s\n", Author)

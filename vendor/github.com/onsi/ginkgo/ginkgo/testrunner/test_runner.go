@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"strconv"
 	"strings"
 	"syscall"
@@ -31,6 +30,7 @@ type TestRunner struct {
 	parallelStream bool
 	goOpts         map[string]interface{}
 	additionalArgs []string
+	stderr         *bytes.Buffer
 }
 
 func New(suite testsuite.TestSuite, numCPU int, parallelStream bool, goOpts map[string]interface{}, additionalArgs []string) *TestRunner {
@@ -40,6 +40,7 @@ func New(suite testsuite.TestSuite, numCPU int, parallelStream bool, goOpts map[
 		parallelStream: parallelStream,
 		goOpts:         goOpts,
 		additionalArgs: additionalArgs,
+		stderr:         new(bytes.Buffer),
 	}
 
 	if !suite.Precompiled {
@@ -136,9 +137,8 @@ func (t *TestRunner) CompileTo(path string) error {
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
-		fixedOutput := fixCompilationOutput(string(output), t.Suite.Path)
 		if len(output) > 0 {
-			return fmt.Errorf("Failed to compile %s:\n\n%s", t.Suite.PackageName, fixedOutput)
+			return fmt.Errorf("Failed to compile %s:\n\n%s", t.Suite.PackageName, output)
 		}
 		return fmt.Errorf("Failed to compile %s", t.Suite.PackageName)
 	}
@@ -213,38 +213,6 @@ func copyFile(src, dst string) error {
 	}
 
 	return out.Chmod(mode)
-}
-
-/*
-go test -c -i spits package.test out into the cwd. there's no way to change this.
-
-to make sure it doesn't generate conflicting .test files in the cwd, Compile() must switch the cwd to the test package.
-
-unfortunately, this causes go test's compile output to be expressed *relative to the test package* instead of the cwd.
-
-this makes it hard to reason about what failed, and also prevents iterm's Cmd+click from working.
-
-fixCompilationOutput..... rewrites the output to fix the paths.
-
-yeah......
-*/
-func fixCompilationOutput(output string, relToPath string) string {
-	relToPath = filepath.Join(relToPath)
-	re := regexp.MustCompile(`^(\S.*\.go)\:\d+\:`)
-	lines := strings.Split(output, "\n")
-	for i, line := range lines {
-		indices := re.FindStringSubmatchIndex(line)
-		if len(indices) == 0 {
-			continue
-		}
-
-		path := line[indices[2]:indices[3]]
-		if filepath.Dir(path) != relToPath {
-			path = filepath.Join(relToPath, path)
-			lines[i] = path + line[indices[3]:]
-		}
-	}
-	return strings.Join(lines, "\n")
 }
 
 func (t *TestRunner) Run() RunResult {
@@ -392,7 +360,7 @@ func (t *TestRunner) runParallelGinkgoSuite() RunResult {
 	|                                                                   |
 	 -------------------------------------------------------------------
 `)
-
+		fmt.Println(t.Suite.PackageName, "timed out. path:", t.Suite.Path)
 		os.Stdout.Sync()
 
 		for _, writer := range writers {
@@ -434,7 +402,7 @@ func (t *TestRunner) cmd(ginkgoArgs []string, stream io.Writer, node int) *exec.
 	cmd := exec.Command(path, args...)
 
 	cmd.Dir = t.Suite.Path
-	cmd.Stderr = stream
+	cmd.Stderr = io.MultiWriter(stream, t.stderr)
 	cmd.Stdout = stream
 
 	return cmd
@@ -456,9 +424,14 @@ func (t *TestRunner) run(cmd *exec.Cmd, completions chan RunResult) RunResult {
 	}
 
 	cmd.Wait()
+
 	exitStatus := cmd.ProcessState.Sys().(syscall.WaitStatus).ExitStatus()
 	res.Passed = (exitStatus == 0) || (exitStatus == types.GINKGO_FOCUS_EXIT_CODE)
 	res.HasProgrammaticFocus = (exitStatus == types.GINKGO_FOCUS_EXIT_CODE)
+
+	if strings.Contains(t.stderr.String(), "warning: no tests to run") {
+		fmt.Fprintf(os.Stderr, `Found no test suites, did you forget to run "ginkgo bootstrap"?`)
+	}
 
 	return res
 }

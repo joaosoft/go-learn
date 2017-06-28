@@ -11,12 +11,12 @@ import (
 
 func TestKeyAuth(t *testing.T) {
 	e := echo.New()
-	req, _ := http.NewRequest(echo.GET, "/", nil)
+	req := httptest.NewRequest(echo.GET, "/", nil)
 	res := httptest.NewRecorder()
 	c := e.NewContext(req, res)
 	config := KeyAuthConfig{
-		Validator: func(key string, c echo.Context) bool {
-			return key == "valid-key"
+		Validator: func(key string, c echo.Context) (bool, error) {
+			return key == "valid-key", nil
 		},
 	}
 	h := KeyAuthWithConfig(config)(func(c echo.Context) error {
