@@ -1,5 +1,5 @@
-hash: d2cae31978106e16f2d002f90a5a80899eeee6115399e11a83cf1260a270893d
-updated: 2017-06-28T17:01:01.149153688+01:00
+hash: 98a77e1ac95aaf7cdfe62660d5cdfc08fbf8a403eb20065d263671e9483f5080
+updated: 2017-07-03T13:35:20.093424097+01:00
 imports:
 - name: github.com/bradfitz/gomemcache
   version: 1952afaa557dc08e8e0d89eafab110fb501c1a2b
@@ -10,7 +10,7 @@ imports:
   subpackages:
   - spew
 - name: github.com/droundy/goopt
-  version: 0b8effe182da161d81b011aba271507324ecb7ab
+  version: 17f16b1df30b00550475f4bf7da2d83f9a09223f
 - name: github.com/fsnotify/fsnotify
   version: 4da3e2cfbabc9f751898f250b49f2439785783a1
 - name: github.com/gin-gonic/gin
@@ -19,12 +19,20 @@ imports:
   - binding
   - binding/example
   - render
+- name: github.com/gocql/gocql
+  version: c9b77994a03e50771f1c56f7a2ed6381cb9be797
+  subpackages:
+  - internal/lru
+  - internal/murmur
+  - internal/streams
 - name: github.com/golang/protobuf
   version: 2402d76f3d41f928c7902a765dfc872356dd3aad
   subpackages:
   - proto
 - name: github.com/golang/snappy
   version: 553a641470496b2327abcac10b36396bd98e45c9
+- name: github.com/hailocab/go-hostpool
+  version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/hashicorp/hcl
   version: 392dba7d905ed5d04a5794ba89f558b27e2ba1ca
   subpackages:
@@ -39,7 +47,7 @@ imports:
 - name: github.com/joho/godotenv
   version: a01a834e1654b4c9ca5b3ad05159445cc9c7ad08
 - name: github.com/labstack/echo
-  version: 83eadbad188df0d05305fce89bfb855a19ef5f21
+  version: 1302a0800954bf3bfb1bf905711d1803f289a6f9
 - name: github.com/labstack/gommon
   version: 1121fd3e243c202482226a7afe4dcd07ffc4139a
   subpackages:
@@ -50,17 +58,19 @@ imports:
 - name: github.com/manucorporat/sse
   version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
 - name: github.com/mattn/go-colorable
-  version: 941b50ebc6efddf4c41c8e4537a5f68a4e686b24
+  version: ded68f7a9561c023e790de24279db7ebf473ea80
 - name: github.com/mattn/go-isatty
   version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
 - name: github.com/mitchellh/mapstructure
-  version: d0303fe809921458f417bcf828397a65db30a7e4
+  version: cc8532a8e9a55ea36402aa21efdf403a60d34096
 - name: github.com/mreiferson/go-snappystream
   version: 028eae7ab5c4c9e2d1cb4c4ca1e53259bbe7e504
 - name: github.com/nsqio/go-nsq
-  version: 973bf9a2952ff7e38071ae8392b73e4418503059
+  version: b2d0b4429f2082bc44babe089418d8da16d71e8a
+- name: github.com/pelletier/go-buffruneio
+  version: c37440a7cf42ac63b919c752ca73a85067e05992
 - name: github.com/pelletier/go-toml
-  version: 69d355db5304c0f7f809a2edc054553e7142f016
+  version: 685a1f1cb7a66b9cadbe8f1ac49d9f8f567d6a9d
 - name: github.com/pkg/errors
   version: c605e284fe17294bda444b34710735b29d1a9d90
 - name: github.com/pmezard/go-difflib
@@ -72,7 +82,7 @@ imports:
   subpackages:
   - assert
 - name: github.com/shopspring/decimal
-  version: 16a941821474ee3986fdbeab535a68a8aa5a85d2
+  version: 3868940cdd7294e8db0acf28108a9ace9ff7a36d
 - name: github.com/spf13/afero
   version: 9be650865eab0c12963d8753212f4f9c66cdcf12
   subpackages:
@@ -80,15 +90,15 @@ imports:
 - name: github.com/spf13/cast
   version: acbeb36b902d72a7a4c18e8f3241075e7ab763e4
 - name: github.com/spf13/jwalterweatherman
-  version: 0efa5202c04663c757d84f90f5219c1250baf94f
+  version: 8f07c835e5cc1450c082fe3a439cf87b0cbb2d99
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/spf13/viper
-  version: c1de95864d73a5465492829d7cb2dd422b19ac96
+  version: 0967fc9aceab2ce9da34061253ac10fb99bba5b2
 - name: github.com/stretchr/objx
   version: cbeaeb16a013161a98496fad62933b1d21786672
 - name: github.com/stretchr/testify
-  version: f6abca593680b2315d2075e0f5e2a9751e3f431a
+  version: 4d4bfba8f1d1027c4fdbe371823030df51419987
   subpackages:
   - assert
   - mock
@@ -97,7 +107,7 @@ imports:
 - name: github.com/valyala/fasttemplate
   version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
 - name: golang.org/x/crypto
-  version: 84f24dfdf3c414ed893ca1b318d0045ef5a1f607
+  version: 122d919ec1efcfb58483215da23f815853e24b81
   subpackages:
   - acme
   - acme/autocert
@@ -109,11 +119,11 @@ imports:
   - html/atom
   - html/charset
 - name: golang.org/x/sys
-  version: 90796e5a05ce440b41c768bd9af257005e470461
+  version: 9ccfe848b9db8435a24c424abbc07a921adf1df5
   subpackages:
   - unix
 - name: golang.org/x/text
-  version: 6353ef0f924300eea566d3438817aa4d3374817e
+  version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
   subpackages:
   - encoding
   - encoding/charmap
@@ -133,6 +143,8 @@ imports:
   - unicode/norm
 - name: gopkg.in/go-playground/validator.v8
   version: c193cecd124b5cc722d7ee5538e945bdb3348435
+- name: gopkg.in/inf.v0
+  version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/olivere/elastic.v5
   version: 3113f9b9ad37509fe5f8a0e5e91c96fdc4435e26
   subpackages:
@@ -141,7 +153,7 @@ imports:
   version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
 testImports:
 - name: github.com/onsi/ginkgo
-  version: 15a58d2da01c2d8831ad6e83d307acb02066b0f7
+  version: 83438ca4278f2f56757b9ab2cb15dd4f596d84e8
   subpackages:
   - config
   - internal/codelocation
@@ -161,7 +173,7 @@ testImports:
   - reporters/stenographer/support/go-isatty
   - types
 - name: github.com/onsi/gomega
-  version: f9b2e15b86f3d6dd556700ffbaa4feee86745028
+  version: 00acfa9d92a386415bd235ab069c52063f925998
   subpackages:
   - format
   - internal/assertion

@@ -71,6 +71,36 @@ services:
     depends_on:
       - elasticsearch
 
+  cassandra-1:
+    hostname: cassandra-1
+    image: cassandra:latest
+    command: /bin/bash -c "sleep 1 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
+    expose:
+      - 7000
+      - 7001
+      - 7199
+      - 9042
+      - 9160
+    # volumes: # uncomment if you desire mounts, also uncomment cluster.sh
+    #   - ./data/cassandra-1:/var/lib/cassandra:rw
+
+  cassandra-2:
+    hostname: cassandra-2
+    image: cassandra:latest
+    command: /bin/bash -c "sleep 30 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
+    environment:
+      - CASSANDRA_SEEDS=cassandra-1
+    links:
+      - cassandra-1
+    expose:
+      - 7000
+      - 7001
+      - 7199
+      - 9042
+      - 9160
+    # volumes: # uncomment if you desire mounts, also uncomment cluster.sh
+    #   - ./data/cassandra-2:/var/lib/cassandra:rw
+
 volumes:
   esdata1:
     driver: local

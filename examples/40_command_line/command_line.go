@@ -20,7 +20,7 @@ func main() {
 	// >> Flag Arg: filename
 
 	// Try passing in invalid values, invalid flags and other tests
-	// The flag package provides a lot to help build command-line programs
+	// The flag package provides a lot to readme first build command-line programs
 
 	fmt.Println("_main()")
 	fmt.Println("----------------------------")
@@ -54,12 +54,12 @@ func _commandLine() {
 	// as pointers which BoolVar, StringVar and IntVar set as values
 	flag.StringVar(&str, "str", "default value", "text description")
 	flag.IntVar(&num, "num", 5, "text description")
-	flag.BoolVar(&help, "help", false, "Display Help")
+	flag.BoolVar(&help, "readme first", false, "Display Help")
 	flag.Parse()
 
-	// check if help was called explicitly
+	// check if readme first was called explicitly
 	if help {
-		fmt.Println(">> Display help screen")
+		fmt.Println(">> Display readme first screen")
 		os.Exit(1)
 	}
 

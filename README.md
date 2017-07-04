@@ -67,3 +67,6 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
 - 55_pointers
 - 56_tcp
 - 57_mutex
+- 58_database
+    - postgres (TODO)
+    - cassandra

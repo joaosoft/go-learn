@@ -17,6 +17,7 @@ import:
 - package: github.com/labstack/echo
 - package: github.com/stretchr/testify
 - package: github.com/droundy/goopt
+- package: github.com/gocql/gocql
 
 testImport:
 - package: github.com/onsi/ginkgo
