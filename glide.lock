@@ -1,5 +1,5 @@
-hash: 98a77e1ac95aaf7cdfe62660d5cdfc08fbf8a403eb20065d263671e9483f5080
-updated: 2017-07-03T13:35:20.093424097+01:00
+hash: 5cb5b1ad10d6f759f89b97a0eda87f5c41958f223d5f4338667395b1296c5bc5
+updated: 2017-07-06T11:31:17.034730115+01:00
 imports:
 - name: github.com/bradfitz/gomemcache
   version: 1952afaa557dc08e8e0d89eafab110fb501c1a2b
@@ -143,6 +143,8 @@ imports:
   - unicode/norm
 - name: gopkg.in/go-playground/validator.v8
   version: c193cecd124b5cc722d7ee5538e945bdb3348435
+- name: gopkg.in/guregu/null.v3
+  version: 41961cea0328defc5f95c1c473f89ebf0d1813f6
 - name: gopkg.in/inf.v0
   version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/olivere/elastic.v5

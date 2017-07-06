@@ -18,6 +18,7 @@ import:
 - package: github.com/stretchr/testify
 - package: github.com/droundy/goopt
 - package: github.com/gocql/gocql
+- package: gopkg.in/guregu/null.v3
 
 testImport:
 - package: github.com/onsi/ginkgo
