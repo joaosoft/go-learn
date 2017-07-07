@@ -53,6 +53,15 @@ func _variables() {
 		fmt.Println("a != b")
 	}
 
+	// decimal value 0
 	regular_price, _ := decimal.NewFromString("")
 	fmt.Println("PRECO: ", regular_price)
+
+	// zero value 0
+	zero, _ := decimal.NewFromString("0")
+	fmt.Println("ZERO: ", zero)
+
+	// -4 less then 0
+	price, _ := decimal.NewFromString("-4")
+	fmt.Println("??", price.Cmp(zero) == -1)
 }
