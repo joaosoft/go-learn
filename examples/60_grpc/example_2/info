@@ -4,3 +4,12 @@ INSTALL
 
 HOW TO GENERATE helloworld.pb.go FILE
 -> $ protoc -I ./ ./helloworld.proto --go_out=plugins=grpc:.
+
+PROTOBUF
+-> https://github.com/golang/protobuf/
+
+GRPC-GO
+-> https://github.com/grpc/grpc-go/
+
+EXAMPLES
+-> https://github.com/grpc/grpc-go/tree/master/examples
