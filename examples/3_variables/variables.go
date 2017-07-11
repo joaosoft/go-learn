@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/shopspring/decimal"
 
+	"strconv"
 )
 
 func main() {
@@ -64,4 +65,13 @@ func _variables() {
 	// -4 less then 0
 	price, _ := decimal.NewFromString("-4")
 	fmt.Println("??", price.Cmp(zero) == -1)
+
+	fmt.Println(fmt.Sprintf("-----> %.2d", 1))
+	fmt.Println(fmt.Sprintf("-----> %.2d", 10))
+	fmt.Println(fmt.Sprintf("-----> %.2d", 100))
+
+	val, _ := strconv.Atoi("01")
+	fmt.Println(fmt.Sprintf("-----> %.5d.%.2d.%.2d", val, 2, 3))
+
+	fmt.Println(fmt.Sprintf("-----> %5s.%2s.%2s", "1", "2", "3"))
 }
