@@ -4,15 +4,15 @@ import (
     "log"
 
     "github.com/golang/protobuf/proto"
-    "github.com/gin-gonic/gin/binding/example"
+    grpc "golang-learn/examples/60_grpc/example_1/proto"
 )
 
 func main() {
-    test := &example.Test {
+    test := &grpc.Test {
         Label: proto.String("hello"),
         Type:  proto.Int32(17),
         Reps:  []int64{1, 2, 3},
-        Optionalgroup: &example.Test_OptionalGroup {
+        Optionalgroup: &grpc.Test_OptionalGroup {
             RequiredField: proto.String("good bye"),
         },
     }
@@ -20,7 +20,7 @@ func main() {
     if err != nil {
         log.Fatal("marshaling error: ", err)
     }
-    newTest := &example.Test{}
+    newTest := &grpc.Test{}
     err = proto.Unmarshal(data, newTest)
     if err != nil {
         log.Fatal("unmarshaling error: ", err)

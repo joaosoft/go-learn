@@ -1,4 +1,4 @@
-package example;
+package main;
 
 enum FOO { X = 17; };
 
