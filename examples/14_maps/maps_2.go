@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"regexp/syntax"
 )
 
 func main() {
@@ -41,4 +40,9 @@ func _maps_2() {
 	// You can also declare and initialize a new map in the same line with this syntax.
 	n := map[string]int{"foo": 1, "bar": 2}
 	fmt.Println("map:", n)
+
+
+	for key, value := range m {
+		fmt.Println("Key:", key, "Value:", value)
+	}
 }
