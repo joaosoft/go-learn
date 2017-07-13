@@ -6,7 +6,7 @@ import (
 	"html/template"
 )
 
-type Query struct {
+type Query1 struct {
 	Match string
 	Name string
 	Value string
@@ -28,14 +28,14 @@ func main() {
 }
 `
 
-	type Queries []Query
+	type Queries []Query1
 	var queries Queries = Queries{
-		Query {
+		Query1 {
 			Match: "match",
 			Name: "nome",
 			Value: "valor",
 		},
-		Query {
+		Query1 {
 			Match: "match_all",
 			Name: "nome_1",
 			Value: "valor_1",
