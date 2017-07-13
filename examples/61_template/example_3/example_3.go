@@ -1,4 +1,4 @@
-package main
+package example_3
 
 import (
 	"text/template"

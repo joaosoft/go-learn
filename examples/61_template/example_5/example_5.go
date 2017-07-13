@@ -1,4 +1,4 @@
-package main
+package example_5
 
 import (
 	"os"

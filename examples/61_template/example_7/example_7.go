@@ -1,4 +1,4 @@
-package main
+package example_7
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"html/template"
 )
 
-type Query1 struct {
+type Query struct {
 	Match string
 	Name string
 	Value string
@@ -28,14 +28,14 @@ func main() {
 }
 `
 
-	type Queries []Query1
+	type Queries []Query
 	var queries Queries = Queries{
-		Query1 {
+		Query {
 			Match: "match",
 			Name: "nome",
 			Value: "valor",
 		},
-		Query1 {
+		Query {
 			Match: "match_all",
 			Name: "nome_1",
 			Value: "valor_1",
