@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "aggregate_type": "productmap",
+    "aggregate_id": "{{.AggregateID}}",
+    "aggregate_version": {{.AggregateVersion}},
+    "event_type": "ProductOfferAdded",
+    "event_id": "{{.EventID}}"
+  },
+  "payload": {
+    "state": "{{.State}}",
+    "offer_id": "{{.OfferID}}",
+    "seller_id": "{{.SellerID}}",
+    "source_id": "{{.SourceID}}",
+    "source_offer_code": {{.SourceOfferCode}},
+    "source_product_code": "{{.SourceProductCode}}"
+  }
+}
