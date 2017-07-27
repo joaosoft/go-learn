@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/shopspring/decimal"
 
+	"encoding/json"
 	"strconv"
 )
 
@@ -74,4 +75,17 @@ func _variables() {
 	fmt.Println(fmt.Sprintf("-----> %.5d.%.2d.%.2d", val, 2, 3))
 
 	fmt.Println(fmt.Sprintf("-----> %5s.%2s.%2s", "1", "2", "3"))
+
+	// NULL DECIMAL
+	type c struct {
+		price decimal.Decimal
+	}
+	p := &c{}
+	pp, _ := json.Marshal(p)
+	fmt.Println(string(pp))
+
+	// PRINT DECIMAL
+	newPrice, _ := decimal.NewFromString("11.22")
+	fmt.Println(fmt.Sprintf("price %s", newPrice))
+
 }

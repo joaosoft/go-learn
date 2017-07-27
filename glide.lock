@@ -1,5 +1,5 @@
-hash: 334bc6970c138b81f16a74dece4ef0750590a8f0eab89a21ea239be21f60092f
-updated: 2017-07-20T11:13:14.551466554+01:00
+hash: ca11ddd5ae85f187d10fb05411fbcf784b4c8bb15e69ffdf1e765bc03a9cbba9
+updated: 2017-07-27T12:04:52.92931819+01:00
 imports:
 - name: github.com/bradfitz/gomemcache
   version: 1952afaa557dc08e8e0d89eafab110fb501c1a2b
@@ -59,6 +59,8 @@ imports:
   - json/parser
   - json/scanner
   - json/token
+- name: github.com/keltia/leftpad
+  version: 3afdd9c8014416737e07d803ff239c80d90a97d0
 - name: github.com/labstack/echo
   version: 935a60782cbbc55110e7bd4b33120e4567cbee43
   subpackages:

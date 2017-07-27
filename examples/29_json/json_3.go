@@ -3,96 +3,79 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"os"
+	"github.com/satori/go.uuid"
+	"strconv"
+	"time"
 )
 
-// Create a struct to match the format of JSON
-type Person struct {
-	Name string `json:"Name"`
-	City string `json:"City"`
+// Teste ...
+type Teste struct {
+	A uuid.UUID `json:"a"`
+	B uuid.UUID `json:"b"`
+	C int64     `json:"c"`
+	D uuid.UUID `json:"d"`
+	E string    `json:"e"`
+	F string    `json:"f"`
+	G uuid.UUID `json:"g"`
+	H string    `json:"h"`
+	I time.Time `json:"i"`
 }
-
-// create a single instance of Person
-var person Person
-
-// create an array of Person types
-var people []Person
 
 func main() {
-	load1()
-	load2()
-	load3()
-}
 
-func load1() {
-	fmt.Println(":::::::::::::::: LOAD 1")
+	// TESTE 1
+	a, _ := uuid.FromString("00000000-0000-0000-0000-000000000001")
+	b, _ := uuid.FromString("00000000-0000-0000-0000-000000000002")
+	c := int64(1)
+	d, _ := uuid.FromString("00000000-0000-0000-0000-000000000003")
+	e := "1000"
+	f := "2000"
+	g, _ := uuid.FromString("00000000-0000-0000-0000-000000000004")
+	h := "disabled"
+	var bytes []byte
+	var err error
 
-	// JSON string to parse, see below for example read in from file
-	json_str := "{ \"Name\": \"Marcus\", \"City\": \"San Jose\"}"
+	bytes = []byte(`{
+				"A": "` + a.String() + `",
+                "b": "` + b.String() + `",
+				"C": ` + strconv.Itoa(int(c)) + `,
+				"D": "` + d.String() + `",
+				"E": "` + e + `",
+				"F": "` + f + `",
+                "G": "` + g.String() + `",
+                "H": "` + h + `"
+            }`)
+	fmt.Println("MY:", string(bytes))
 
-	// JSON Unmarshal command takes []byte, so string needs to be cast
-	// The second parameter is a pointer to the struct that matches format
-	if err := json.Unmarshal([]byte(json_str), &person); err != nil {
-		fmt.Println("Error parsing JSON: ", err)
+	var teste = &Teste{
+		A: a,
+		B: b,
+	}
+	if err = json.Unmarshal(bytes, teste); err != nil {
+		fmt.Println("ERROR:", err)
 	}
 
-	// output result
-	fmt.Printf("Name: %v, City: %v\n", person.Name, person.City)
-}
-
-func load2() {
-	fmt.Println(":::::::::::::::: LOAD 2")
-
-	// read json in from a file
-	dir, err := os.Getwd()
-	fmt.Println("PATH:",dir,"/examples/29_json/people.json")
-
-	file, err := ioutil.ReadFile("./examples/29_json/people.json")
-	if err != nil {
-		fmt.Println("Error reading file")
+	// TESTE 2
+	var teste2 = &Teste{
+		A: a,
+		B: b,
+		C: int64(c),
+		D: d,
+		E: e,
+		F: f,
+		G: g,
+		H: h,
 	}
-
-	// the names.json file has an array of person objects, so read into people
-	if err := json.Unmarshal(file, &people); err != nil {
-		fmt.Println("Error parsing JSON", err)
+	if bytes, err = json.Marshal(teste2); err != nil {
+		fmt.Println("ERROR:", err)
+	} else {
+		fmt.Println("SUCCESS")
 	}
-
-	// output result
-	fmt.Println(people)
-
-	// encoding a Go object into JSON is simply using the Marshal command
-	json, err := json.Marshal(people)
-	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
+	fmt.Println("STRUCTURE:", string(bytes))
+	var teste3 = &Teste{}
+	if err = json.Unmarshal(bytes, teste3); err != nil {
+		fmt.Println("ERROR:", err)
+	} else {
+		fmt.Println("SUCCESS")
 	}
-	fmt.Println(string(json))
-}
-
-func load3() {
-	fmt.Println(":::::::::::::::: LOAD 3")
-
-	// read json in from a file
-	dir, err := os.Getwd()
-	fmt.Println("PATH:",dir,"/examples/29_json/person.json")
-
-		file, err := ioutil.ReadFile("./examples/29_json/person.json")
-	if err != nil {
-		fmt.Println("Error reading file")
-	}
-
-	// the names.json file has an array of person objects, so read into people
-	if err := json.Unmarshal(file, &person); err != nil {
-		fmt.Println("Error parsing JSON", err)
-	}
-
-	// output result
-	fmt.Println(person)
-
-	// encoding a Go object into JSON is simply using the Marshal command
-	json, err := json.Marshal(person)
-	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
-	}
-	fmt.Println(string(json))
 }
