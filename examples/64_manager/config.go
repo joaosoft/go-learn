@@ -2,42 +2,32 @@ package pm
 
 // Config ... config interface
 type IConfig interface {
-	GetConfig(key string) (interface{}, error)
-	AddConfig(key string, config interface{}) (interface{}, error)
-	RemConfig(key string) (interface{}, error)
+	Get(key string) interface{}
 }
 
-// Config ... config structure
-type Config struct {
-	configs map[string]IConfig
+// configController ... config structure
+type configController struct {
+	path   string
+	config IConfig
+	obj    interface{}
 }
 
-// NewConfig ... create a new config
-func NewConfig() *Config {
-	return &Config{
-		configs: make(map[string]IConfig),
+// NewConfig ... create a new configController
+func NewConfig(path string, config IConfig, obj interface{}) IConfig {
+
+	return &configController{
+		path:   path,
+		config: config,
+		obj:    obj,
 	}
 }
 
-// GetConfig ... get a config with key
-func (instance *Config) GetConfig(key string) (IConfig, error) {
-	return instance.configs[key], nil
+// Get ... get a configuration by key
+func (instance *configController) Get(key string) interface{} {
+	return instance.config.Get(key)
 }
 
-// AddConfig ... add a config with key
-func (instance *Config) AddConfig(key string, config IConfig) error {
-	instance.configs[key] = config
-
+// Reload ... reload the configuration file
+func (instance *configController) Reload(key string) error {
 	return nil
-}
-
-// RemConfig ... remove the config by bey
-func (instance *Config) RemConfig(key string) (IConfig, error) {
-	// get config
-	config := instance.configs[key]
-
-	// delete config
-	delete(instance.configs, key)
-
-	return config, nil
 }

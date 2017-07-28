@@ -11,67 +11,39 @@ import (
 
 // IManager ... manager interface
 type IManager interface {
-	GetProcess(key string) (IProcess, error)
+	GetProcess(key string) IProcess
 	AddProcess(key string, process IProcess) error
 	RemProcess(key string) (IProcess, error)
-	Start() error
-	Stop() error
+
+	GetConfig(key string) IConfig
+	AddConfig(key string, config IConfig) error
+	RemConfig(key string) (IConfig, error)
+
 	NewNSQConsumer(config *nsq.Config, handler nsq.IHandler) (nsq.IConsumer, error)
 	NewNSQProducer(config *nsq.Config) (nsq.IProducer, error)
+
+	NewSimpleConfig(path string, file string, extension string) (IConfig, error)
+
+	Start() error
+	Stop() error
 }
 
 // manager ... manager structure
 type manager struct {
-	processProcessController map[string]ProcessController
-	control                  chan int
-	started                  bool
+	processController map[string]*processController
+	configController  map[string]*configController
+
+	control chan int
+	started bool
 }
 
 // NewManager ... create a new manager
 func NewManager() IManager {
 	return &manager{
-		processProcessController: make(map[string]ProcessController),
-		control:                  make(chan int),
+		processController: make(map[string]*processController),
+		configController:  make(map[string]*configController),
+		control:           make(chan int),
 	}
-}
-
-// ProcessController ... controller structure
-type ProcessController struct {
-	process IProcess
-	control chan int
-	started bool
-}
-
-// GetProcess ... get a process with key
-func (instance *manager) GetProcess(key string) (IProcess, error) {
-	return instance.processProcessController[key].process, nil
-}
-
-// AddProcess ... add a process with key
-func (instance *manager) AddProcess(key string, process IProcess) error {
-	if instance.started {
-		panic("manager, can not add processes after start")
-	}
-
-	instance.processProcessController[key] = ProcessController{
-		process: process,
-		control: make(chan int),
-	}
-	log.Debug(fmt.Sprintf("manager, process '%s' added", key))
-
-	return nil
-}
-
-// RemProcess ... remove the process by bey
-func (instance *manager) RemProcess(key string) (IProcess, error) {
-	// get process
-	controller := instance.processProcessController[key]
-
-	// delete process
-	delete(instance.processProcessController, key)
-	log.Debug(fmt.Sprintf("manager, process '%s' removed", key))
-
-	return controller.process, nil
 }
 
 // Start ... starts and blocks until it receives a signal in its control channel or a SIGTERM,
@@ -84,7 +56,7 @@ func (instance *manager) Start() error {
 	signal.Notify(termChan, syscall.SIGINT, syscall.SIGTERM, syscall.SIGUSR1)
 
 	// launch every process in a separeted process
-	for name, process := range instance.processProcessController {
+	for name, process := range instance.processController {
 		log.Infof("manager, starting process [process:%s]", name)
 
 		go instance.launch(name, process)
@@ -109,7 +81,7 @@ func (instance *manager) Stop() error {
 	if instance.started {
 		log.Debugf("manager, stopping")
 
-		for key, controller := range instance.processProcessController {
+		for key, controller := range instance.processController {
 			log.Infof("manager, stopping process [process:%s]", key)
 			if err := controller.process.Stop(); err != nil {
 				log.Error(err, fmt.Sprintf("error stopping process [process:%s]", key))
@@ -117,37 +89,12 @@ func (instance *manager) Stop() error {
 			log.Infof("manager, waiting for process to terminate [process:%s]", key)
 			<-controller.control
 			close(controller.control)
-			delete(instance.processProcessController, key)
+			delete(instance.processController, key)
 			log.Infof("manager, stopped process [process:%s]", key)
 		}
 
 		instance.started = false
 		log.Infof("manager, stopped")
-	}
-
-	return nil
-}
-
-// NewNSQConsumer ... creates a new nsq consumer
-func (instance *manager) NewNSQConsumer(config *nsq.Config, handler nsq.IHandler) (nsq.IConsumer, error) {
-	return nsq.NewConsumer(config, handler)
-}
-
-// NewNSQConsumer ... creates a new nsq producer
-func (instance *manager) NewNSQProducer(config *nsq.Config) (nsq.IProducer, error) {
-	return nsq.NewProducer(config)
-}
-
-// launch ... starts a process
-func (instance *manager) launch(name string, controller ProcessController) error {
-	if err := controller.process.Start(); err != nil {
-		log.Error(err, fmt.Sprintf("manager, error launching process [process:%s]", name))
-		instance.Stop()
-		controller.control <- 0
-	} else {
-		log.Info(fmt.Sprintf("manager, launched process [process:%s]", name))
-		controller.started = true
-		controller.control <- 0
 	}
 
 	return nil
