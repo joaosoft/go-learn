@@ -1,0 +1,23 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "basePath": "{{.}}",
+    "apis": [
+        {
+            "path": "/usersA",
+            "description": "Create user"
+        },
+        {
+            "path": "/usersB",
+            "description": "Get user"
+        }
+    ],
+    "info": {
+        "title": "Test service",
+        "description": "Test service",
+        "contact": "none",
+        "termsOfServiceUrl": "test",
+        "license": "BSD",
+        "licenseUrl": "http://opensource.org/licenses/BSD-2-Clause"
+    }
+}

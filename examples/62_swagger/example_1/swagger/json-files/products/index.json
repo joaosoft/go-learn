@@ -1,0 +1,197 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "basePath": "{{.}}",
+    "resourcePath": "/products",
+    "produces": [
+        "application/json"
+    ],
+    "apis": [
+        {
+            "path": "api/products",
+            "description": "Get all product in query",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "nickname": "Get Products",
+                    "type": "search-and-navigation.services.search.domain.ProductOfferCollection",
+                    "items": {},
+                    "summary": "Get all product in query",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "q",
+                            "description": "Query",
+                            "dataType": "string",
+                            "type": "string",
+                            "format": "",
+                            "allowMultiple": false,
+                            "required": true,
+                            "minimum": 0,
+                            "maximum": 0
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "Success",
+                            "responseType": "object",
+                            "responseModel": "search-and-navigation.services.search.domain.ProductOfferCollection"
+                        },
+                        {
+                            "code": 500,
+                            "message": "Unexpected error searching products",
+                            "responseType": "object",
+                            "responseModel": "search-and-navigation.services.search.vo.ApiError"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "github.com.satori.go.uuid.UUID": {
+            "id": "github.com.satori.go.uuid.UUID",
+            "properties": null
+        },
+        "search-and-navigation.common.api.ResponseCollectionPagination": {
+            "id": "search-and-navigation.common.api.ResponseCollectionPagination",
+            "properties": {
+                "page": {
+                    "type": "int",
+                    "description": "Current page",
+                    "items": {},
+                    "format": ""
+                },
+                "per_page": {
+                    "type": "int",
+                    "description": "Number of items per page",
+                    "items": {},
+                    "format": ""
+                },
+                "total_items": {
+                    "type": "int",
+                    "description": "Total items",
+                    "items": {},
+                    "format": ""
+                },
+                "total_pages": {
+                    "type": "int",
+                    "description": "Number of pages",
+                    "items": {},
+                    "format": ""
+                }
+            }
+        },
+        "search-and-navigation.services.search.domain.ProductOffer": {
+            "id": "search-and-navigation.services.search.domain.ProductOffer",
+            "properties": {
+                "final_price": {
+                    "type": "float32",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "is_in_stock": {
+                    "type": "bool",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "offer_id": {
+                    "type": "github.com.satori.go.uuid.UUID",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "price": {
+                    "type": "float32",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "product_id": {
+                    "type": "github.com.satori.go.uuid.UUID",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "seller_id": {
+                    "type": "github.com.satori.go.uuid.UUID",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "source_id": {
+                    "type": "github.com.satori.go.uuid.UUID",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "source_offer_code": {
+                    "type": "string",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "source_product_code": {
+                    "type": "string",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "state": {
+                    "type": "string",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "updated_at": {
+                    "type": "Time",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                }
+            }
+        },
+        "search-and-navigation.services.search.domain.ProductOfferCollection": {
+            "id": "search-and-navigation.services.search.domain.ProductOfferCollection",
+            "properties": {
+                "offers": {
+                    "type": "array",
+                    "description": "Offers",
+                    "items": {
+                        "$ref": "search-and-navigation.services.search.domain.ProductOffer"
+                    },
+                    "format": ""
+                },
+                "pagination": {
+                    "type": "search-and-navigation.common.api.ResponseCollectionPagination",
+                    "description": "Pagination",
+                    "items": {},
+                    "format": ""
+                }
+            }
+        },
+        "search-and-navigation.services.search.vo.ApiError": {
+            "id": "search-and-navigation.services.search.vo.ApiError",
+            "properties": {
+                "code": {
+                    "type": "int64",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                },
+                "message": {
+                    "type": "string",
+                    "description": "",
+                    "items": {},
+                    "format": ""
+                }
+            }
+        }
+    }
+}
