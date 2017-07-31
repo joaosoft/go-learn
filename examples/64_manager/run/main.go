@@ -5,9 +5,11 @@ import (
 	"github.com/labstack/echo"
 	nsqlib "github.com/nsqio/go-nsq"
 	"golang-learn/examples/64_manager"
+	"golang-learn/examples/64_manager/gateway"
 	"golang-learn/examples/64_manager/nsq"
 	"golang-learn/examples/64_manager/sqlcon"
 	"golang-learn/examples/64_manager/web"
+	"io"
 	"net/http"
 )
 
@@ -77,6 +79,18 @@ func main() {
 	manager.AddWebServer("web_server_1", webServer)
 	manager.AddWebServerRoute("web_server_1", http.MethodGet, "/example", exampleWebServerHandler)
 	manager.StartWebServer("web_server_1")
+
+	//
+	// GATEWAY
+	//
+	var headers map[string]string
+	var body io.Reader
+	configGateway := gateway.NewConfig("http://localhost:8080/")
+	gateway, _ := manager.NewGateway(configGateway)
+	manager.AddGateway("gateway_1", gateway)
+	manager.GetGateway("gateway_1")
+	status, bytes, err := manager.RequestGateway("gateway_1", http.MethodGet, "/products", headers, body)
+	fmt.Println("STATUS:", status, "RESPONSE:", string(bytes), "err:", err)
 
 	//
 	// ELASTIC SEARCH CLIENT

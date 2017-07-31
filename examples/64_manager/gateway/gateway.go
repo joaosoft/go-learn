@@ -5,21 +5,19 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-
-	"gitlab.com/mandalore/go-app/app"
 )
 
 // Gateway ...
 type Gateway struct {
-	host           string
+	config         *Config
 	client         *http.Client
 	defaultHeaders map[string]string
 }
 
 // NewGateway ...
-func NewGateway(host string) *Gateway {
+func NewGateway(config *Config) *Gateway {
 	gateway := &Gateway{
-		host:           host,
+		config:         config,
 		client:         &http.Client{},
 		defaultHeaders: make(map[string]string),
 	}
@@ -34,10 +32,10 @@ func (gateway *Gateway) AddDefaultHeader(key, value string) {
 
 // Request ...
 func (gateway *Gateway) Request(method string, endpoint string, headers map[string]string, body io.Reader) (int, []byte, error) {
-	url := gateway.host + endpoint
+	url := gateway.config.Host + endpoint
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
-		return 0, nil, app.NewApplicationError(app.ErrorUnexpected, fmt.Sprintf("error creating request [url:%s]", err.Error()), err)
+		return 0, nil, fmt.Errorf(fmt.Sprintf("gateway, error creating request [url:%s]", err.Error()), err)
 	}
 
 	for key, value := range gateway.defaultHeaders {
@@ -51,7 +49,7 @@ func (gateway *Gateway) Request(method string, endpoint string, headers map[stri
 
 	response, err := gateway.client.Do(req)
 	if err != nil {
-		return 0, nil, app.NewApplicationError(app.ErrorUnexpected, fmt.Sprintf("error running request [url:%s]", err.Error()), err)
+		return 0, nil, fmt.Errorf(fmt.Sprintf("gateway, error running request [url:%s]", err.Error()), err)
 	}
 	defer response.Body.Close()
 

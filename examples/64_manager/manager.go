@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
+	"golang-learn/examples/64_manager/gateway"
 	"golang-learn/examples/64_manager/nsq"
 	"golang-learn/examples/64_manager/sqlcon"
 	"golang-learn/examples/64_manager/web"
+	"io"
 	"os"
 	"os/signal"
 	"syscall"
@@ -36,12 +38,19 @@ type IManager interface {
 	StartWebServer(key string) error
 	StopWebServer(key string) error
 
+	// Gateways
+	GetGateway(key string) (*gateway.Gateway, error)
+	AddGateway(key string, gateway *gateway.Gateway) error
+	RemGateway(key string) (*gateway.Gateway, error)
+	RequestGateway(key string, method string, endpoint string, headers map[string]string, body io.Reader) (int, []byte, error)
+
 	// NEW Instances
 	NewSQLConnection(config *sqlcon.Config) (*sqlcon.SQLConController, error)
 	NewNSQConsumer(config *nsq.Config, handler nsq.IHandler) (nsq.IConsumer, error)
 	NewNSQProducer(config *nsq.Config) (nsq.IProducer, error)
 	NewWEBServer(config *web.Config) (web.IWebController, error)
 	NewSimpleConfig(path string, file string, extension string) (IConfig, error)
+	NewGateway(config *gateway.Config) (*gateway.Gateway, error)
 
 	// MANAGER
 	Start() error
@@ -54,6 +63,7 @@ type manager struct {
 	configController  map[string]*ConfigController
 	sqlConController  map[string]*sqlcon.SQLConController
 	httpController    map[string]web.IWebController
+	gatewayController map[string]*gateway.Gateway
 
 	control chan int
 	started bool
@@ -67,6 +77,7 @@ func NewManager() (IManager, error) {
 		configController:  make(map[string]*ConfigController),
 		sqlConController:  make(map[string]*sqlcon.SQLConController),
 		httpController:    make(map[string]web.IWebController),
+		gatewayController: make(map[string]*gateway.Gateway),
 
 		control: make(chan int),
 	}, nil
