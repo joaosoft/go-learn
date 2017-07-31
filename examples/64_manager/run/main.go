@@ -11,6 +11,7 @@ import (
 	"golang-learn/examples/64_manager/web"
 	"io"
 	"net/http"
+	"time"
 )
 
 // EXAMPKE NSQ HANDLER
@@ -74,22 +75,23 @@ func main() {
 	//
 	// HTTP SERVER
 	//
-	configWebServer := web.NewConfig("8080")
+	configWebServer := web.NewConfig("localhost:8080")
 	webServer, _ := manager.NewWEBServer(configWebServer)
-	manager.AddWebServer("web_server_1", webServer)
-	manager.AddWebServerRoute("web_server_1", http.MethodGet, "/example", exampleWebServerHandler)
-	manager.StartWebServer("web_server_1")
+	webServer.AddRoute(http.MethodGet, "/example", exampleWebServerHandler)
+	go webServer.Start()
+	manager.AddProcess("web_server_1", webServer)
 
 	//
 	// GATEWAY
 	//
+	time.Sleep(1000)
 	var headers map[string]string
 	var body io.Reader
 	configGateway := gateway.NewConfig("http://localhost:8080/")
 	gateway, _ := manager.NewGateway(configGateway)
 	manager.AddGateway("gateway_1", gateway)
 	manager.GetGateway("gateway_1")
-	status, bytes, err := manager.RequestGateway("gateway_1", http.MethodGet, "/products", headers, body)
+	status, bytes, err := manager.RequestGateway("gateway_1", http.MethodGet, "/example?id=123456789", headers, body)
 	fmt.Println("STATUS:", status, "RESPONSE:", string(bytes), "err:", err)
 
 	//

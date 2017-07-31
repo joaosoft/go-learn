@@ -3,7 +3,6 @@ package pm
 import (
 	"database/sql"
 	"fmt"
-	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
 	"golang-learn/examples/64_manager/gateway"
 	"golang-learn/examples/64_manager/nsq"
@@ -32,12 +31,6 @@ type IManager interface {
 	AddConnection(key string, controller *sqlcon.SQLConController) error
 	RemConnection(key string) (*sql.DB, error)
 
-	// Web Servers
-	AddWebServer(key string, webServer web.IWebController)
-	AddWebServerRoute(key string, method string, route string, handler func(context echo.Context) error)
-	StartWebServer(key string) error
-	StopWebServer(key string) error
-
 	// Gateways
 	GetGateway(key string) (*gateway.Gateway, error)
 	AddGateway(key string, gateway *gateway.Gateway) error
@@ -62,7 +55,6 @@ type manager struct {
 	processController map[string]*ProcessController
 	configController  map[string]*ConfigController
 	sqlConController  map[string]*sqlcon.SQLConController
-	httpController    map[string]web.IWebController
 	gatewayController map[string]*gateway.Gateway
 
 	control chan int
@@ -76,7 +68,6 @@ func NewManager() (IManager, error) {
 		processController: make(map[string]*ProcessController),
 		configController:  make(map[string]*ConfigController),
 		sqlConController:  make(map[string]*sqlcon.SQLConController),
-		httpController:    make(map[string]web.IWebController),
 		gatewayController: make(map[string]*gateway.Gateway),
 
 		control: make(chan int),
