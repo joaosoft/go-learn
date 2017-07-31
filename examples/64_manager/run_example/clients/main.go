@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"golang-learn/examples/64_manager"
+	"golang-learn/examples/64_manager/elastic"
 	"golang-learn/examples/64_manager/gateway"
 	"io"
 	"net/http"
@@ -25,4 +26,13 @@ func main() {
 	manager.GetGateway("gateway_1")
 	status, bytes, err := manager.RequestGateway("gateway_1", http.MethodGet, "/example/123456789", headers, body)
 	fmt.Println("STATUS:", status, "RESPONSE:", string(bytes), "err:", err)
+
+	//
+	// ELASTIC CLIENT
+	//
+	configElasticClient := elastic.NewConfig("http://localhost:9200")
+	elasticClient := manager.NewElasticClient(configElasticClient)
+	manager.AddElasticClient("elastic_1", elasticClient)
+	response, err := elasticClient.Search("index", "type", "body")
+	fmt.Println("RESPONSE:", response, "ERROR:", err)
 }

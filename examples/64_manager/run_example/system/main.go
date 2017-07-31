@@ -79,9 +79,5 @@ func main() {
 	webServer.AddRoute(http.MethodGet, "/example/:id", exampleWebServerHandler)
 	manager.AddProcess("web_server_1", webServer)
 
-	//
-	// ELASTIC SEARCH CLIENT
-	//
-
 	manager.Start()
 }

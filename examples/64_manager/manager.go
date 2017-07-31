@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/labstack/gommon/log"
 	"golang-learn/examples/64_manager/config"
+	"golang-learn/examples/64_manager/elastic"
 	"golang-learn/examples/64_manager/gateway"
 	"golang-learn/examples/64_manager/nsq"
 	"golang-learn/examples/64_manager/process"
@@ -39,6 +40,11 @@ type IManager interface {
 	RemGateway(key string) (*gateway.Gateway, error)
 	RequestGateway(key string, method string, endpoint string, headers map[string]string, body io.Reader) (int, []byte, error)
 
+	// ElasticSearch
+	GetElasticClient(key string) (*elastic.ElasticController, error)
+	AddElasticClient(key string, elacticClient *elastic.ElasticController) error
+	RemElasticClient(key string) (*elastic.ElasticController, error)
+
 	// NEW Instances
 	NewSimpleConfig(path string, file string, extension string) (config.IConfig, error)
 	NewSQLConnection(config *sqlcon.Config) (*sqlcon.SQLConController, error)
@@ -46,6 +52,7 @@ type IManager interface {
 	NewNSQProducer(config *nsq.Config) (nsq.IProducer, error)
 	NewWEBServer(config *web.Config) (web.IWebController, error)
 	NewGateway(config *gateway.Config) (*gateway.Gateway, error)
+	NewElasticClient(config *elastic.Config) *elastic.ElasticController
 
 	// MANAGER
 	Start() error
@@ -58,6 +65,7 @@ type manager struct {
 	ConfigController  map[string]*config.ConfigController
 	SqlConController  map[string]*sqlcon.SQLConController
 	GatewayController map[string]*gateway.Gateway
+	ElasticController map[string]*elastic.ElasticController
 
 	control chan int
 	Started bool
@@ -71,6 +79,7 @@ func NewManager() (IManager, error) {
 		ConfigController:  make(map[string]*config.ConfigController),
 		SqlConController:  make(map[string]*sqlcon.SQLConController),
 		GatewayController: make(map[string]*gateway.Gateway),
+		ElasticController: make(map[string]*elastic.ElasticController),
 
 		control: make(chan int),
 	}, nil
