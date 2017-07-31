@@ -41,6 +41,6 @@ func (instance *manager) RemGateway(key string) (*gateway.Gateway, error) {
 	return controller, nil
 }
 func (instance *manager) RequestGateway(key string, method string, endpoint string, headers map[string]string, body io.Reader) (int, []byte, error) {
-	log.Infof(fmt.Sprintf("gateway, request the gateway '%s'", key))
+	log.Infof(fmt.Sprintf("gateway, request the gateway '%s' method:'%s', endpoint: '%s', headers:'%s', body:'%s'", key, method, endpoint, headers, body))
 	return instance.gatewayController[key].Request(method, endpoint, headers, body)
 }

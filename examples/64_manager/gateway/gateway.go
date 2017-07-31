@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"fmt"
+	"github.com/labstack/gommon/log"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -33,6 +34,7 @@ func (gateway *Gateway) AddDefaultHeader(key, value string) {
 // Request ...
 func (gateway *Gateway) Request(method string, endpoint string, headers map[string]string, body io.Reader) (int, []byte, error) {
 	url := gateway.config.Host + endpoint
+	log.Info(fmt.Sprintf("gateway, url:'%s'", url))
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return 0, nil, fmt.Errorf(fmt.Sprintf("gateway, error creating request [url:%s]", err.Error()), err)

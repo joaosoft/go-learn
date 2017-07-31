@@ -6,11 +6,9 @@ import (
 	"github.com/labstack/gommon/log"
 	nsqlib "github.com/nsqio/go-nsq"
 	"golang-learn/examples/64_manager"
-	"golang-learn/examples/64_manager/gateway"
 	"golang-learn/examples/64_manager/nsq"
 	"golang-learn/examples/64_manager/sqlcon"
 	"golang-learn/examples/64_manager/web"
-	"io"
 	"net/http"
 )
 
@@ -62,7 +60,7 @@ func main() {
 	//
 	// CONFIGURATION
 	//
-	simpleConfig, _ := manager.NewSimpleConfig("/Users/joaoribeiro/workspace/go/src/golang-learn/examples/64_manager/run/", "config", "json")
+	simpleConfig, _ := manager.NewSimpleConfig("/Users/joaoribeiro/workspace/go/src/golang-learn/examples/64_manager/run/system/", "config", "json")
 	manager.AddConfig("teste_3", simpleConfig)
 
 	// Get configuration by path
@@ -80,18 +78,6 @@ func main() {
 	webServer, _ := manager.NewWEBServer(configWebServer)
 	webServer.AddRoute(http.MethodGet, "/example/:id", exampleWebServerHandler)
 	manager.AddProcess("web_server_1", webServer)
-
-	//
-	// GATEWAY
-	//
-	var headers map[string]string
-	var body io.Reader
-	configGateway := gateway.NewConfig("localhost:8081/")
-	gateway, _ := manager.NewGateway(configGateway)
-	manager.AddGateway("gateway_1", gateway)
-	manager.GetGateway("gateway_1")
-	status, bytes, err := manager.RequestGateway("gateway_1", http.MethodGet, "/example?id=123456789", headers, body)
-	fmt.Println("STATUS:", status, "RESPONSE:", string(bytes), "err:", err)
 
 	//
 	// ELASTIC SEARCH CLIENT
