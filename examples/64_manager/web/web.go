@@ -52,14 +52,14 @@ func (instance *WebController) AddRoute(method string, route string, handler fun
 
 // Start ... starts the server
 func (instance *WebController) Start() error {
+	instance.started = true
 
 	log.Infof("web, starting webserver [address:%s]", instance.Config.Address)
 	if err := instance.httpServer.Start(instance.Config.Address); err != nil {
+		log.Errorf("web, error starting webserver [address:%s], %s", instance.Config.Address, err.Error())
+		instance.started = false
 		return err
 	}
-	log.Infof("web, started webserver [address:%s]", instance.Config.Address)
-
-	instance.started = true
 
 	return nil
 }
@@ -67,6 +67,7 @@ func (instance *WebController) Start() error {
 // Stop ... stops the server
 func (instance *WebController) Stop() error {
 	if !instance.started {
+		instance.started = false
 		return nil
 	}
 

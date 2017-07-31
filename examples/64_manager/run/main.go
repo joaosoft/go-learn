@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/labstack/echo"
+	"github.com/labstack/gommon/log"
 	nsqlib "github.com/nsqio/go-nsq"
 	"golang-learn/examples/64_manager"
 	"golang-learn/examples/64_manager/gateway"
@@ -11,7 +12,6 @@ import (
 	"golang-learn/examples/64_manager/web"
 	"io"
 	"net/http"
-	"time"
 )
 
 // EXAMPKE NSQ HANDLER
@@ -25,6 +25,7 @@ func (instance *DummyNSQHandler) HandleMessage(msg *nsqlib.Message) error {
 func exampleWebServerHandler(c echo.Context) error {
 	// User ID from path `users/:id`
 	id := c.Param("id")
+	log.Info(fmt.Sprintf("Web Server requested with id '%s'", id))
 	return c.String(http.StatusOK, id)
 }
 
@@ -75,19 +76,17 @@ func main() {
 	//
 	// HTTP SERVER
 	//
-	configWebServer := web.NewConfig("localhost:8080")
+	configWebServer := web.NewConfig("localhost:8081")
 	webServer, _ := manager.NewWEBServer(configWebServer)
-	webServer.AddRoute(http.MethodGet, "/example", exampleWebServerHandler)
-	go webServer.Start()
+	webServer.AddRoute(http.MethodGet, "/example/:id", exampleWebServerHandler)
 	manager.AddProcess("web_server_1", webServer)
 
 	//
 	// GATEWAY
 	//
-	time.Sleep(1000)
 	var headers map[string]string
 	var body io.Reader
-	configGateway := gateway.NewConfig("http://localhost:8080/")
+	configGateway := gateway.NewConfig("localhost:8081/")
 	gateway, _ := manager.NewGateway(configGateway)
 	manager.AddGateway("gateway_1", gateway)
 	manager.GetGateway("gateway_1")

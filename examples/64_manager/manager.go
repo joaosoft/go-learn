@@ -38,11 +38,11 @@ type IManager interface {
 	RequestGateway(key string, method string, endpoint string, headers map[string]string, body io.Reader) (int, []byte, error)
 
 	// NEW Instances
+	NewSimpleConfig(path string, file string, extension string) (IConfig, error)
 	NewSQLConnection(config *sqlcon.Config) (*sqlcon.SQLConController, error)
 	NewNSQConsumer(config *nsq.Config, handler nsq.IHandler) (nsq.IConsumer, error)
 	NewNSQProducer(config *nsq.Config) (nsq.IProducer, error)
 	NewWEBServer(config *web.Config) (web.IWebController, error)
-	NewSimpleConfig(path string, file string, extension string) (IConfig, error)
 	NewGateway(config *gateway.Config) (*gateway.Gateway, error)
 
 	// MANAGER
@@ -110,15 +110,17 @@ func (instance *manager) Stop() error {
 		log.Infof("manager, stopping")
 
 		for key, controller := range instance.processController {
-			log.Infof("manager, stopping process [process:%s]", key)
-			if err := controller.process.Stop(); err != nil {
-				log.Error(err, fmt.Sprintf("error stopping process [process:%s]", key))
+			if controller.started {
+				log.Infof("manager, stopping process [process:%s]", key)
+				if err := controller.process.Stop(); err != nil {
+					log.Error(err, fmt.Sprintf("error stopping process [process:%s]", key))
+				}
+				log.Infof("manager, close channel [process:%s]", key)
+				<-controller.control
+				close(controller.control)
+				delete(instance.processController, key)
+				log.Infof("manager, stopped process [process:%s]", key)
 			}
-			log.Infof("manager, waiting for process to terminate [process:%s]", key)
-			<-controller.control
-			close(controller.control)
-			delete(instance.processController, key)
-			log.Infof("manager, stopped process [process:%s]", key)
 		}
 
 		instance.started = false
