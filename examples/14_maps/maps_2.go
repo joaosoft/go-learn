@@ -47,4 +47,15 @@ func _maps_2() {
 
 	value, exists := n["invalido"]
 	fmt.Println("VALUE:", value, "\nEXISTS:", exists)
+
+	teste := make(map[string]int)
+	teste["1"] = 1
+	teste["2"] = 2
+	teste["3"] = 3
+
+	if teste["3"] {
+		fmt.Println("NAO EXISTE")
+	} else {
+		fmt.Println("EXISTE")
+	}
 }

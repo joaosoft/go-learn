@@ -100,10 +100,10 @@ func (instance *Consumer) Start() error {
 
 // Stop ... stop's nsq costumer
 func (instance *Consumer) Stop() error {
-	log.Info("nsq consumer, stopping ")
+	log.Infof("nsq consumer, stopping ")
 	instance.client.Stop()
 	instance.started = false
-	log.Info("nsq consumer, stopped")
+	log.Infof("nsq consumer, stopped")
 
 	return nil
 }

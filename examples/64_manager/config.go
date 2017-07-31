@@ -5,17 +5,17 @@ type IConfig interface {
 	Get(key string) interface{}
 }
 
-// configController ... config structure
-type configController struct {
+// ConfigController ... config structure
+type ConfigController struct {
 	path   string
 	config IConfig
 	obj    interface{}
 }
 
-// NewConfig ... create a new configController
+// NewConfig ... create a new ConfigController
 func NewConfig(path string, config IConfig, obj interface{}) IConfig {
 
-	return &configController{
+	return &ConfigController{
 		path:   path,
 		config: config,
 		obj:    obj,
@@ -23,11 +23,11 @@ func NewConfig(path string, config IConfig, obj interface{}) IConfig {
 }
 
 // Get ... get a configuration by key
-func (instance *configController) Get(key string) interface{} {
+func (instance *ConfigController) Get(key string) interface{} {
 	return instance.config.Get(key)
 }
 
 // Reload ... reload the configuration file
-func (instance *configController) Reload(key string) error {
+func (instance *ConfigController) Reload(key string) error {
 	return nil
 }

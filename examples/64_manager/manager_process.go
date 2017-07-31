@@ -17,7 +17,7 @@ func (instance *manager) NewNSQProducer(config *nsq.Config) (nsq.IProducer, erro
 	return nsq.NewProducer(config)
 }
 
-// -------------- PROCESSES --------------
+// -------------- METHODS --------------
 // GetProcess ... get a process with key
 func (instance *manager) GetProcess(key string) IProcess {
 	return instance.processController[key].process
@@ -29,11 +29,11 @@ func (instance *manager) AddProcess(key string, process IProcess) error {
 		panic("manager, can not add processes after start")
 	}
 
-	instance.processController[key] = &processController{
+	instance.processController[key] = &ProcessController{
 		process: process,
 		control: make(chan int),
 	}
-	log.Debug(fmt.Sprintf("manager, process '%s' added", key))
+	log.Infof(fmt.Sprintf("manager, process '%s' added", key))
 
 	return nil
 }
@@ -45,19 +45,19 @@ func (instance *manager) RemProcess(key string) (IProcess, error) {
 
 	// delete process
 	delete(instance.processController, key)
-	log.Debug(fmt.Sprintf("manager, process '%s' removed", key))
+	log.Infof(fmt.Sprintf("manager, process '%s' removed", key))
 
 	return controller.process, nil
 }
 
 // launch ... starts a process
-func (instance *manager) launch(name string, controller *processController) error {
+func (instance *manager) launch(name string, controller *ProcessController) error {
 	if err := controller.process.Start(); err != nil {
 		log.Error(err, fmt.Sprintf("manager, error launching process [process:%s]", name))
 		instance.Stop()
 		controller.control <- 0
 	} else {
-		log.Info(fmt.Sprintf("manager, launched process [process:%s]", name))
+		log.Infof(fmt.Sprintf("manager, launched process [process:%s]", name))
 		controller.started = true
 		controller.control <- 0
 	}

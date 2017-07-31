@@ -37,7 +37,7 @@ func NewProducer(config *Config) (IProducer, error) {
 		panic("nsq producer, no NSQ address to connect to")
 	}
 
-	log.Debug("nsq producer, connecting to %s", addr)
+	log.Infof("nsq producer, connecting to %s", addr)
 
 	nsqProducer, err := nsqlib.NewProducer(addr, nsqConfig)
 	if err != nil {
@@ -72,9 +72,9 @@ func (instance *Producer) Start() error {
 
 // Stop ... stop the producer
 func (instance *Producer) Stop() error {
-	log.Info("nsq producer, stopping")
+	log.Infof("nsq producer, stopping")
 	instance.Client.Stop()
-	log.Info("nsq producer, stopped")
+	log.Infof("nsq producer, stopped")
 	return nil
 }
 

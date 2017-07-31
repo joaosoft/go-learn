@@ -12,7 +12,7 @@ func (instance *manager) NewSimpleConfig(path string, file string, extension str
 	return config.NewSimpleConfig(path, file, extension)
 }
 
-// -------------- CONFIGURATION --------------
+// -------------- METHODS --------------
 // GetConfig ... get a config with key
 func (instance *manager) GetConfig(key string) IConfig {
 	return instance.configController[key]
@@ -24,11 +24,11 @@ func (instance *manager) AddConfig(key string, config IConfig) error {
 		panic("manager, can not add config after start")
 	}
 
-	instance.configController[key] = &configController{
+	instance.configController[key] = &ConfigController{
 		path:   "",
 		config: config}
 
-	log.Debug(fmt.Sprintf("manager, config '%s' added", key))
+	log.Infof(fmt.Sprintf("manager, config '%s' added", key))
 
 	return nil
 }
@@ -40,7 +40,7 @@ func (instance *manager) RemConfig(key string) (IConfig, error) {
 
 	// delete config
 	delete(instance.configController, key)
-	log.Debug(fmt.Sprintf("manager, config '%s' removed", key))
+	log.Infof(fmt.Sprintf("manager, config '%s' removed", key))
 
 	return controller, nil
 }

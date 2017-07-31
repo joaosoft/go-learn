@@ -13,7 +13,7 @@ type IProcessController interface {
 }
 
 // processController ... controller structure
-type processController struct {
+type ProcessController struct {
 	process IProcess
 	control chan int
 	started bool
