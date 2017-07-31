@@ -75,6 +75,7 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
 - 61_template
 - 62_swagger (unfinished)
 - 63_leftpad
-- 64_manager (in development, application framework with support to process management, configuration, nsq consumer and producer, sql connections, rest servers, gateways, elastic search client, redis client)
+- 64_manager (in development, application framework with support to process management, configuration, nsq consumer and producer, sql connections, rest servers, gateways, elastic search client)
+  More information [here](https://github.com/joaosoft/go-manager)
 - 65_signal
 - 66_goto
