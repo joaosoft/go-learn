@@ -1,4 +1,4 @@
-package pm
+package config
 
 // Config ... config interface
 type IConfig interface {
@@ -7,24 +7,24 @@ type IConfig interface {
 
 // ConfigController ... config structure
 type ConfigController struct {
-	path   string
-	config IConfig
-	obj    interface{}
+	Path   string
+	Config IConfig
+	Obj    interface{}
 }
 
 // NewConfig ... create a new ConfigController
 func NewConfig(path string, config IConfig, obj interface{}) IConfig {
 
 	return &ConfigController{
-		path:   path,
-		config: config,
-		obj:    obj,
+		Path:   path,
+		Config: config,
+		Obj:    obj,
 	}
 }
 
 // Get ... get a configuration by key
 func (instance *ConfigController) Get(key string) interface{} {
-	return instance.config.Get(key)
+	return instance.Config.Get(key)
 }
 
 // Reload ... reload the configuration file

@@ -8,25 +8,25 @@ import (
 
 // -------------- CONFIGURATION CLIENTS --------------
 // NewJSONFile ... creates a new nsq producer
-func (instance *manager) NewSimpleConfig(path string, file string, extension string) (IConfig, error) {
+func (instance *manager) NewSimpleConfig(path string, file string, extension string) (config.IConfig, error) {
 	return config.NewSimpleConfig(path, file, extension)
 }
 
 // -------------- METHODS --------------
 // GetConfig ... get a config with key
-func (instance *manager) GetConfig(key string) IConfig {
-	return instance.configController[key]
+func (instance *manager) GetConfig(key string) config.IConfig {
+	return instance.ConfigController[key]
 }
 
 // AddProcess ... add a config with key
-func (instance *manager) AddConfig(key string, config IConfig) error {
-	if instance.started {
+func (instance *manager) AddConfig(key string, cfg config.IConfig) error {
+	if instance.Started {
 		panic("manager, can not add config after start")
 	}
 
-	instance.configController[key] = &ConfigController{
-		path:   "",
-		config: config}
+	instance.ConfigController[key] = &config.ConfigController{
+		Path:   "",
+		Config: cfg}
 
 	log.Infof(fmt.Sprintf("manager, config '%s' added", key))
 
@@ -34,12 +34,12 @@ func (instance *manager) AddConfig(key string, config IConfig) error {
 }
 
 // RemConfig ... remove the config by bey
-func (instance *manager) RemConfig(key string) (IConfig, error) {
+func (instance *manager) RemConfig(key string) (config.IConfig, error) {
 	// get config
-	controller := instance.configController[key]
+	controller := instance.ConfigController[key]
 
 	// delete config
-	delete(instance.configController, key)
+	delete(instance.ConfigController, key)
 	log.Infof(fmt.Sprintf("manager, config '%s' removed", key))
 
 	return controller, nil

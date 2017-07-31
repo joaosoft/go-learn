@@ -17,13 +17,13 @@ func (instance *manager) NewSQLConnection(config *sqlcon.Config) (*sqlcon.SQLCon
 // -------------- METHODS --------------
 // GetConnection ... get a sql connection with key
 func (instance *manager) GetConnection(key string) (*sql.DB, error) {
-	connection, err := instance.sqlConController[key].GetConnection()
+	connection, err := instance.SqlConController[key].GetConnection()
 	return connection, err
 }
 
 // AddConnection ... add a connection with key
-func (instance *manager) AddConnection(key string, sqlConController *sqlcon.SQLConController) error {
-	instance.sqlConController[key] = sqlConController
+func (instance *manager) AddConnection(key string, SqlConController *sqlcon.SQLConController) error {
+	instance.SqlConController[key] = SqlConController
 	log.Infof(fmt.Sprintf("sqlcon, connection '%s' added", key))
 
 	return nil
@@ -32,10 +32,10 @@ func (instance *manager) AddConnection(key string, sqlConController *sqlcon.SQLC
 // RemConnection ... remove the connection by bey
 func (instance *manager) RemConnection(key string) (*sql.DB, error) {
 	// get connection
-	controller := instance.sqlConController[key]
+	controller := instance.SqlConController[key]
 
 	// delete connection
-	delete(instance.sqlConController, key)
+	delete(instance.SqlConController, key)
 	log.Infof(fmt.Sprintf("sqlcon, connection '%s' removed", key))
 
 	return controller.Connection, nil

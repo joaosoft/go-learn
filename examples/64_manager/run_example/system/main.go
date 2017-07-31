@@ -60,7 +60,7 @@ func main() {
 	//
 	// CONFIGURATION
 	//
-	simpleConfig, _ := manager.NewSimpleConfig("/Users/joaoribeiro/workspace/go/src/golang-learn/examples/64_manager/run/system/", "config", "json")
+	simpleConfig, _ := manager.NewSimpleConfig("/Users/joaoribeiro/workspace/go/src/golang-learn/examples/64_manager/run_example/system/", "config", "json")
 	manager.AddConfig("teste_3", simpleConfig)
 
 	// Get configuration by path

@@ -1,4 +1,4 @@
-package pm
+package process
 
 // IProcess ... process interface
 type IProcess interface {
@@ -14,7 +14,7 @@ type IProcessController interface {
 
 // processController ... controller structure
 type ProcessController struct {
-	process IProcess
-	control chan int
-	started bool
+	Process IProcess
+	Control chan int
+	Started bool
 }
