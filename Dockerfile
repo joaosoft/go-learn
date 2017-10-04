@@ -3,7 +3,7 @@
 FROM golang
 
 # Copy the local package files to the container's workspace.
-ADD ./examples/0_docker /go/src/teste
+ADD ./0_docker /go/src/teste
 
 # Build the outyet command inside the container.
 # (You may fetch or manage dependencies here,

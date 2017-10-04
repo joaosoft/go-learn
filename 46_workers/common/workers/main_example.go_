@@ -1,0 +1,60 @@
+package workers
+
+import (
+	"flag"
+	"fmt"
+	"net/http"
+	"golang-learn/46_workers/worker"
+	"os"
+	"golang-learn/46_workers/common/config"
+	"github.com/labstack/gommon/log"
+)
+
+var (
+	NWorkers = flag.Int("n", 4, "The number of worker to start")
+	HTTPAddr = flag.String("http", "127.0.0.1:8000", "Address to listen for HTTP requests on")
+)
+
+var _configuration domain.Configuration
+
+func init() {
+	if err := config.LoadConfigFromFile("manager-indexer", &_configuration); err != nil {
+		log.Error("Error loading config: ", err)
+		os.Exit(0)
+	}
+}
+
+func main_example() {
+	// Parse the command-line flags.
+	flag.Parse()
+
+	// Start the dispatcher.
+	fmt.Println("Starting the dispatcher")
+	StartDispatcher(*NWorkers)
+
+	repository := repositories.NewManagerIndexerRepository(_configuration)
+	interactor := interactors.NewManagerIndexerInteractor(repository)
+	controller := controllers.ManagerIndexerController {
+		ManagerIndexerInteractor: *interactor,
+
+	}
+
+	// DO TEST
+	request := WorkRequest{
+		Controller: &workers.MIWorkerController {
+			ManagerIndexerController: controller,
+		},
+	}
+
+	AddWork(request)
+
+	// Register our collector as an HTTP handler function.
+	fmt.Println("Registering the collector")
+	http.HandleFunc("/work", HttpCollector)
+
+	// Start the HTTP server!
+	fmt.Println("HTTP server listening on", *HTTPAddr)
+	if err := http.ListenAndServe(*HTTPAddr, nil); err != nil {
+		fmt.Println(err.Error())
+	}
+}
