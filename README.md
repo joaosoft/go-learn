@@ -79,3 +79,6 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
   ######More information [here](https://github.com/joaosoft/go-manager)
 - 65_signal
 - 66_goto
+- 67_reflection
+- 68_validation
+- 69_options

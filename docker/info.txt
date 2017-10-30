@@ -1,0 +1,11 @@
+$ go run hello_world.go
+hello world
+
+Sometimes we’ll want to build our programs into binaries. We can do this using go build.
+$ go build hello_world.go
+$ ls
+hello-world	hello_world.go
+
+We can then execute the built binary directly.
+$ ./hello_world
+hello world

@@ -16,7 +16,7 @@ type ErrorTest struct {
 // NewErrorTest returns a new ErrorTest.
 func NewErrorTest(event IEvent) *ErrorTest {
 	e := new(ErrorTest)
-	fmt.Println("TYPEOF:", reflect.TypeOf(event).String())
+	fmt.Println("TypeOf:", reflect.TypeOf(event).String())
 	s := strings.Split(reflect.TypeOf(event).String(), ".")
 	e.eventType = s[len(s)-1]
 	return e
