@@ -83,3 +83,7 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
 - 68_validation
 - 69_options
 - 70_builder_pattern
+- 71_factory_pattern
+- 72_singleton_pattern
+- 73_decorator_pattern
+- 74_proxy_pattern
