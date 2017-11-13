@@ -82,3 +82,4 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
 - 67_reflection
 - 68_validation
 - 69_options
+- 70_builder_pattern
