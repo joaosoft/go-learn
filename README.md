@@ -87,3 +87,6 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
 - 72_singleton_pattern
 - 73_decorator_pattern
 - 74_proxy_pattern
+- 75_observer_pattern
+- 76_strategy_pattern
+- 77_publisher_subscribe_pattern
