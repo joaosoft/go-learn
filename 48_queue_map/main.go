@@ -1,8 +1,9 @@
 package main
 
 import (
+	"golang-learn/48_queue_map/common/queue"
+
 	"github.com/labstack/gommon/log"
-	"golang-learn/examples/48_queue_map/common/queue"
 )
 
 func main() {
@@ -22,7 +23,7 @@ func main() {
 	work["2"] = 4
 	queue.AddWork(work)
 
-	<- shutdownChannelIn
+	<-shutdownChannelIn
 
 	log.Infof("JOB END")
 }

@@ -1,11 +1,12 @@
 package original
 
 import (
-	"github.com/labstack/gommon/log"
-	"golang-learn/examples/51_elastic_search/config"
-	"golang-learn/examples/51_elastic_search/domain"
-    "github.com/elastic/go-elasticsearch/client"
 	"fmt"
+	"golang-learn/51_elastic_search/config"
+	"golang-learn/51_elastic_search/domain"
+
+	"github.com/elastic/go-elasticsearch/client"
+	"github.com/labstack/gommon/log"
 )
 
 type Repository struct {
@@ -21,7 +22,6 @@ func NewRepository(config config.Configuration) *Repository {
 }
 
 func (repository *Repository) CreateIndex(index string, mapping map[string]interface{}) error {
-
 
 	client, err := client.New(client.WithHost(repository.Configuration.MyIndexer.Hosts[0]))
 
@@ -71,4 +71,3 @@ func (repository *Repository) Insert(data []domain.Something) error {
 
 	return nil
 }
-

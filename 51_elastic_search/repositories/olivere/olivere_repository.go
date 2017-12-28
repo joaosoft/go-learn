@@ -1,12 +1,13 @@
 package olivere
 
 import (
+	"encoding/json"
+	"golang-learn/51_elastic_search/config"
+	"golang-learn/51_elastic_search/domain"
+
 	"github.com/labstack/gommon/log"
 	"golang.org/x/net/context"
 	"gopkg.in/olivere/elastic.v5"
-	"encoding/json"
-	"golang-learn/examples/51_elastic_search/config"
-	"golang-learn/examples/51_elastic_search/domain"
 )
 
 type Repository struct {
@@ -116,7 +117,7 @@ func getElasticSearchContext(config config.Configuration) (context.Context, *ela
 	return ctx, client, nil
 }
 
-func validateIndex(config config.Configuration, ctx context.Context, client *elastic.Client) (error) {
+func validateIndex(config config.Configuration, ctx context.Context, client *elastic.Client) error {
 	// Use the IndexExists service to check if a specified index exists.
 	exists, err := client.IndexExists(config.MyIndexer.Index).Do(ctx)
 	if err != nil {
@@ -132,4 +133,3 @@ func validateIndex(config config.Configuration, ctx context.Context, client *ela
 
 	return nil
 }
-

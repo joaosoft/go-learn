@@ -1,9 +1,10 @@
 package main
 
 import (
+	common "golang-learn/49_queue_struct/common/queue"
+	"golang-learn/49_queue_struct/controllers"
+
 	"github.com/labstack/gommon/log"
-	"golang-learn/examples/49_queue_struct/controllers"
-	common "golang-learn/examples/49_queue_struct/common/queue"
 )
 
 func main() {
@@ -22,7 +23,7 @@ func main() {
 	work = controllers.NewWork(bytes)
 	queue.AddWork(work)
 
-	<- shutdownChannelIn
+	<-shutdownChannelIn
 
 	log.Infof("JOB END")
 }

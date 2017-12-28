@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"golang-learn/examples/51_elastic_search/interactors"
-	"golang-learn/examples/51_elastic_search/domain"
+	"golang-learn/51_elastic_search/domain"
+	"golang-learn/51_elastic_search/interactors"
 )
 
 type Controller struct {

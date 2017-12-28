@@ -90,3 +90,4 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
 - 75_observer_pattern
 - 76_strategy_pattern
 - 77_publisher_subscribe_pattern
+- 78_waitgroup

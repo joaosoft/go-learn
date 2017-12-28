@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/labstack/gommon/log"
-	"golang-learn/examples/50_queue_controller/controllers"
-	common "golang-learn/examples/50_queue_controller/common/queue"
-	"golang-learn/examples/50_queue_controller/repositories"
+	common "golang-learn/50_queue_controller/common/queue"
+	"golang-learn/50_queue_controller/controllers"
+	"golang-learn/50_queue_controller/repositories"
 
+	"github.com/labstack/gommon/log"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 
 	shutdownChannelIn := make(chan bool)
 	workChannelBufferSize := 5
-	repository := repositories.Repository {}
+	repository := repositories.Repository{}
 	controller := controllers.NewController(repository)
 	queue := common.NewQueue(shutdownChannelIn, workChannelBufferSize, controller)
 
@@ -25,7 +25,7 @@ func main() {
 	work = controllers.NewWork(bytes)
 	queue.AddWork(work)
 
-	<- shutdownChannelIn
+	<-shutdownChannelIn
 
 	log.Infof("JOB END")
 }

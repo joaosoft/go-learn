@@ -1,10 +1,11 @@
 package interactors
 
 import (
-	"golang-learn/examples/51_elastic_search/domain"
-	"golang-learn/examples/51_elastic_search/repositories"
+	"golang-learn/51_elastic_search/common/config"
+	"golang-learn/51_elastic_search/domain"
+	"golang-learn/51_elastic_search/repositories"
 	"os"
-	"golang-learn/examples/51_elastic_search/common/config"
+
 	"github.com/labstack/gommon/log"
 )
 
