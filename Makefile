@@ -1,11 +1,12 @@
 env:
 	docker-compose up -d psql
-	docker-compose compose up -d nsqd
-	docker-compose compose up -d nsqadmin
-	docker-compose compose up -d redis_master
-	docker-compose compose up -d elasticsearch
-	docker-compose compose up -d cassandra-1
-	docker-compose compose up -d cassandra-2
+	docker-compose up -d nsqd
+	docker-compose up -d nsqadmin
+	docker-compose up -d redis_master
+	docker-compose up -d elasticsearch
+	docker-compose up -d cassandra-1
+	docker-compose up -d cassandra-2
+	docker-compose up -d mysql
 
 start:
 	docker-compose build
