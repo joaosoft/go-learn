@@ -7,6 +7,12 @@ import (
 
 const s string = "constant"
 
+const (
+	Pi    = 3.14
+	Truth = false
+	Big   = 1 << 62
+	Small = Big >> 61
+)
 
 func main() {
 	fmt.Println("_main()")
@@ -31,4 +37,12 @@ func _constants() {
 
 	fmt.Println(int64(d))
 	fmt.Println(math.Sin(n))
+
+	// SECOND EXAMPLE
+	const Greeting = ""
+	fmt.Println(Greeting)
+	fmt.Println(Pi)
+	fmt.Println(Truth)
+	fmt.Println(Big)
+
 }
