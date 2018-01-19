@@ -1,11 +1,11 @@
 env:
-	./sbin/do.sh compose up -d psql
-	./sbin/do.sh compose up -d nsqd
-	./sbin/do.sh compose up -d nsqadmin
-	./sbin/do.sh compose up -d redis_master
-	./sbin/do.sh compose up -d elasticsearch
-	./sbin/do.sh compose up -d cassandra-1
-	./sbin/do.sh compose up -d cassandra-2
+	docker-compose up -d psql
+	docker-compose compose up -d nsqd
+	docker-compose compose up -d nsqadmin
+	docker-compose compose up -d redis_master
+	docker-compose compose up -d elasticsearch
+	docker-compose compose up -d cassandra-1
+	docker-compose compose up -d cassandra-2
 
 start:
 	docker-compose build
@@ -16,8 +16,6 @@ start:
 stop:
 	docker-compose stop
 
-build:
-	./sbin/do.sh buildmake
 
 buildhello:
 	go build ./examples/1_hello_world
