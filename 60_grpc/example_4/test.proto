@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package main;
+service Service {
+	rpc GetName(Request) returns (Response) {}
+}
+
+message Request {
+	int32 id = 1;
+}
+
+message Response {
+	string name = 1;
+}
