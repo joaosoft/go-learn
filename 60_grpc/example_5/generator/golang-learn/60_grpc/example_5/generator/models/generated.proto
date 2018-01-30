@@ -1,0 +1,15 @@
+syntax = "proto3";
+package golanglearn.60grpc.example5.generator.models;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.protosizer_all) = true;
+option (gogoproto.sizer_all) = false;
+option go_package = "models";
+
+message Exported {
+	option (gogoproto.goproto_getters) = false;
+	option (gogoproto.typedecl) = false;
+	string field = 1;
+}
+

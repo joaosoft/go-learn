@@ -1,8 +1,8 @@
 package main
 
 import (
-	"sync"
 	"net/http"
+	"sync"
 )
 
 func main() {
