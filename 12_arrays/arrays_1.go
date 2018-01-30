@@ -34,9 +34,9 @@ func _arrays_1() {
 	// Array types are one-dimensional, but you can compose types to build multi-dimensional data structures.
 	var twoD [2][3]int
 	for i := 0; i < 2; i++ {
-	for j := 0; j < 3; j++ {
-	twoD[i][j] = i + j
-	}
+		for j := 0; j < 3; j++ {
+			twoD[i][j] = i + j
+		}
 	}
 	fmt.Println("2d: ", twoD)
 }

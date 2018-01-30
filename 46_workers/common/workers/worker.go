@@ -1,7 +1,7 @@
 package workers
 
 import (
-"fmt"
+	"fmt"
 )
 
 // NewWorker creates, and returns a worker_add Worker object. Its only argument

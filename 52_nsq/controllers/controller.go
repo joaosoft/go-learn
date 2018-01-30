@@ -3,8 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"golang-learn/52_nsq/common/nsq"
-	"golang-learn/52_nsq/interactors"
 	"golang-learn/52_nsq/domain"
+	"golang-learn/52_nsq/interactors"
 )
 
 type Controller struct {

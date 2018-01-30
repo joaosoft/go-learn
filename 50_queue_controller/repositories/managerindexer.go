@@ -8,8 +8,7 @@ type Repository struct {
 }
 
 func NewRepository() *Repository {
-	repository := Repository{
-	}
+	repository := Repository{}
 
 	return &repository
 }

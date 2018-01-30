@@ -10,7 +10,7 @@ func StartDispatcher(nworkers int) {
 	WorkerQueue = make(chan chan WorkRequest, nworkers)
 
 	// Now, create all of our worker.
-	for i := 0; i<nworkers; i++ {
+	for i := 0; i < nworkers; i++ {
 		fmt.Println("Starting worker", i+1)
 		worker := NewWorker(i+1, WorkerQueue)
 		worker.Start()

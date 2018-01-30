@@ -3,9 +3,10 @@ package grpc
 import (
 	"net"
 
-	"google.golang.org/grpc"
-	"log"
 	"fmt"
+	"log"
+
+	"google.golang.org/grpc"
 )
 
 // GRPC controller.
@@ -60,7 +61,7 @@ func (rpc *GRPC) Start() error {
 // Stop attempts to shutdown gracefully.
 func (rpc *GRPC) Stop() error {
 	if rpc.running != true {
-		return fmt.Errorf( "rpc server is already stopped", nil)
+		return fmt.Errorf("rpc server is already stopped", nil)
 	}
 
 	rpc.Server.GracefulStop()

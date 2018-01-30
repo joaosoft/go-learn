@@ -1,9 +1,10 @@
 package queue
 
 import (
-	"github.com/labstack/gommon/log"
 	"fmt"
 	"time"
+
+	"github.com/labstack/gommon/log"
 )
 
 func init() {
@@ -11,22 +12,22 @@ func init() {
 }
 
 type Queue struct {
-	shutdownChannel chan bool
-	addWorkTopChannel chan map[string]interface{}
-	workListChannel chan []map[string]interface{}
+	shutdownChannel       chan bool
+	addWorkTopChannel     chan map[string]interface{}
+	workListChannel       chan []map[string]interface{}
 	workChannelBufferSize int
-	timeoutNotifyChannel chan bool
+	timeoutNotifyChannel  chan bool
 }
 
 func NewQueue(shutdownChannelIn chan bool, workChannelBufferSize int) *Queue {
 	log.Infof("->NewQueue()")
 
 	queue := Queue{
-		shutdownChannel: shutdownChannelIn,
-		addWorkTopChannel: make(chan map[string]interface{}),
+		shutdownChannel:       shutdownChannelIn,
+		addWorkTopChannel:     make(chan map[string]interface{}),
 		workChannelBufferSize: workChannelBufferSize,
-		workListChannel: make(chan []map[string]interface{}, workChannelBufferSize),
-		timeoutNotifyChannel: make(chan bool),
+		workListChannel:       make(chan []map[string]interface{}, workChannelBufferSize),
+		timeoutNotifyChannel:  make(chan bool),
 	}
 
 	go bulkBufferHandler(queue)
@@ -43,7 +44,6 @@ func (queue *Queue) AddWork(work map[string]interface{}) error {
 	return nil
 }
 
-
 // Buffer Handler
 func bulkBufferHandler(queue Queue) {
 	log.Infof("bulkBufferHandler()")
@@ -54,7 +54,7 @@ func bulkBufferHandler(queue Queue) {
 	flush := func(buffer []map[string]interface{}) {
 		tempBuffer := make([]map[string]interface{}, len(buffer))
 		copy(tempBuffer, buffer)
-		
+
 		queue.workListChannel <- tempBuffer
 
 		bulkBuffer = bulkBuffer[:0]
@@ -63,7 +63,7 @@ func bulkBufferHandler(queue Queue) {
 
 	for {
 		select {
-		case data := <- queue.addWorkTopChannel:
+		case data := <-queue.addWorkTopChannel:
 			log.Infof("data := <-channel")
 			if bulkBufferSize > 100 {
 				fmt.Printf("[BUFFER] Buffer full: flushing")

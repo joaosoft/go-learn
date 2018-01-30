@@ -17,15 +17,11 @@ start:
 stop:
 	docker-compose stop
 
+fmt:
+	go fmt ./...
 
-buildhello:
-	go build ./examples/1_hello_world
+vet:
+	go vet ./*
 
-installhello:
-	go install ./examples/1_hello_world
-
-exechello:
-	./examples/1_hello_world
-
-cleanhello:
-	go clean ./examples/1_hello_world
+gometalinter:
+	gometalinter ./*

@@ -7,6 +7,6 @@ type Configuration struct {
 }
 
 type ElasticSearch struct {
-	Index string `json:"index"`
+	Index string   `json:"index"`
 	Hosts []string `json:"hosts"`
 }

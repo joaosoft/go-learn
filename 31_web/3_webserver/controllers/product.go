@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type XPTOController struct {
@@ -16,8 +17,8 @@ func InitXPTOResources(e *gin.Engine) {
 
 func (r *XPTOController) HandleXPTO(c *gin.Context) {
 
-		out := "hello, i'im in!"
-		c.JSON(http.StatusOK, out)
+	out := "hello, i'im in!"
+	c.JSON(http.StatusOK, out)
 
-		return
+	return
 }

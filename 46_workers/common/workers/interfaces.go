@@ -1,6 +1,6 @@
 package workers
 
-type IController interface{
+type IController interface {
 	Do() error
 	Undo() error
 }

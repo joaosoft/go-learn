@@ -6,7 +6,7 @@ import (
 )
 
 type Query struct {
-	Name string
+	Name  string
 	Value string
 }
 
@@ -18,8 +18,8 @@ func main() {
 }
 `
 
-	query := Query {
-		Name: "nome",
+	query := Query{
+		Name:  "nome",
 		Value: "valor",
 	}
 

@@ -1,9 +1,9 @@
 package queue
 
-type IController interface{
+type IController interface {
 	Do(data []byte) error
 }
 
-type IWork interface{
+type IWork interface {
 	GetWork() ([]byte, error)
 }

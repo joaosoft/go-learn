@@ -8,7 +8,7 @@ import (
 
 type Query struct {
 	Match string
-	Name string
+	Name  string
 	Value string
 }
 
@@ -30,14 +30,14 @@ func main() {
 
 	type Queries []Query
 	var queries Queries = Queries{
-		Query {
+		Query{
 			Match: "match",
-			Name: "nome",
+			Name:  "nome",
 			Value: "valor",
 		},
-		Query {
+		Query{
 			Match: "match_all",
-			Name: "nome_1",
+			Name:  "nome_1",
 			Value: "valor_1",
 		},
 	}

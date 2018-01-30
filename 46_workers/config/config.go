@@ -1,13 +1,13 @@
 package config
 
 type Configuration struct {
- 	SomethingParent struct {
+	SomethingParent struct {
 		Something `json:"something"`
 	} `json:"something_parent"`
-	SomeIds    []string `json:"some_ids"`
+	SomeIds []string `json:"some_ids"`
 }
 
 type Something struct {
 	Name string `json:"name"`
-	Age int `json:"age"`
+	Age  int    `json:"age"`
 }

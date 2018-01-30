@@ -1,18 +1,18 @@
 package example_2
 
 import (
+	"fmt"
 	"os"
 	"text/template"
-	"fmt"
 )
 
 type Person struct {
-	Name string
+	Name                string
 	nonExportedAgeField string //because it doesn't start with a capital letter
 }
 
 func main() {
-	p:= Person{Name: "Mary", nonExportedAgeField: "31"}
+	p := Person{Name: "Mary", nonExportedAgeField: "31"}
 
 	t := template.New("nonexported template demo")
 	t, _ = t.Parse("hello {{.Name}}! Age is {{.nonExportedAgeField}}.")

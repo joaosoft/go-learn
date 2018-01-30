@@ -16,7 +16,7 @@ func main() {
 
 	// Prepare some data to insert into the template.
 	type User struct {
-		Id int
+		Id   int
 		Name string
 	}
 

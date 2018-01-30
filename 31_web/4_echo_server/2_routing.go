@@ -28,9 +28,8 @@ func saveUser(c echo.Context) error {
 	// Get name and email
 	name := c.FormValue("name")
 	email := c.FormValue("email")
-	return c.String(http.StatusOK, "name:" + name + ", email:" + email)
+	return c.String(http.StatusOK, "name:"+name+", email:"+email)
 }
-
 
 // README
 // $ curl -F "name=Joe Smith" -F "email=joe@labstack.com" http://localhost:1323/save

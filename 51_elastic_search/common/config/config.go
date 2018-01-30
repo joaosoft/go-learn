@@ -3,9 +3,10 @@ package config
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/labstack/gommon/log"
-	"os"
 	"io/ioutil"
+	"os"
+
+	"github.com/labstack/gommon/log"
 )
 
 // LoadConfigFromFile loads a configuration from a file path.

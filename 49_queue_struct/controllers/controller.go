@@ -8,8 +8,7 @@ type Controller struct {
 }
 
 func NewController() *Controller {
-	controller := Controller{
-	}
+	controller := Controller{}
 
 	return &controller
 }

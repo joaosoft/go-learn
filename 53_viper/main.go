@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/spf13/viper"
 	"fmt"
-	"strings"
 	"os"
-	"github.com/labstack/gommon/log"
-)
+	"strings"
 
+	"github.com/labstack/gommon/log"
+	"github.com/spf13/viper"
+)
 
 func init() {
 	viper.SetConfigName("config")
@@ -39,9 +39,9 @@ func init() {
 	viper.RegisterAlias("loud", "Verbose")
 
 	viper.Set("verbose", true) // same result as next line
-	viper.Set("loud", true)   // same result as prior line
+	viper.Set("loud", true)    // same result as prior line
 
-	viper.GetBool("loud") // true
+	viper.GetBool("loud")    // true
 	viper.GetBool("verbose") // true
 
 	// Getting Values
@@ -59,7 +59,6 @@ func init() {
 	fmt.Println("teste_2_1:", str)
 
 	fmt.Println("CONFS: ", viper.AllSettings())
-
 
 	// Unmarshal
 	type Config struct {

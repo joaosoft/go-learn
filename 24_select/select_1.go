@@ -22,7 +22,7 @@ func doSomething(channel, quit chan int) {
 		select {
 		case channel <- x:
 			x, y = x-1, y+1
-		case <- quit:
+		case <-quit:
 			fmt.Println("quit")
 			return
 		}

@@ -1,16 +1,16 @@
-
 package main
 
 import (
 	"flag"
 	"fmt"
+	"golang-learn/46_workers/common/config"
+	"golang-learn/46_workers/common/workers"
+	"golang-learn/46_workers/config"
+	"golang-learn/46_workers/controllers"
+	"golang-learn/46_workers/worker"
 	"net/http"
 	"os"
-	"golang-learn/46_workers/common/workers"
-	"golang-learn/46_workers/worker"
-	"golang-learn/46_workers/config"
-	"golang-learn/46_workers/common/config"
-	"golang-learn/46_workers/controllers"
+
 	"github.com/labstack/gommon/log"
 )
 
@@ -41,7 +41,7 @@ func main() {
 
 	// DO TEST
 	request := workers.WorkRequest{
-		Controller: &worker.WorkerController {
+		Controller: &worker.WorkerController{
 			SomeController: controller,
 		},
 	}
@@ -58,5 +58,5 @@ func main() {
 		fmt.Println(err.Error())
 	}
 
-	<- stop
+	<-stop
 }

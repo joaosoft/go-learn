@@ -16,9 +16,9 @@ func setupMocks() *dataTest {
 	repository := new(RepositoryMock)
 	interactor := domain.Interactor(repository)
 
-	return &dataTest {
+	return &dataTest{
 		interactor: &interactor,
-		repository: repository }
+		repository: repository}
 }
 
 var _ = Describe("testStruct", func() {

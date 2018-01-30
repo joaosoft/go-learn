@@ -1,10 +1,10 @@
 package workers
 
 import (
-	"fmt"
-	"net/http"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"net/http"
 )
 
 // A buffered channel that we can send work requests on.

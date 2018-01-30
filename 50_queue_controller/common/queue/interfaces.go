@@ -1,11 +1,10 @@
 package queue
 
-type IWork interface{
+type IWork interface {
 	GetWork() (interface{}, error)
 }
 
-
-type IController interface{
+type IController interface {
 	Do(data interface{}) error
 	Undo() error
 }

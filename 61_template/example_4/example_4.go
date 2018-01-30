@@ -1,10 +1,10 @@
 package main
 
 import (
-	"time"
+	"fmt"
 	"html/template"
 	"os"
-	"fmt"
+	"time"
 )
 
 type Account struct {
@@ -28,8 +28,8 @@ type Statement struct {
 func main() {
 	fmap := template.FuncMap{
 		"formatAsDollars": formatAsDollars,
-		"formatAsDate": formatAsDate,
-		"urgentNote": urgentNote,
+		"formatAsDate":    formatAsDate,
+		"urgentNote":      urgentNote,
 	}
 	dir, err := os.Getwd()
 	t := template.Must(template.New("email.tmpl").Funcs(fmap).ParseFiles(dir + "/examples/61_template/example_4/email.tmpl"))
@@ -57,20 +57,20 @@ func urgentNote(acc Account) string {
 func createMockStatement() Statement {
 	return Statement{
 		FromDate: time.Date(2016, 1, 1, 0, 0, 0, 0, time.UTC),
-		ToDate: time.Date(2016, 2, 1, 0, 0, 0, 0, time.UTC),
+		ToDate:   time.Date(2016, 2, 1, 0, 0, 0, 0, time.UTC),
 		Account: Account{
 			FirstName: "John",
-			LastName: "Dow",
+			LastName:  "Dow",
 		},
-		Purchases: []Purchase {
+		Purchases: []Purchase{
 			Purchase{
-				Date: time.Date(2016, 1, 3, 0, 0, 0, 0, time.UTC),
-				Description: "Shovel",
+				Date:          time.Date(2016, 1, 3, 0, 0, 0, 0, time.UTC),
+				Description:   "Shovel",
 				AmountInCents: 2326,
 			},
 			Purchase{
-				Date: time.Date(2016, 1, 8, 0, 0, 0, 0, time.UTC),
-				Description: "Staple remover",
+				Date:          time.Date(2016, 1, 8, 0, 0, 0, 0, time.UTC),
+				Description:   "Staple remover",
 				AmountInCents: 5432,
 			},
 		},

@@ -1,6 +1,7 @@
 // We can use channels to synchronize execution across goroutines.
 // Here’s an example of using a blocking receive to wait for a goroutine to finish.
 package main
+
 import "fmt"
 import "time"
 
