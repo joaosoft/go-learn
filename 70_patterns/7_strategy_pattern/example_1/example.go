@@ -1,6 +1,6 @@
 // Package main serves as an example application that makes use of the observer pattern.
 // Playground: https://play.golang.org/p/cr8jEmDmw0
-package main
+package example_1
 
 type Operator interface {
 	Apply(int, int) int

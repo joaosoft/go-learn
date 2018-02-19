@@ -1,4 +1,4 @@
-package main
+package __builder_pattern
 
 import "strconv"
 import "fmt"
