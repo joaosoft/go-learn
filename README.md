@@ -82,12 +82,19 @@ LinkedIn: https://www.linkedin.com/in/jo%C3%A3o-ribeiro-b2775438/
 - 67_reflection
 - 68_validation
 - 69_options
+- 70_patterns
 - 70_builder_pattern
-- 71_factory_pattern
-- 72_singleton_pattern
-- 73_decorator_pattern
-- 74_proxy_pattern
-- 75_observer_pattern
-- 76_strategy_pattern
-- 77_publisher_subscribe_pattern
-- 78_waitgroup
+ - 1_factory_pattern
+ - 2_singleton_pattern
+ - 3_decorator_pattern
+ - 4_proxy_pattern
+ - 5_observer_pattern
+ - 6_strategy_pattern
+ - 7_publisher_subscribe_pattern
+ - 8_waitgroup
+ - 9_state_handle_pattern
+- 71_waitgroup
+- 72_interesting
+- 73_go_convey
+- 74_imperative_vs_functional
+- 75_linked_list
