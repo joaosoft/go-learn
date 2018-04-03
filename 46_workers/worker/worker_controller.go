@@ -1,7 +1,7 @@
 package worker
 
 import (
-	"golang-learn/46_workers/controllers"
+	"go-learn/46_workers/controllers"
 )
 
 type WorkerController struct {

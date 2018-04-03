@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"golang-learn/60_grpc/example_3/grpc"
-	controllers "golang-learn/60_grpc/example_3/proto"
+	"go-learn/60_grpc/example_3/grpc"
+	controllers "go-learn/60_grpc/example_3/proto"
 )
 
 func main() {

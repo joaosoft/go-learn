@@ -81,13 +81,13 @@ services:
       - 9200:9200
 
   api:
-    image: golang-learn:base
+    image: go-learn:base
     build:
       context: ./sbin/docker/
       dockerfile: ./base-alpine.dockerfile
     command: run ./bin/main.go
     volumes:
-      - .:/go/src/golang-learn
+      - .:/go/src/go-learn
     ports:
       - 8080:8080
     environment:

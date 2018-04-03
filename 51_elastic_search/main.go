@@ -2,12 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	common "golang-learn/51_elastic_search/common/config"
-	"golang-learn/51_elastic_search/config"
-	"golang-learn/51_elastic_search/controllers"
-	"golang-learn/51_elastic_search/domain"
-	"golang-learn/51_elastic_search/interactors"
-	"golang-learn/51_elastic_search/repositories"
+	common "go-learn/51_elastic_search/common/config"
+	"go-learn/51_elastic_search/config"
+	"go-learn/51_elastic_search/controllers"
+	"go-learn/51_elastic_search/domain"
+	"go-learn/51_elastic_search/interactors"
+	"go-learn/51_elastic_search/repositories"
 	"os"
 	"strconv"
 

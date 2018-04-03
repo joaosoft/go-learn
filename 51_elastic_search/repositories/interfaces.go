@@ -1,6 +1,6 @@
 package repositories
 
-import "golang-learn/51_elastic_search/domain"
+import "go-learn/51_elastic_search/domain"
 
 type IRepository interface {
 	CreateIndex(index string, mapping map[string]interface{}) error

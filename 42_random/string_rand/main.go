@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"golang-learn/42_random/string_rand/api"
+	"go-learn/42_random/string_rand/api"
 )
 
 func main() {

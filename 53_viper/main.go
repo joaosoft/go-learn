@@ -16,7 +16,7 @@ func init() {
 	paths := strings.Split(os.Getenv("GOPATH"), ":")
 	for _, path := range paths {
 		fmt.Println(path)
-		viper.AddConfigPath(path + "/src/golang-learn/53_viper/config")
+		viper.AddConfigPath(path + "/src/go-learn/53_viper/config")
 	}
 	err := viper.ReadInConfig() // Find and read the config file
 

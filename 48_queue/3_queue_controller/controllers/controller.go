@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"golang-learn/50_queue_controller/repositories"
+	"go-learn/50_queue_controller/repositories"
 
 	"github.com/labstack/gommon/log"
 )

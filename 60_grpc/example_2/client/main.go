@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	pb "golang-learn/60_grpc/example_2/proto"
+	pb "go-learn/60_grpc/example_2/proto"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

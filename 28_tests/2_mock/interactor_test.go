@@ -1,7 +1,7 @@
 package dummy
 
 import (
-	domain "golang-learn/28_tests/2_mock/domain"
+	domain "go-learn/28_tests/2_mock/domain"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

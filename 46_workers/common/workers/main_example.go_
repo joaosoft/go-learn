@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
-	"golang-learn/46_workers/worker"
+	"go-learn/46_workers/worker"
 	"os"
-	"golang-learn/46_workers/common/config"
+	"go-learn/46_workers/common/config"
 	"github.com/labstack/gommon/log"
 )
 

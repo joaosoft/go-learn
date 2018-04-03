@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	pb "golang-learn/60_grpc/example_4"
+	pb "go-learn/60_grpc/example_4"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

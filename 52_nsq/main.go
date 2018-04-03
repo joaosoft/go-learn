@@ -1,11 +1,11 @@
 package main
 
 import (
-	common "golang-learn/52_nsq/common/config"
-	"golang-learn/52_nsq/common/nsq"
-	"golang-learn/52_nsq/config"
-	"golang-learn/52_nsq/controllers"
-	"golang-learn/52_nsq/interactors"
+	common "go-learn/52_nsq/common/config"
+	"go-learn/52_nsq/common/nsq"
+	"go-learn/52_nsq/config"
+	"go-learn/52_nsq/controllers"
+	"go-learn/52_nsq/interactors"
 
 	"github.com/labstack/gommon/log"
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"golang-learn/48_queue_map/common/queue"
+	"go-learn/48_queue_map/common/queue"
 
 	"github.com/labstack/gommon/log"
 )
