@@ -1,3 +1,6 @@
+# go-learn
+[![Build Status](https://travis-ci.org/joaosoft/go-learn.svg?branch=master)](https://travis-ci.org/joaosoft/go-learn) | [![codecov](https://codecov.io/gh/joaosoft/go-learn/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-learn) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/go-learn)](https://goreportcard.com/report/github.com/joaosoft/go-learn) | [![GoDoc](https://godoc.org/github.com/joaosoft/go-learn?status.svg)](https://godoc.org/github.com/joaosoft/go-learn/service)
+
 # Documentation
 > If you have something to add, please let me know joaosoft@gmail.com
 
