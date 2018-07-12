@@ -16,7 +16,7 @@ jobs:
         #- go test ./...
         #- go test -coverprofile=coverage.txt -covermode=atomic ./...
         #- go test ./... -bench=. -cpu=1,2,4,8
-        - go list ./... | grep -v vendor | xargs go vet && exit 0 || exit 1
+        - go list ./... | grep -v vendor | xargs go vet && echo "ok" || echo "error"
 
       after_success:
         - bash <(curl -s https://codecov.io/bash)
