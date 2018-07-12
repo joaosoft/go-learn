@@ -1,9 +1,9 @@
 package main
 
 import (
-	common "go-learn/50_queue_controller/common/queue"
-	"go-learn/50_queue_controller/controllers"
-	"go-learn/50_queue_controller/repositories"
+	common "go-learn/48_queue/3_queue_controller/common/queue"
+	"go-learn/48_queue/3_queue_controller/controllers"
+	"go-learn/48_queue/3_queue_controller/repositories"
 
 	"github.com/labstack/gommon/log"
 )
