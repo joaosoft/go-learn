@@ -53,8 +53,10 @@ func _switch() {
 	switch {
 	case t.Hour() < 12:
 		fmt.Println("Good morning!")
+		break
 	case t.Hour() < 17:
 		fmt.Println("Good afternoon.")
+		fallthrough
 	default:
 		fmt.Println("Good evening.")
 	}

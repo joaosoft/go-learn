@@ -29,7 +29,8 @@ func (instance *MyTest) Get(test string, rtnType reflect.Type) (map[uuid.UUID]in
 	if err := json.Unmarshal(data, &newInstance); err != nil {
 		panic("failed to unmarshal to instance")
 	}
-	response[uuid.NewV4()] = newInstance
+	id, _ := uuid.NewV4()
+	response[id] = newInstance
 
 	return response, nil
 }

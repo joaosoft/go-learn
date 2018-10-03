@@ -65,7 +65,7 @@ func main() {
 	for _, ed := range entries.Data.Children {
 		entry := ed.Data
 		log.Println(">>>")
-		log.Println("Title   :", entry.Title)
+		log.Println("Name   :", entry.Title)
 		log.Println("Author  :", entry.Author)
 		log.Println("URL     :", entry.URL)
 		log.Printf("Comments: http://reddit.com%s \n", entry.Permalink)

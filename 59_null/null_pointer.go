@@ -54,6 +54,6 @@ func main() {
 	}
 	fmt.Println("TESTE 1: ", teste1_2)
 
-	fmt.Printf("\n\nmy_string is nil: %s\n", teste1_2.String == nil)
-	fmt.Printf("my_int is nil: %d\n", teste1_2.Int == nil)
+	fmt.Printf("\n\nmy_string is nil: %t\n", teste1_2.String == nil)
+	fmt.Printf("my_int is nil: %t\n", teste1_2.Int == nil)
 }

@@ -33,13 +33,13 @@ func _time() {
 	// the date "Monday, January 2nd, 2006 at 15:04:05"
 	// the hard part is remembering the standard date, not sure
 	// which is better, hard to rembmer the %b %c or a date
-	// the date is based off Month=1, Day=2, Hour=3, Minute=4, Sec=5, Year=6
+	// the date is based off Month=1, Day=2, Hour=3, Minute=4, Sec=5, Age=6
 
 	fmt.Println(now.Format("Mon, Jan 2, 2006 at 3:04pm"))
 
 	// you can also grab any part of the date you may want to use
 	// See Time package for more: http://golang.org/pkg/time/#Time
-	fmt.Println("Year: ", now.Year())
+	fmt.Println("Age: ", now.Year())
 	fmt.Println("Month: ", now.Month())
 
 	// a few built in time constants exist for date formatting
@@ -76,7 +76,7 @@ func _time() {
 	// You can add dates using Durations
 	twodaysDiff := time.Hour * 24 * 2
 	twodays := now.Add(twodaysDiff)
-	fmt.Println("Two Days: ", twodays.Format(time.ANSIC))
+	fmt.Println("Two DaysOff: ", twodays.Format(time.ANSIC))
 
 	// Parsing Dates
 	// you can parse user inputted dates using known formats

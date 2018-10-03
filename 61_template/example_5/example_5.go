@@ -9,7 +9,7 @@ func main() {
 	// Define a template.
 	const tmpl = `
 ({{range .}}
-	ID:{{.Id}};
+	ID:{{.IdMigration}};
 	NAME:{{.Name}}
 {{end}})
 `

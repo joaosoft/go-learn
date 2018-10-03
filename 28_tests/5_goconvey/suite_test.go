@@ -1,4 +1,4 @@
-package dummy
+package example
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestMiraklMCIInteractors(t *testing.T) {
+func TestDummy(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Test Suite")
 }

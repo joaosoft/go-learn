@@ -1,5 +1,5 @@
 package domain
 
 type IRepository interface {
-	DoSomething(id string, value string) error
+	Store(name string, age int) error
 }

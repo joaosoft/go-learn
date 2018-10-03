@@ -33,14 +33,14 @@ func main() {
 	fileName := "teste.json.template"
 
 	decimal, _ := decimal.NewFromString("123")
-
+	id, _ := uuid.NewV4()
 	test := &ProductOfferTest{
 		Event: Event{
 			AggregateID:      "1",
 			AggregateVersion: 1,
 			EventID:          "2",
 		},
-		OfferID:           uuid.NewV4(),
+		OfferID:           id,
 		SellerID:          "4",
 		SourceID:          "5",
 		SourceOfferCode:   decimal,

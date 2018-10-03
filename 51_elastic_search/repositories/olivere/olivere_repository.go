@@ -90,7 +90,7 @@ func (repository *Repository) Insert(data []domain.Something) error {
 		//_, err := client.Index().
 		//	Index(repository.Configuration.ManagerIndexer.Index).
 		//	Type(element.Type).
-		//	Id(element.Id).
+		//	IdMigration(element.IdMigration).
 		//	BodyJson(body).
 		//	Do(ctx)
 
