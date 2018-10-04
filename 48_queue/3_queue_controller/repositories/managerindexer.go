@@ -14,7 +14,7 @@ func NewRepository() *Repository {
 }
 
 func (repository *Repository) DoSomething(data interface{}) error {
-	log.Infof("Repository: DoSomething")
+	log.Infof("Repository: DoSomethingInsert")
 
 	return nil
 }

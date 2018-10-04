@@ -30,12 +30,12 @@ func NewInteractor(repository repositories.IRepository) *Interactor {
 	return interactor
 }
 
-// DoSomething ...
+// DoSomethingInsert ...
 func (interactor *Interactor) CreateIndex(index string) error {
 	return interactor.Repository.CreateIndex(index, _mapping)
 }
 
-// DoSomething ...
+// DoSomethingInsert ...
 func (interactor *Interactor) Insert(data []domain.Something) error {
 	return interactor.Repository.Insert(data)
 }

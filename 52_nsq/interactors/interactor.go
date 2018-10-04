@@ -12,7 +12,7 @@ func NewInteractor() *Interactor {
 	return interactor
 }
 
-// DoSomething ...
+// DoSomethingInsert ...
 func (interactor *Interactor) DoSomething() error {
 	fmt.Println("OLA, ENTREI NO INTERACTOR!")
 	return nil

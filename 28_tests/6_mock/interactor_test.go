@@ -37,7 +37,7 @@ func setupMocks() *setup {
 
 var _ = Describe("Tests with mock", func() {
 
-	Describe("when processing DoSomething method", func() {
+	Describe("when processing DoSomethingInsert method", func() {
 
 		Context("when method returns success", func() {
 			test := setupMocks()
