@@ -15,7 +15,6 @@ func main() {
 func SayHello(w http.ResponseWriter, r *http.Request) {
 
 	name := r.FormValue("name")
-	fmt.Println(name)
 
 	body, error := ioutil.ReadAll(r.Body)
 	if error != nil {
