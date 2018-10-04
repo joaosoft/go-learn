@@ -1,3 +1,4 @@
+
 env:
 	docker-compose up -d psql
 	docker-compose up -d nsqd
