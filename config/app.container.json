@@ -2,7 +2,7 @@
   "dependency": {
     "path": "./",
     "log": {
-      "level": "debug"
+      "level": "info"
     }
   },
   "manager": {

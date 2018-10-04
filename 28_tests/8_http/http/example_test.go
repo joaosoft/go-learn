@@ -1,16 +1,15 @@
 package echo
 
 import (
-	"go-learn/28_tests/10_http/beego/domain"
+	"go-learn/28_tests/8_http/http/domain"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 
-	"github.com/astaxie/beego/context"
-
 	"fmt"
 
+	"github.com/labstack/echo"
 	. "github.com/onsi/gomega"
 )
 
@@ -29,7 +28,6 @@ var (
 func TestSomething(t *testing.T) {
 	RegisterTestingT(t)
 
-	controller := domain.Controller{}
 	tests := []struct {
 		Name            string
 		Method          string
@@ -37,7 +35,7 @@ func TestSomething(t *testing.T) {
 		RequestBody     string
 		ResponseCode    int
 		ResponseBody    string
-		HandlerFunction func()
+		HandlerFunction func(w http.ResponseWriter, r *http.Request)
 	}{
 		{
 			Name:            "Valid json request",
@@ -46,42 +44,22 @@ func TestSomething(t *testing.T) {
 			RequestBody:     `{"cenas":"worked"}`,
 			ResponseCode:    http.StatusOK,
 			ResponseBody:    `{"name":"joao","age":30}`,
-			HandlerFunction: controller.SayHello,
+			HandlerFunction: domain.SayHello,
 		},
 	}
 
 	for _, test := range tests {
-		req := httptest.NewRequest(test.Method, "/hello/joao", strings.NewReader(test.RequestBody))
-		req.Header.Set("Content-Type", "application/json")
+		req := httptest.NewRequest(test.Method, "/", strings.NewReader(test.RequestBody))
+		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		req.Form = test.UrlValues
+
 		rec := httptest.NewRecorder()
 
-		context := context.Context{
-			Input: &context.BeegoInput{
-				Context: &context.Context{
-					Request:        req,
-					ResponseWriter: &context.Response{ResponseWriter: rec},
-				},
-			},
-			Output: &context.BeegoOutput{
-				Context: &context.Context{
-					Request:        req,
-					ResponseWriter: &context.Response{ResponseWriter: rec},
-				},
-			},
-			Request: req,
-			ResponseWriter: &context.Response{
-				ResponseWriter: rec,
-			},
-		}
-
-		controller.Init(&context, "", "", "")
-
 		for key, value := range test.UrlValues {
-			controller.Ctx.Input.SetParam(key, value[0])
+			req.Form[key] = value
 		}
 
-		test.HandlerFunction()
-
+		test.HandlerFunction(rec, req)
 		Expect(rec.Body.String()).To(Equal(test.ResponseBody), fmt.Sprintf("Should return the correct body {obtained: %s, expected: %s}", rec.Body.String(), test.ResponseBody))
 		Expect(rec.Code).To(Equal(test.ResponseCode), fmt.Sprintf("Should return the correct code {obtained: %d, expected: %d}", rec.Code, test.ResponseCode))
 	}
