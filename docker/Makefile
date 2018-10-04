@@ -1,4 +1,3 @@
-
 env:
 	docker-compose up -d psql
 	docker-compose up -d nsqd
@@ -17,16 +16,3 @@ start:
 
 stop:
 	docker-compose stop
-
-fmt:
-	go fmt ./...
-
-vet:
-	go vet ./*
-
-gometalinter:
-	gometalinter ./*
-
-mocks:
-	@echo "=== Running mockery generator ==="
-	CGO_ENABLED=0 /Users/joaoribeiro/workspace/go/bin/mockery -all -dir 28_tests/6_mock/domain -outpkg mocks -output 28_tests/6_mock/gen
