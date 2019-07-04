@@ -4,45 +4,45 @@ import (
 	"fmt"
 )
 
-func main() {
-	fmt.Println("_try-catch()")
-	fmt.Println("----------------------------")
-	fmt.Println("INICIO")
-
-	SoleTitle("teste do joao")
-
-	fmt.Println("FIM")
-	fmt.Println("----------------------------")
+type Block struct {
+	Try     func()
+	Catch   func(Exception)
+	Finally func()
 }
 
-// _soleTitle returns the text of the first non-empty title element
-// in doc, and an error if there was not exactly one.
-// SoleTitle ...
-func SoleTitle(titleIn string) (title string, err error) {
-	type bailout struct{}
+type Exception interface{}
 
-	defer func() {
-		switch p := recover(); p {
-		case nil:
-			fmt.Println("-> nil")
-			// no panic
-		case bailout{}:
-			// "expected" panic
-			fmt.Println("-> bailout")
-			err = fmt.Errorf("multiple title elements")
-		default:
-			fmt.Println("-> default")
-			panic(p) // unexpected panic; carry on panicking
-		}
-	}()
+func Throw(up Exception) {
+	panic(up)
+}
 
-	// Bail out of recursion if we find more than one non-empty title.
-	if titleIn != "" {
-		panic(bailout{}) // multiple title elements
+func (block Block) Do() {
+	if block.Finally != nil {
+		defer block.Finally()
 	}
-
-	if titleIn == "" {
-		return "", fmt.Errorf("no title element")
+	if block.Catch != nil {
+		defer func() {
+			if r := recover(); r != nil {
+				block.Catch(r)
+			}
+		}()
 	}
-	return titleIn, nil
+	block.Try()
+}
+
+func main() {
+	fmt.Println("We started")
+	Block{
+		Try: func() {
+			fmt.Println("I tried")
+			Throw("Oh,...sh...")
+		},
+		Catch: func(e Exception) {
+			fmt.Printf("Caught %v\n", e)
+		},
+		Finally: func() {
+			fmt.Println("Finally...")
+		},
+	}.Do()
+	fmt.Println("We went on")
 }
