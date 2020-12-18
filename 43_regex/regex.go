@@ -31,7 +31,7 @@ func basic_regexes() {
 	// compile pattern
 	re, err := regexp.Compile(pattern)
 	if err != nil {
-		fmt.Println("Error compiling regex", err)
+		fmt.Println("error compiling regex", err)
 	}
 
 	// 1. Test compiled pattern matches string
@@ -65,7 +65,7 @@ func case_insensitive() {
 
 	re, err := regexp.Compile(ptn)
 	if err != nil {
-		fmt.Println("Error compiling regex", err)
+		fmt.Println("error compiling regex", err)
 	}
 
 	// match string

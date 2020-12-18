@@ -22,9 +22,9 @@ func NewErrorTest(event IEvent) *ErrorTest {
 	return e
 }
 
-// Error returns a string representation of the error.
+// error returns a string representation of the error.
 func (err *ErrorTest) Error() string {
-	return fmt.Sprintf("Event type '%s' not recognized by the system", err.eventType)
+	return fmt.Sprintf("events type '%s' not recognized by the system", err.eventType)
 }
 
 func main() {

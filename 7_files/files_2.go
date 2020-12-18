@@ -19,7 +19,7 @@ func main() {
 	if err != nil {
 		// log is a nifty little utility which can also output
 		// in this case, a fatal log will halt the program
-		log.Fatalln("Error reading file", filename)
+		log.Fatalln("error reading file", filename)
 	}
 
 	// content returned as []byte not string
@@ -31,6 +31,6 @@ func main() {
 	outfile := "output.txt"
 	err = ioutil.WriteFile(outfile, content, 0644)
 	if err != nil {
-		log.Fatalln("Error writing file: ", err)
+		log.Fatalln("error writing file: ", err)
 	}
 }

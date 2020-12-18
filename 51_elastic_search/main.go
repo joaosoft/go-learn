@@ -18,7 +18,7 @@ var _configuration config.Configuration
 
 func init() {
 	if err := common.LoadConfigFromFile("config", &_configuration); err != nil {
-		log.Error("Error loading config: ", err)
+		log.Error("error loading config: ", err)
 		os.Exit(0)
 	}
 }

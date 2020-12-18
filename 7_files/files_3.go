@@ -38,14 +38,14 @@ func main() {
 	// Write file by creating and then writing string by string
 	f, err := os.Create("output.txt")
 	if err != nil {
-		log.Fatalln("Error creating file: ", err)
+		log.Fatalln("error creating file: ", err)
 	}
 	defer f.Close()
 
 	for _, str := range []string{"apple", "banana", "carrot"} {
 		bytes, err := f.WriteString(str)
 		if err != nil {
-			log.Fatalln("Error writing string: ", err)
+			log.Fatalln("error writing string: ", err)
 		}
 		fmt.Printf("Wrote %d bytes to file\n", bytes)
 	}

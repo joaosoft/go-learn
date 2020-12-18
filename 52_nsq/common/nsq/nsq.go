@@ -44,7 +44,7 @@ func (consumer *NSQConsumer) SetHandler(handler INSQHandler, concurrency uint) e
 	return nil
 }
 
-// NSQ Handler implementation
+// NSQ Handlers implementation
 // Handle the message and send to a custom handler
 func (consumer *NSQConsumer) HandleMessage(nsqMsg *nsqlib.Message) error {
 	nsqMsg.DisableAutoResponse()

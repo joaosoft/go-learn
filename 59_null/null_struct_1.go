@@ -35,13 +35,13 @@ func main() {
 
 	bytes, err := json.Marshal(teste)
 	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
+		fmt.Println("JSON Encoding error", err)
 	}
 	fmt.Println("BYTES: ", bytes)
 
 	var teste1 Example
 	if err := json.Unmarshal(bytes, &teste1); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 	fmt.Println("TESTE 1: ", teste1)
 
@@ -77,13 +77,13 @@ func main() {
 	var My_string_ok = null.StringFrom("teste")
 	My_string_ok_bytes, err := json.Marshal(My_string_ok)
 	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
+		fmt.Println("JSON Encoding error", err)
 	}
 	fmt.Println("BYTES: ", My_string_ok_bytes)
 
 	var My_string_ok_2 null.String
 	if err := json.Unmarshal(My_string_ok_bytes, &My_string_ok_2); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 	fmt.Println("TESTE 2: ", My_string_ok_2)
 
@@ -96,13 +96,13 @@ func main() {
 
 	bytes3, err := json.Marshal(teste3)
 	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
+		fmt.Println("JSON Encoding error", err)
 	}
 	fmt.Println("BYTES: ", bytes3)
 
 	var teste3_1 Example3
 	if err := json.Unmarshal(bytes3, &teste3_1); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 	fmt.Println("TESTE 3: ", teste3_1)
 

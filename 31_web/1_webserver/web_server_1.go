@@ -20,21 +20,21 @@ func main() {
 
 // functions
 // EXEMPLO WEBSERVER 1
-// handler echoes the Path component of the requested URL.
+// handler echoes the Path component of the requested Url.
 func handler_server1(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
+	fmt.Fprintf(w, "Url.Path = %q\n", r.URL.Path)
 }
 
 // EXEMPLO WEBSERVER 2
 var mu sync.Mutex
 var count int
 
-// handler echoes the Path component of the requested URL.
+// handler echoes the Path component of the requested Url.
 func handler_server2(w http.ResponseWriter, r *http.Request) {
 	mu.Lock()
 	count++
 	mu.Unlock()
-	fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
+	fmt.Fprintf(w, "Url.Path = %q\n", r.URL.Path)
 }
 
 // counter echoes the number of calls so far.

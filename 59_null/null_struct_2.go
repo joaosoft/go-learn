@@ -26,13 +26,13 @@ func main() {
 
 	bytes, err := json.Marshal(teste)
 	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
+		fmt.Println("JSON Encoding error", err)
 	}
 	fmt.Println("BYTES: ", bytes)
 
 	var teste1 Teste
 	if err := json.Unmarshal([]byte(`{"string":"", "int": 3}`), &teste1); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 	fmt.Println("TESTE 1: ", teste1)
 
@@ -45,7 +45,7 @@ func main() {
 	fmt.Println("\n\n\n\n\n######### TESTE 2 #########")
 	var teste2 Teste
 	if err := json.Unmarshal([]byte(`{"string":null, "int": 3}`), &teste2); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 	fmt.Println("TESTE 2: ", teste2)
 
@@ -58,7 +58,7 @@ func main() {
 	fmt.Println("\n\n\n\n\n######### TESTE 3 #########")
 	var teste3 Teste
 	if err := json.Unmarshal([]byte(`{"int": 3}`), &teste3); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 	fmt.Println("TESTE 3: ", teste3)
 

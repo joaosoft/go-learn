@@ -20,7 +20,7 @@ func main() {
     "bool": {
       "should": [
         {{range .}}
-        { "{{.Match}}": { "{{.Name}}": "{{.Value}}" }},
+        { "{{.Match}}": { "{{.name}}": "{{.Value}}" }},
         {{end}}
       ]
     }

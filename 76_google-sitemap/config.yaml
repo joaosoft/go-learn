@@ -1,0 +1,5 @@
+database:
+  dialect: postgres
+  data_source: host=database-tableau.foursource.pt port=5432 user=replica_user password=iazyLwnPxmHzs9Z3 dbname=foursource sslmode=disable
+website_url: https://pro.foursource.com
+output_file: sitemap.xml

@@ -38,36 +38,36 @@ func main() {
 	// fetch url
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatalln("Error fetching:", err)
+		log.Fatalln("error fetching:", err)
 	}
 	// defer response close
 	defer resp.Body.Close()
 
 	// confirm we received an OK status
 	//if resp.StatusCode != http.StatusOK {
-	//	log.Fatalln("Error Status not OK:", resp.StatusCode)
+	//	log.Fatalln("error Status not OK:", resp.StatusCode)
 	//}
 
 	// read the entire body of the response
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalln("Error reading body:", err)
+		log.Fatalln("error reading body:", err)
 	}
 
 	// create an empty instance of Feed struct
 	// this is what gets filled in when unmarshaling JSON
 	var entries Feed
 	if err := json.Unmarshal(body, &entries); err != nil {
-		log.Fatalln("Error decoing JSON", err)
+		log.Fatalln("error decoing JSON", err)
 	}
 
 	// loop through the children and create entry objects
 	for _, ed := range entries.Data.Children {
 		entry := ed.Data
 		log.Println(">>>")
-		log.Println("Name   :", entry.Title)
+		log.Println("name   :", entry.Title)
 		log.Println("Author  :", entry.Author)
-		log.Println("URL     :", entry.URL)
+		log.Println("Url     :", entry.URL)
 		log.Printf("Comments: http://reddit.com%s \n", entry.Permalink)
 	}
 }
@@ -82,7 +82,7 @@ func main() {
 					"domain": "austingwalters.com", "banned_by": null, "media_embed": {}, "subreddit": "golang", "selftext_html": null, "selftext": "", "likes": null, "secure_media": null, "link_flair_text": null, "id": "26l1by", "gilded": 0, "secure_media_embed": {}, "clicked": false, "stickied": false, "author": "dgryski", "media": null, "score": 2, "approved_by": null, "over_18": false, "hidden": false, "thumbnail": "", "subreddit_id": "t5_2rc7j", "edited": false, "link_flair_css_class": null, "author_flair_css_class": null, "downs": 8, "saved": false, "is_self": false,
 					"permalink": "/r/golang/comments/26l1by/building_a_web_server_in_go_database_accesses/", "name": "t3_26l1by", "created": 1401198126.0,
 					"url": "http://austingwalters.com/building-a-web-server-in-go-database-accesses/", "author_flair_text": null,
-					"title": "Building a Web Server in Go: Database Accesses", "created_utc": 1401169326.0, "ups": 10, "num_comments": 1, "visited": false, "num_reports": null, "distinguished": null
+					"title": "Building a Web Consumer in Go: Database Accesses", "created_utc": 1401169326.0, "ups": 10, "num_comments": 1, "visited": false, "num_reports": null, "distinguished": null
 				}
 			},
 			{ "kind": "t3", "data":

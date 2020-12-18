@@ -15,7 +15,7 @@ func (consumer *NSQConsumerMock) SetHandler(handler INSQHandler, concurrency uin
 	return args.Error(0)
 }
 
-// NSQ Handler implementation
+// NSQ Handlers implementation
 func (consumer *NSQConsumerMock) HandleMessage(nsqMsg *nsqlib.Message) error {
 	args := consumer.Called(nsqMsg)
 

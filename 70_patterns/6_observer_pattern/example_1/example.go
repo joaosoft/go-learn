@@ -8,7 +8,7 @@ import (
 )
 
 type (
-	// Event defines an indication of a point-in-time occurrence.
+	// events defines an indication of a point-in-time occurrence.
 	Event struct {
 		// Data in this case is a simple int, but the actual
 		// implementation would depend on the application.

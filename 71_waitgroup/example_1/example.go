@@ -15,11 +15,11 @@ func main() {
 	for _, url := range urls {
 		// Increment the WaitGroup counter.
 		wg.Add(1)
-		// Launch a goroutine to fetch the URL.
+		// Launch a goroutine to fetch the Url.
 		go func(url string) {
 			// Decrement the counter when the goroutine completes.
 			defer wg.Done()
-			// Fetch the URL.
+			// Fetch the Url.
 			http.Get(url)
 		}(url)
 	}

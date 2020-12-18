@@ -13,7 +13,7 @@ var _mapping map[string]interface{}
 
 func init() {
 	if err := config.LoadConfigFromPath("mapping", &_mapping); err != nil {
-		log.Error("Error loading config: ", err)
+		log.Error("error loading config: ", err)
 		os.Exit(0)
 	}
 }

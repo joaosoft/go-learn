@@ -44,7 +44,7 @@ func (queue *Queue) AddWork(work map[string]interface{}) error {
 	return nil
 }
 
-// Buffer Handler
+// Buffer Handlers
 func bulkBufferHandler(queue Queue) {
 	log.Infof("bulkBufferHandler()")
 

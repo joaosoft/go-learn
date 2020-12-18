@@ -78,7 +78,7 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for Service service
+// Producer API for Service service
 
 type ServiceClient interface {
 	GetName(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
@@ -101,7 +101,7 @@ func (c *serviceClient) GetName(ctx context.Context, in *Request, opts ...grpc.C
 	return out, nil
 }
 
-// Server API for Service service
+// Consumer API for Service service
 
 type ServiceServer interface {
 	GetName(context.Context, *Request) (*Response, error)

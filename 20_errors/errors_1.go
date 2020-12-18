@@ -17,7 +17,7 @@ func main() {
 }
 
 // functions
-// ERROS - ver que tem o metodo 'Error' que imprime corretamente o erro!
+// ERROS - ver que tem o metodo 'error' que imprime corretamente o erro!
 // MyError ...
 type MyError struct {
 	When time.Time

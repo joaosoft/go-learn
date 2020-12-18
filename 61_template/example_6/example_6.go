@@ -14,7 +14,7 @@ func main() {
 
 	const tmpl = `
 "query": {
-	"match_all": { "{{.Name}}" : "{{.Value}}" }
+	"match_all": { "{{.name}}" : "{{.Value}}" }
 }
 `
 

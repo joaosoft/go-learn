@@ -9,7 +9,7 @@ import (
 
 // Create a struct to match the format of JSON
 type Person struct {
-	Name string `json:"Name"`
+	Name string `json:"name"`
 	City string `json:"City"`
 }
 
@@ -29,16 +29,16 @@ func load1() {
 	fmt.Println(":::::::::::::::: LOAD 1")
 
 	// JSON string to parse, see below for example read in from file
-	json_str := "{ \"Name\": \"Marcus\", \"City\": \"San Jose\"}"
+	json_str := "{ \"name\": \"Marcus\", \"City\": \"San Jose\"}"
 
 	// JSON Unmarshal command takes []byte, so string needs to be cast
 	// The second parameter is a pointer to the struct that matches format
 	if err := json.Unmarshal([]byte(json_str), &person); err != nil {
-		fmt.Println("Error parsing JSON: ", err)
+		fmt.Println("error parsing JSON: ", err)
 	}
 
 	// output result
-	fmt.Printf("Name: %v, City: %v\n", person.Name, person.City)
+	fmt.Printf("name: %v, City: %v\n", person.Name, person.City)
 }
 
 func load2() {
@@ -50,12 +50,12 @@ func load2() {
 
 	file, err := ioutil.ReadFile("./29_json/people.json")
 	if err != nil {
-		fmt.Println("Error reading file")
+		fmt.Println("error reading file")
 	}
 
 	// the names.json file has an array of person objects, so read into people
 	if err := json.Unmarshal(file, &people); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 
 	// output result
@@ -64,7 +64,7 @@ func load2() {
 	// encoding a Go object into JSON is simply using the Marshal command
 	json, err := json.Marshal(people)
 	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
+		fmt.Println("JSON Encoding error", err)
 	}
 	fmt.Println(string(json))
 }
@@ -78,12 +78,12 @@ func load3() {
 
 	file, err := ioutil.ReadFile("./29_json/person.json")
 	if err != nil {
-		fmt.Println("Error reading file")
+		fmt.Println("error reading file")
 	}
 
 	// the names.json file has an array of person objects, so read into people
 	if err := json.Unmarshal(file, &person); err != nil {
-		fmt.Println("Error parsing JSON", err)
+		fmt.Println("error parsing JSON", err)
 	}
 
 	// output result
@@ -92,7 +92,7 @@ func load3() {
 	// encoding a Go object into JSON is simply using the Marshal command
 	json, err := json.Marshal(person)
 	if err != nil {
-		fmt.Println("JSON Encoding Error", err)
+		fmt.Println("JSON Encoding error", err)
 	}
 	fmt.Println(string(json))
 }

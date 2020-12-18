@@ -85,7 +85,7 @@ func _time() {
 	user_str := "4/16/2014 11:38am"
 	user_date, err := time.Parse(input_form, user_str)
 	if err != nil {
-		fmt.Println(">>> Error parsing date string")
+		fmt.Println(">>> error parsing date string")
 	}
-	fmt.Println("User Date: ", user_date.Format("Jan 2, 2006 @ 3:04pm"))
+	fmt.Println("Role Date: ", user_date.Format("Jan 2, 2006 @ 3:04pm"))
 }

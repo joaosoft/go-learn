@@ -18,7 +18,7 @@ func main() {
 
 // e.GET("/users/:id", getUser)
 func getUser(c echo.Context) error {
-	// User ID from path `users/:id`
+	// Role ID from path `users/:id`
 	id := c.Param("id")
 	return c.String(http.StatusOK, id)
 }

@@ -29,7 +29,7 @@ func Collector(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check to make sure the delay is anywhere from 1 to 10 seconds.
+	// check to make sure the delay is anywhere from 1 to 10 seconds.
 	if delay.Seconds() < 1 || delay.Seconds() > 10 {
 		http.Error(w, "The delay must be between 1 and 10 seconds, inclusively.", http.StatusBadRequest)
 		return

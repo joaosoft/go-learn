@@ -80,7 +80,7 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for Sample service
+// Producer API for Sample service
 
 type SampleClient interface {
 	Ping(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*PingResponse, error)
@@ -103,7 +103,7 @@ func (c *sampleClient) Ping(ctx context.Context, in *EmptyRequest, opts ...grpc.
 	return out, nil
 }
 
-// Server API for Sample service
+// Consumer API for Sample service
 
 type SampleServer interface {
 	Ping(context.Context, *EmptyRequest) (*PingResponse, error)

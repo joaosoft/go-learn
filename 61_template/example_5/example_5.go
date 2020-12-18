@@ -10,7 +10,7 @@ func main() {
 	const tmpl = `
 ({{range .}}
 	ID:{{.IdMigration}};
-	NAME:{{.Name}}
+	NAME:{{.name}}
 {{end}})
 `
 

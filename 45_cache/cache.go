@@ -36,13 +36,13 @@ func main() {
 	// check for cache hit
 	if err != memcache.ErrCacheMiss {
 		if err != nil {
-			fmt.Println("Error fetching from memcache", err)
+			fmt.Println("error fetching from memcache", err)
 		} else {
 			fmt.Println("Cache hit!")
 
 			dog, err := DecodeData(fetchItem.Value)
 			if err != nil {
-				fmt.Println("Error decoding data from memcache", err)
+				fmt.Println("error decoding data from memcache", err)
 			} else {
 				fmt.Println("Dog name is: ", dog.Name)
 			}
@@ -57,7 +57,7 @@ func main() {
 
 	err = mc.Set(&setItem)
 	if err != nil {
-		fmt.Println("Error setting memcache item", err)
+		fmt.Println("error setting memcache item", err)
 	}
 
 	// run twice
@@ -71,7 +71,7 @@ func DecodeData(raw []byte) (dog Dog, err error) {
 func EncodeData(dog Dog) []byte {
 	enc, err := json.Marshal(dog)
 	if err != nil {
-		fmt.Println("Error encoding Action to JSON", err)
+		fmt.Println("error encoding Action to JSON", err)
 	}
 	return enc
 }

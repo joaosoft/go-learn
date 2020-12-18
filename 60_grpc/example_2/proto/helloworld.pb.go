@@ -80,7 +80,7 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for Greeter service
+// Producer API for Greeter service
 
 type GreeterClient interface {
 	// Sends a greeting
@@ -104,7 +104,7 @@ func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...
 	return out, nil
 }
 
-// Server API for Greeter service
+// Consumer API for Greeter service
 
 type GreeterServer interface {
 	// Sends a greeting
