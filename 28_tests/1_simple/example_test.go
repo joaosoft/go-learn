@@ -10,12 +10,9 @@ type Person struct {
 }
 
 func TestSomething(t *testing.T) {
-	person := Person{
-		Name: "joao",
-		Age:  30,
-	}
 
-	if person.Name != "joao" {
+
+	if Get != "joao" {
 		t.Error("error validating person name")
 	}
 
