@@ -7,8 +7,8 @@ jobs:
   include:
   - stage: test
     install:
-    - go get github.com/joaosoft/dependency
-    - dependency get
+    - go mod tidy
+    - go mod vendor
     os: linux
     go: master
     script:
