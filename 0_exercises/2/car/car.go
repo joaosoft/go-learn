@@ -3,38 +3,38 @@ package car
 import (
 	"encoding/json"
 	"fmt"
-	"logger"
+	"log"
 )
 
 const (
-	BrandBMW Brand = "BMW"
-	BrandVW Brand = "VW"
+	BrandBMW  Brand = "BMW"
+	BrandVW   Brand = "VW"
 	BrandAudi Brand = "Audi"
 )
 
 var (
 	ErrorInvalidVersion = fmt.Errorf("invalid version")
-	Defects []Defect
+	Defects             []Defect
 )
 
 type Brand string
 
 type Car struct {
-	Model CarModel
+	Model             CarModel
 	ManufacturingYear int
-	EngineSerial string
+	EngineSerial      string
 }
 
 type CarModel struct {
-	Name string
+	Name    string
 	Version int
-	Brand Brand
+	Brand   Brand
 }
 
 type Defect struct {
-	Model CarModel
+	Model         CarModel
 	AffectedYears []int
-	Code string
+	Code          string
 }
 
 func (c *Car) Validate() (errs []error) {
@@ -51,7 +51,7 @@ func (c *CarModel) String() string {
 func (c *CarModel) StringForLog() string {
 	bytes, err := json.Marshal(c)
 	if err != nil {
-		logger.Error(err)
+		log.Panic(err)
 	}
 	return string(bytes)
 }
@@ -76,9 +76,9 @@ func GetCarsDefects(imp CarDefecter, cars ...*Car) (defects []Defect) {
 
 	for _, c := range cars {
 		for _, d := range modelsDefects {
-			if c.Model.Version ==  d.Model.Version &&
-				c.Model.Brand ==  d.Model.Brand &&
-				c.Model.Name ==  d.Model.Name {
+			if c.Model.Version == d.Model.Version &&
+				c.Model.Brand == d.Model.Brand &&
+				c.Model.Name == d.Model.Name {
 
 				for _, y := range d.AffectedYears {
 					if c.ManufacturingYear == y {
@@ -91,7 +91,6 @@ func GetCarsDefects(imp CarDefecter, cars ...*Car) (defects []Defect) {
 
 	return defects
 }
-
 
 func CarDefectFactory() CarDefecter {
 	return &CarModelDefectImp{}

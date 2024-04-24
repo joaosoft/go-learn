@@ -9,7 +9,7 @@ import (
 
 	"fmt"
 
-	"github.com/labstack/echo"
+	echo "github.com/labstack/echo/v4"
 	. "github.com/onsi/gomega"
 )
 

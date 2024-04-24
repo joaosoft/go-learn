@@ -1,31 +1,35 @@
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: © 2015 LabStack LLC and Echo contributors
+
 package echo
 
 import (
 	"net/http"
-	"path"
 )
 
-type (
-	// Group is a set of sub-routes for a specified route. It can be used for inner
-	// routes that share a common middleware or functionality that should be separate
-	// from the parent echo instance while still inheriting from it.
-	Group struct {
-		prefix     string
-		middleware []MiddlewareFunc
-		echo       *Echo
-	}
-)
+// Group is a set of sub-routes for a specified route. It can be used for inner
+// routes that share a common middleware or functionality that should be separate
+// from the parent echo instance while still inheriting from it.
+type Group struct {
+	common
+	host       string
+	prefix     string
+	middleware []MiddlewareFunc
+	echo       *Echo
+}
 
 // Use implements `Echo#Use()` for sub-routes within the Group.
 func (g *Group) Use(middleware ...MiddlewareFunc) {
 	g.middleware = append(g.middleware, middleware...)
-	// Allow all requests to reach the group as they might get dropped if router
-	// doesn't find a match, making none of the group middleware process.
-	for _, p := range []string{"", "/*"} {
-		g.echo.Any(path.Clean(g.prefix+p), func(c Context) error {
-			return NotFoundHandler(c)
-		}, g.middleware...)
+	if len(g.middleware) == 0 {
+		return
 	}
+	// group level middlewares are different from Echo `Pre` and `Use` middlewares (those are global). Group level middlewares
+	// are only executed if they are added to the Router with route.
+	// So we register catch all route (404 is a safe way to emulate route match) for this group and now during routing the
+	// Router would find route to match our request path and therefore guarantee the middleware(s) will get executed.
+	g.RouteNotFound("", NotFoundHandler)
+	g.RouteNotFound("/*", NotFoundHandler)
 }
 
 // CONNECT implements `Echo#CONNECT()` for sub-routes within the Group.
@@ -92,21 +96,25 @@ func (g *Group) Match(methods []string, path string, handler HandlerFunc, middle
 }
 
 // Group creates a new sub-group with prefix and optional sub-group-level middleware.
-func (g *Group) Group(prefix string, middleware ...MiddlewareFunc) *Group {
+func (g *Group) Group(prefix string, middleware ...MiddlewareFunc) (sg *Group) {
 	m := make([]MiddlewareFunc, 0, len(g.middleware)+len(middleware))
 	m = append(m, g.middleware...)
 	m = append(m, middleware...)
-	return g.echo.Group(g.prefix+prefix, m...)
-}
-
-// Static implements `Echo#Static()` for sub-routes within the Group.
-func (g *Group) Static(prefix, root string) {
-	static(g, prefix, root)
+	sg = g.echo.Group(g.prefix+prefix, m...)
+	sg.host = g.host
+	return
 }
 
 // File implements `Echo#File()` for sub-routes within the Group.
 func (g *Group) File(path, file string) {
-	g.echo.File(g.prefix+path, file)
+	g.file(path, file, g.GET)
+}
+
+// RouteNotFound implements `Echo#RouteNotFound()` for sub-routes within the Group.
+//
+// Example: `g.RouteNotFound("/*", func(c echo.Context) error { return c.NoContent(http.StatusNotFound) })`
+func (g *Group) RouteNotFound(path string, h HandlerFunc, m ...MiddlewareFunc) *Route {
+	return g.Add(RouteNotFound, path, h, m...)
 }
 
 // Add implements `Echo#Add()` for sub-routes within the Group.
@@ -117,5 +125,5 @@ func (g *Group) Add(method, path string, handler HandlerFunc, middleware ...Midd
 	m := make([]MiddlewareFunc, 0, len(g.middleware)+len(middleware))
 	m = append(m, g.middleware...)
 	m = append(m, middleware...)
-	return g.echo.Add(method, g.prefix+path, handler, m...)
+	return g.echo.add(g.host, method, g.prefix+path, handler, m...)
 }

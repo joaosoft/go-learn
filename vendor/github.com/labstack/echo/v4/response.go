@@ -1,25 +1,27 @@
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: © 2015 LabStack LLC and Echo contributors
+
 package echo
 
 import (
 	"bufio"
+	"errors"
 	"net"
 	"net/http"
 )
 
-type (
-	// Response wraps an http.ResponseWriter and implements its interface to be used
-	// by an HTTP handler to construct an HTTP response.
-	// See: https://golang.org/pkg/net/http/#ResponseWriter
-	Response struct {
-		echo        *Echo
-		beforeFuncs []func()
-		afterFuncs  []func()
-		Writer      http.ResponseWriter
-		Status      int
-		Size        int64
-		Committed   bool
-	}
-)
+// Response wraps an http.ResponseWriter and implements its interface to be used
+// by an HTTP handler to construct an HTTP response.
+// See: https://golang.org/pkg/net/http/#ResponseWriter
+type Response struct {
+	echo        *Echo
+	beforeFuncs []func()
+	afterFuncs  []func()
+	Writer      http.ResponseWriter
+	Status      int
+	Size        int64
+	Committed   bool
+}
 
 // NewResponse creates a new instance of Response.
 func NewResponse(w http.ResponseWriter, e *Echo) (r *Response) {
@@ -56,18 +58,21 @@ func (r *Response) WriteHeader(code int) {
 		r.echo.Logger.Warn("response already committed")
 		return
 	}
+	r.Status = code
 	for _, fn := range r.beforeFuncs {
 		fn()
 	}
-	r.Status = code
-	r.Writer.WriteHeader(code)
+	r.Writer.WriteHeader(r.Status)
 	r.Committed = true
 }
 
 // Write writes the data to the connection as part of an HTTP reply.
 func (r *Response) Write(b []byte) (n int, err error) {
 	if !r.Committed {
-		r.WriteHeader(http.StatusOK)
+		if r.Status == 0 {
+			r.Status = http.StatusOK
+		}
+		r.WriteHeader(r.Status)
 	}
 	n, err = r.Writer.Write(b)
 	r.Size += int64(n)
@@ -81,23 +86,24 @@ func (r *Response) Write(b []byte) (n int, err error) {
 // buffered data to the client.
 // See [http.Flusher](https://golang.org/pkg/net/http/#Flusher)
 func (r *Response) Flush() {
-	r.Writer.(http.Flusher).Flush()
+	err := responseControllerFlush(r.Writer)
+	if err != nil && errors.Is(err, http.ErrNotSupported) {
+		panic(errors.New("response writer flushing is not supported"))
+	}
 }
 
 // Hijack implements the http.Hijacker interface to allow an HTTP handler to
 // take over the connection.
 // See [http.Hijacker](https://golang.org/pkg/net/http/#Hijacker)
 func (r *Response) Hijack() (net.Conn, *bufio.ReadWriter, error) {
-	return r.Writer.(http.Hijacker).Hijack()
+	return responseControllerHijack(r.Writer)
 }
 
-// CloseNotify implements the http.CloseNotifier interface to allow detecting
-// when the underlying connection has gone away.
-// This mechanism can be used to cancel long operations on the server if the
-// client has disconnected before the response is ready.
-// See [http.CloseNotifier](https://golang.org/pkg/net/http/#CloseNotifier)
-func (r *Response) CloseNotify() <-chan bool {
-	return r.Writer.(http.CloseNotifier).CloseNotify()
+// Unwrap returns the original http.ResponseWriter.
+// ResponseController can be used to access the original http.ResponseWriter.
+// See [https://go.dev/blog/go1.20]
+func (r *Response) Unwrap() http.ResponseWriter {
+	return r.Writer
 }
 
 func (r *Response) reset(w http.ResponseWriter) {

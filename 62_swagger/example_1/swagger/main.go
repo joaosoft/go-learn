@@ -12,10 +12,9 @@ import (
 
 	"bytes"
 	"encoding/json"
-	"github.com/labstack/echo"
+	echo "github.com/labstack/echo/v4"
 	"html/template"
 	"os"
-	"search-and-navigation/docs/swagger"
 	"strings"
 )
 
