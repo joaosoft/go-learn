@@ -1,8 +1,8 @@
 package main
 
 import (
-	common "go-learn/48_queue/2_queue_struct/common/queue"
-	"go-learn/48_queue/2_queue_struct/controllers"
+	common "github.com/joaosoft/golang-learn/48_queue/2_queue_struct/common/queue"
+	"github.com/joaosoft/golang-learn/48_queue/2_queue_struct/controllers"
 
 	"github.com/labstack/gommon/log"
 )

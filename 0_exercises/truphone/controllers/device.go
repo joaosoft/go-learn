@@ -2,15 +2,15 @@ package controllers
 
 import (
 	"github.com/gorilla/mux"
-	"go-learn/0_exercises/truphone/models"
+	"github.com/joaosoft/golang-learn/0_exercises/truphone/models"
 	"json"
 	"net/http"
 	"time"
 )
 
-var(
+var (
 	ErrorUnexpected = []byte(`{"message": "unexpected error!"}`)
-	SuccessMessage = []byte(`{"message": true}`)
+	SuccessMessage  = []byte(`{"message": true}`)
 )
 
 func Create(w http.ResponseWriter, req *http.Request) {
@@ -53,8 +53,8 @@ func Create(w http.ResponseWriter, req *http.Request) {
 	// TODO: validate the request
 
 	device := &models.Device{
-		Name: request.Name,
-		Type: models.DeviceType(request.Type),
+		Name:      request.Name,
+		Type:      models.DeviceType(request.Type),
 		CreatedAt: time.Now(),
 	}
 
@@ -75,7 +75,7 @@ func Create(w http.ResponseWriter, req *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	response := CreateResponse {
+	response := CreateResponse{
 		Id: id,
 	}
 
@@ -133,9 +133,9 @@ func Update(w http.ResponseWriter, req *http.Request) {
 	// TODO: validate the request
 
 	device := &models.Device{
-		Id:  request.Id,
-		Name: request.Name,
-		Type: models.DeviceType(request.Type),
+		Id:        request.Id,
+		Name:      request.Name,
+		Type:      models.DeviceType(request.Type),
 		CreatedAt: time.Now(),
 	}
 
@@ -169,7 +169,7 @@ func Delete(w http.ResponseWriter, req *http.Request) {
 	// TODO: validate the request
 
 	device := &models.Device{
-		Id:  request.Id,
+		Id: request.Id,
 	}
 
 	if err := device.Delete(); err != nil {

@@ -2,8 +2,8 @@ package example
 
 import (
 	"errors"
-	domain "go-learn/28_tests/6_mock/domain"
-	"go-learn/28_tests/6_mock/mocks"
+	domain "github.com/joaosoft/golang-learn/28_tests/6_mock/domain"
+	"github.com/joaosoft/golang-learn/28_tests/6_mock/mocks"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

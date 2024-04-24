@@ -2,10 +2,10 @@ package original
 
 import (
 	"fmt"
-	"go-learn/51_elastic_search/config"
-	"go-learn/51_elastic_search/domain"
+	"github.com/joaosoft/golang-learn/51_elastic_search/config"
+	"github.com/joaosoft/golang-learn/51_elastic_search/domain"
 
-	"github.com/elastic/go-elasticsearch/client"
+	client "github.com/elastic/go-elasticsearch/v8"
 	"github.com/labstack/gommon/log"
 )
 

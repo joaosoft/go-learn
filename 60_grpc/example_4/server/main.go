@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	pb "go-learn/60_grpc/example_4"
+	pb "github.com/joaosoft/golang-learn/60_grpc/example_4"
 
 	"fmt"
 

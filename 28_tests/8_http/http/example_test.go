@@ -1,7 +1,7 @@
 package echo
 
 import (
-	"go-learn/28_tests/8_http/http/domain"
+	"github.com/joaosoft/golang-learn/28_tests/8_http/http/domain"
 	"net/http"
 	"net/http/httptest"
 	"strings"

@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"encoding/json"
-	"go-learn/52_nsq/common/nsq"
-	"go-learn/52_nsq/domain"
-	"go-learn/52_nsq/interactors"
+	"github.com/joaosoft/golang-learn/52_nsq/common/nsq"
+	"github.com/joaosoft/golang-learn/52_nsq/domain"
+	"github.com/joaosoft/golang-learn/52_nsq/interactors"
 )
 
 type Controller struct {

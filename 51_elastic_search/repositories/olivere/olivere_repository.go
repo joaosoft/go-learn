@@ -2,8 +2,8 @@ package olivere
 
 import (
 	"encoding/json"
-	"go-learn/51_elastic_search/config"
-	"go-learn/51_elastic_search/domain"
+	"github.com/joaosoft/golang-learn/51_elastic_search/config"
+	"github.com/joaosoft/golang-learn/51_elastic_search/domain"
 
 	"github.com/labstack/gommon/log"
 	"golang.org/x/net/context"

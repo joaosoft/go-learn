@@ -1,8 +1,8 @@
 package main
 
 import (
-	"go-learn/31_web/3_webserver/controllers"
-	"go-learn/31_web/3_webserver/middleware"
+	"github.com/joaosoft/golang-learn/31_web/3_webserver/controllers"
+	"github.com/joaosoft/golang-learn/31_web/3_webserver/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/labstack/gommon/log"

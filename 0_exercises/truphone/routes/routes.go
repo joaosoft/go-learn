@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"go-learn/0_exercises/truphone/controllers"
 	"github.com/gorilla/mux"
+	"github.com/joaosoft/golang-learn/0_exercises/truphone/controllers"
 	"net/http"
 )
 

@@ -3,7 +3,7 @@ package example
 import (
 	"errors"
 	"fmt"
-	"go-learn/28_tests/7_sqlmock/domain"
+	"github.com/joaosoft/golang-learn/28_tests/7_sqlmock/domain"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

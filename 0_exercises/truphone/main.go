@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-learn/0_exercises/truphone/routes"
+	"github.com/joaosoft/golang-learn/0_exercises/truphone/routes"
 	"net/http"
 )
 

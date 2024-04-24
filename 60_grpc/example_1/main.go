@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	grpc "go-learn/60_grpc/example_1/proto"
+	grpc "github.com/joaosoft/golang-learn/60_grpc/example_1/proto"
 
 	"github.com/golang/protobuf/proto"
 )

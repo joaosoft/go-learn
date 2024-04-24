@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"go-learn/46_workers/common/config"
-	"go-learn/46_workers/common/workers"
-	"go-learn/46_workers/config"
-	"go-learn/46_workers/controllers"
-	"go-learn/46_workers/worker"
+	"github.com/joaosoft/golang-learn/46_workers/common/config"
+	"github.com/joaosoft/golang-learn/46_workers/common/workers"
+	"github.com/joaosoft/golang-learn/46_workers/config"
+	"github.com/joaosoft/golang-learn/46_workers/controllers"
+	"github.com/joaosoft/golang-learn/46_workers/worker"
 	"net/http"
 	"os"
 

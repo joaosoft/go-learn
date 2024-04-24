@@ -1,11 +1,11 @@
 package main
 
 import (
-	common "go-learn/52_nsq/common/config"
-	"go-learn/52_nsq/common/nsq"
-	"go-learn/52_nsq/config"
-	"go-learn/52_nsq/controllers"
-	"go-learn/52_nsq/interactors"
+	common "github.com/joaosoft/golang-learn/52_nsq/common/config"
+	"github.com/joaosoft/golang-learn/52_nsq/common/nsq"
+	"github.com/joaosoft/golang-learn/52_nsq/config"
+	"github.com/joaosoft/golang-learn/52_nsq/controllers"
+	"github.com/joaosoft/golang-learn/52_nsq/interactors"
 
 	"github.com/labstack/gommon/log"
 
